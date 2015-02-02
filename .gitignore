@@ -1,0 +1,8 @@
+# Ignore all sub-dirs but inc/ and src/
+*/*
+!Classes/*
+!json/*
+
+# Ignore additional files in root dir
+*
+!.gitignore
