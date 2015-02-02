@@ -6,3 +6,5 @@
 # Ignore additional files in root dir
 *
 !.gitignore
+!Classes
+!json
