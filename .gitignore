@@ -4,7 +4,9 @@
 !json/*
 
 # Ignore additional files in root dir
-*
-!.gitignore
-!Classes
-!json
+# Eclipse
+.project
+.cproject
+
+# cocos2d
+.cocos-project.json
