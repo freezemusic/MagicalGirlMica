@@ -1,7 +1,13 @@
 #include "AppDelegate.h"
-#include "StageScene.h"
+
+#include <vector>
+#include <string>
+
+#include "World.h"
+#include "AppMacros.h"
 
 USING_NS_CC;
+using namespace std;
 
 AppDelegate::AppDelegate() {
 
@@ -11,29 +17,27 @@ AppDelegate::~AppDelegate()
 {
 }
 
-//if you want a different context,just modify the value of glContextAttrs
-//it will takes effect on all platforms
 void AppDelegate::initGLContextAttrs()
 {
-    //set OpenGL context attributions,now can only set six attributions:
-    //red,green,blue,alpha,depth,stencil
     GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
 
     GLView::setGLContextAttrs(glContextAttrs);
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
-	cocos2d::Size designResolutionSize = cocos2d::Size(1024, 480);
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("My Game");
+        glview = GLViewImpl::create("Cpp Empty Test");
         director->setOpenGLView(glview);
     }
 
-	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
+	//cocos2d::Size designResolutionSize = cocos2d::Size(1024, 480);
 
+    director->setOpenGLView(glview);
+	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
+	
     // turn on display FPS
     director->setDisplayStats(true);
 
@@ -41,7 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = StageScene::createScene();
+    auto scene = World::createScene();
 
     // run
     director->runWithScene(scene);
@@ -54,7 +58,7 @@ void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
@@ -62,5 +66,5 @@ void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 }

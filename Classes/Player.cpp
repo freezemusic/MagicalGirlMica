@@ -1,42 +1,40 @@
-#include "Hero.h"
+#include "Player.h"
 
-USING_NS_CC;
-
-Hero::Hero()
+Player::Player()
 {
 	m_id = 1;
-	m_name = "mica-";
 }
 
-Hero* Hero::create(const std::string& name)
+Player* Player::create(const std::string& name)
 {
-	Hero *hero = new Hero();
-	if (hero && hero->init(name))
+	Player *player = new Player();
+	if (player && player->init(name))
 	{
-		hero->autorelease();
-		return hero;
+		player->autorelease();
+		return player;
 	}
-	CC_SAFE_DELETE(hero);
+	CC_SAFE_DELETE(player);
 	return nullptr;
 }
 
-bool Hero::init(const std::string& name)
+bool Player::init(const std::string& name)
 {
+	m_name = name;
 	float scale = 0.6;
 	m_arm = Armature::create(name);
-	m_arm->getAnimation()->play(m_name + "stand");
-	//m_arm->setScale(0.6f);
+	m_arm->getAnimation()->play("stand");
+	m_arm->setScale(0.8f);
 	setContentSize(Size(120 * scale, 256 * scale));
 	m_arm->setTag(1);
 	addChild(m_arm, 1);
 
-	this->schedule(schedule_selector(Role::updateDirection), 0);
+	this->schedule(schedule_selector(Character::updateDirection), 0);
 
 	return true;
 }
 
 
-void Hero::response(float interval, float x, float y, JoystickEventType type)
+void Player::response(float interval, float x, float y, JoystickEventType type)
 {
 	Point pos = getPosition();
 

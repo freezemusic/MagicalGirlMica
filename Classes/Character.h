@@ -1,44 +1,39 @@
-#ifndef __ROLE_H__
-#define __ROLE_H__
+#ifndef __CHARACTER_H__
+#define __CHARACTER_H__
 
-#include "cocos2d.h"
-#include "AppMacros.h"
-#include "Collidable.h"
+#include "Hittable.h"
 #include "cocostudio/CocoStudio.h"
 #include "Joystick.h"
 
 USING_NS_CC;
 using namespace cocostudio;
 
-class Role : public Node, public Collidable
+class Character : public Hittable
 {
 public:
 	enum ROLE_STAT{
 		ROLE_STAND,
 		ROLE_WALK,
+		ROLE_INJURED,
 		ROLE_TURN,
+		ROLE_DIE,
+		ROLE_JUMP,
 		ROLE_ATTACK,
 		ROLE_SKILL,
-		ROLE_INJURED,
-		ROLE_DIE,
 		ROLE_NULL
 	};
 
 	enum ROLE_TYPE{
 		ROLE_TYPE_NULL,
-		ROLE_TYPE_HERO,
-		ROLE_TYPE_MONSTER
+		ROLE_TYPE_PLAYER,
+		ROLE_TYPE_ENEMY
 	};
 public:
-	Role();
+	Character();
 
-	void setControlable(bool b);
-
-	virtual inline bool isCollidable(){ return true; }
+	virtual inline bool isHittable(){ return true; }
 	virtual inline int getId(){ return m_id; }
-
-	virtual inline void setPhysicsBody(b2Body* b2body){ physicsBody = b2body; }
-	virtual inline b2Body* getPhysicsBody(){ return physicsBody; }
+	virtual void setControlable() = 0;
 
 public:
 	virtual void stand();
@@ -55,15 +50,10 @@ protected:
 	int m_id;
 	int m_speed;
 	std::string m_name;
-
 	Armature* m_arm;
-
-	Layer* m_layer;
-	b2Body* physicsBody;
 
 	bool directToR;
 	bool m_controlable;
-
 };
 
-#endif // __ROLE_H__
+#endif // __CHARACTER_H__

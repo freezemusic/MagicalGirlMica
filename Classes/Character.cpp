@@ -1,8 +1,6 @@
-﻿#include "Role.h"
+#include "Character.h"
 
-USING_NS_CC;
-
-Role::Role()
+Character::Character()
 {
 	m_type = ROLE_TYPE_NULL;
 
@@ -10,54 +8,46 @@ Role::Role()
 	m_speed = 0;
 	m_name = "";
 
-	m_layer = nullptr;
-	physicsBody = nullptr;
-
 	directToR = false;
 	m_controlable = false;
 }
 
-void Role::setControlable(bool b)
-{
-	m_controlable = true;
-}
-
-void Role::stand()
+void Character::stand()
 {
 	if (m_stat == ROLE_INJURED || m_stat == ROLE_ATTACK || m_stat == ROLE_TURN){
 		return;
 	}
 	if (m_arm && m_stat != ROLE_STAND){
 		m_stat = ROLE_STAND;
-		physicsBody->SetLinearVelocity(b2Vec2(0, 0));
-		m_arm->getAnimation()->play(m_name + "stand");
+		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
+		m_arm->getAnimation()->play("stand");
 		CCLOG("id=%d:stand", m_id);
 	}
 }
 
-void Role::walk(float x, float y)
+void Character::walk(float x, float y)
 {
 	if (m_stat == ROLE_ATTACK){
 		return;
 	}
-	physicsBody->SetLinearVelocity(b2Vec2(x*m_speed, physicsBody->GetLinearVelocity().y));
+	//physicsBody->SetLinearVelocity(b2Vec2(x*m_speed, physicsBody->GetLinearVelocity().y));
 	if (m_arm && m_stat != ROLE_WALK){
 		m_stat = ROLE_WALK;
-		m_arm->getAnimation()->play(m_name + "walk");
+		m_arm->getAnimation()->play("walk");
 		CCLOG("id=%d:walk", m_id);
 		CCLOG("walk");
 	}
 }
 
-void Role::turn()
+void Character::turn()
 {
 	if (m_stat == ROLE_ATTACK){
 		return;
 	}
 	if (m_arm && m_stat != ROLE_TURN){
 		m_stat = ROLE_TURN;
-		physicsBody->SetLinearVelocity(b2Vec2(0, 0));
-		m_arm->getAnimation()->play(m_name + "turn");
+		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
+		m_arm->getAnimation()->play("turn");
 
 		std::function<void(Armature*, MovementEventType, const std::string&)> armatureFun = [=](Armature* armature, MovementEventType type, const std::string& id)
 		{
@@ -74,15 +64,15 @@ void Role::turn()
 	}
 }
 
-void Role::attack()
+void Character::attack()
 {
 	if (m_stat == ROLE_INJURED){
 		return;
 	}
 	if (m_arm && m_stat != ROLE_ATTACK){
 		m_stat = ROLE_ATTACK;
-		physicsBody->SetLinearVelocity(b2Vec2(0, 0));
-		m_arm->getAnimation()->play(m_name + "attack");
+		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
+		m_arm->getAnimation()->play("attack");
 		std::function<void(Armature*, MovementEventType, const std::string&)> armatureStand = [=](Armature* armature, MovementEventType type, const std::string& id)
 		{
 			if (type == MovementEventType::COMPLETE)
@@ -98,7 +88,7 @@ void Role::attack()
 	}
 }
 
-void Role::updateDirection(float delta)
+void Character::updateDirection(float delta)
 {
 	if (directToR)
 		setScaleX(-1.0f);

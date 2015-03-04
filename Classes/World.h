@@ -2,36 +2,27 @@
 #define __WORLD_H__  
 
 #include "cocos2d.h"
-#include "Box2D/Box2D.h"  
+//#include "Box2D/Box2D.h"  
 #include "GLES-Render.h"
 #include "AppMacros.h"
 
+#include "VisibleRect.h"
+
+#include "Background.h"
+#include "Player.h"
+
 USING_NS_CC;
 
-class World : public Layer
-{
+class World : public Layer{
 public:
-	World();
-	~World();
+	static Scene* createScene();
+	virtual bool init();
+	CREATE_FUNC(World); /// implement the "static create()" method manually  
 
-	//virtual bool init();
-	//static cocos2d::Scene* createScene();
-	//CREATE_FUNC(World);
-
-	void setDebug(bool isDebug);
-	void onDraw();
-	virtual void draw(Renderer *renderer, const Mat4 &transform, uint32_t flags) override;
-
-	virtual void createBound(float width, float height);
-
-protected:
-	b2World* m_world;
-	GLESDebugDraw* mDebugDraw;
-	kmMat4 _modelViewMV;
-	CustomCommand _customCommand;
-
-	Size visibleSize;
-	Point origin;
+private:
+	Camera* camera;
+	Background* bg;
+	Player* player;
 };
 
 #endif // __WORLD_H__

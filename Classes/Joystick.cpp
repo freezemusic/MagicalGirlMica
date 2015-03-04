@@ -102,7 +102,7 @@ void Joystick::initFunc()
 	listener->onTouchEnded = CC_CALLBACK_2(Joystick::onTouchEnded, this);
 	listener->onTouchCancelled = CC_CALLBACK_2(Joystick::onTouchCancelled, this);
 
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
 	
 	return;
 }
@@ -113,7 +113,7 @@ bool Joystick::onTouchBegan(Touch *pTouch, Event *pEvent)
 	
 	//ÅÐ¶Ï´¥µãÊÇ·ñÔÚÒ¡¸ËÉÏ
 	//if(point.x*point.x+point.y*point.y < m_handleRadius*m_handleRadius)
-	if (pTouch->getLocation().x > (Director::getInstance()->getVisibleSize().width + Director::getInstance()->getVisibleOrigin().x)* 3 / 4)
+	if (pTouch->getLocation().x > (Director::getInstance()->getVisibleSize().width + Director::getInstance()->getVisibleOrigin().x) / 2)
 		return false;
 	else if(point.x*point.x+point.y*point.y > m_handleRadius*m_handleRadius)
 	{

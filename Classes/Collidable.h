@@ -1,12 +1,15 @@
 #ifndef __COLLIDABLE_H__
 #define __COLLIDABLE_H__
 
-#include "cocos2d.h"
+#include "Interactable.h" 
 
-class Collidable
+class Collidable : public Interactable
 {
 public:
-	virtual bool isCollidable() = 0;
+	virtual void interactable()
+	{
+		m_iType = INTERACT_COLLISION;
+	}
 };
 
 #endif // __COLLIDABLE_H__
