@@ -1,7 +1,7 @@
 #ifndef __INTERACTABLE_H__
 #define __INTERACTABLE_H__
 
-#include "cocos2d.h"
+#include "cocos2d_wrapper.h"
 
 class Interactable : public cocos2d::Node
 {

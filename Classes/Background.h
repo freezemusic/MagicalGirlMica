@@ -1,7 +1,7 @@
 #ifndef __BACKGROUND_H__ 
 #define __BACKGROUND_H__ 
 
-#include "cocos2d.h"  
+#include "cocos2d_wrapper.h"  
 USING_NS_CC;
 
 class Background : public Sprite

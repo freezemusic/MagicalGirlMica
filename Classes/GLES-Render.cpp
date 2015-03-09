@@ -19,7 +19,7 @@
  */
 
 #include "GLES-Render.h"
-#include "cocos2d.h"
+#include "cocos2d_wrapper.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>

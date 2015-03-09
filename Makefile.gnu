@@ -50,6 +50,7 @@ BIN_SUFFIX=
 # Warnings are all over cocos2d's headers, hide them
 CPPFLAGS+=$(addprefix -isystem,$(COCOS_INC_PATHS)) $(addprefix -I,$(USER_INC_PATHS))
 CPPFLAGS+=$(addprefix -D,$(USER_SYMBOLS))
+GCH_CPPFLAGS:=$(CPPFLAGS)
 CPPFLAGS+=-MMD
 
 CXXFLAGS+=-fmessage-length=0
@@ -116,9 +117,13 @@ dry: $(OBJ_FILES)
 
 .SECONDEXPANSION:
 
-$(OUT_EXE_PATH)/$(OUT_EXE)$(BIN_SUFFIX)$(OUT_EXE_SUFFIX): $(OBJ_FILES)
+$(OUT_EXE_PATH)/$(OUT_EXE)$(BIN_SUFFIX)$(OUT_EXE_SUFFIX): $(SRC_PATH)/cocos2d_wrapper.h.gch $(OBJ_FILES)
 	$(info Linking objects)
 	@$(CXX) $(LDFLAGS) -o $@ $(OBJ_FILES) $(LDLIBS)
+
+$(SRC_PATH)/cocos2d_wrapper.h.gch: $(SRC_PATH)/cocos2d_wrapper.h
+	$(info Precompiling cocos2d-x header)
+	@$(CXX) $(GCH_CPPFLAGS) $(CXXFLAGS) -x c++-header $(SRC_PATH)/cocos2d_wrapper.h
 
 $(OUT_OBJ_PATH)/%.o: $$(subst $(BIN_SUFFIX),,$(SRC_PATH)/%.cpp)
 	$(info Compiling $(<))
@@ -126,5 +131,5 @@ $(OUT_OBJ_PATH)/%.o: $$(subst $(BIN_SUFFIX),,$(SRC_PATH)/%.cpp)
 
 clean:
 	$(info Cleaning $(<))
-	@rm -f $(OUT_EXE_PATH)/*.a
+	@rm -f $(OUT_EXE_PATH)/*
 	@find $(OUT_OBJ_PATH) -type f \( -name *.o -o -name *.d \) -exec rm -f {} \;

@@ -1,7 +1,7 @@
 #ifndef __JOYSTICK_H__
 #define __JOYSTICK_H__
 
-#include "cocos2d.h"
+#include "cocos2d_wrapper.h"
 
 enum class JoystickEventType{JET_TOUCH_BEGIN,JET_TOUCH_MOVE,JET_TOUCH_END};
 

@@ -1,7 +1,7 @@
 #ifndef __WORLD_H__  
 #define __WORLD_H__  
 
-#include "cocos2d.h"
+#include "cocos2d_wrapper.h"
 //#include "Box2D/Box2D.h"  
 #include "GLES-Render.h"
 #include "AppMacros.h"
