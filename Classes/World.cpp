@@ -1,5 +1,6 @@
 #include "cocos2d_wrapper.h"
 
+#include "res_manager.h"
 #include "World.h"
 
 Scene* World::createScene()
@@ -24,13 +25,12 @@ bool World::init()
 		return false;
 	}
 
-	bg = Background::create("bg.png");
+	bg = Background::create(ResManager::getBg("bg").c_str());
 	this->addChild(bg);
 
-
-	std::string playerName = "Mica";
-	ArmatureDataManager::getInstance()->addArmatureFileInfo(playerName + "0.png", playerName + "0.plist", playerName + ".ExportJson");
-	player = Player::create(playerName);
+	ArmatureDataManager::getInstance()->addArmatureFileInfo(
+			ResManager::getCharacterArmature("Mica"));
+	player = Player::create("Mica");
 	player->setPosition(VisibleRect::getVisibleRect().size.width / 2, VisibleRect::getVisibleRect().size.height / 2);
 	this->addChild(player, 1);
 	//this->runAction(Follow::create(hero, Rect(0, 0, bgSize.width, visibleSize.height)));
