@@ -1,4 +1,6 @@
-﻿#include "Joystick.h"
+﻿#include "cocos2d_wrapper.h"
+
+#include "Joystick.h"
 
 USING_NS_CC;
 
@@ -64,7 +66,7 @@ bool Joystick::init(const char *fnBg,float bgRadius,const char *fnHandle,float h
 	if(!m_handle)
 		return false;
 	this->addChild(m_handle);
-	
+
 	initFunc();
 
 	return true;
@@ -79,7 +81,7 @@ void Joystick::initFunc()
 	m_bgRadius = 40.0f;
 	m_handleRadius = 25.0f;
 	m_handlePos = Vec2(0.0f, 0.0f);
-	
+
 	//设置底盘的大小
 	float bgDiameter = m_bgRadius * 2;
 	Size oriBgSize = m_bg->getContentSize();
@@ -103,14 +105,14 @@ void Joystick::initFunc()
 	listener->onTouchCancelled = CC_CALLBACK_2(Joystick::onTouchCancelled, this);
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
-	
+
 	return;
 }
 
 bool Joystick::onTouchBegan(Touch *pTouch, Event *pEvent)
 {
 	Point point = this->convertTouchToNodeSpaceAR(pTouch);
-	
+
 	//ÅÐ¶Ï´¥µãÊÇ·ñÔÚÒ¡¸ËÉÏ
 	//if(point.x*point.x+point.y*point.y < m_handleRadius*m_handleRadius)
 	if (pTouch->getLocation().x > (Director::getInstance()->getVisibleSize().width + Director::getInstance()->getVisibleOrigin().x) / 2)
@@ -172,7 +174,7 @@ void Joystick::onTouchCancelled(Touch *pTouch, Event *pEvent)
 
 	if(m_eventCallback)
 		m_eventCallback(0.0f,pos.x/m_bgRadius,pos.y/m_bgRadius,JoystickEventType::JET_TOUCH_END);
-	
+
 	m_handle->setPosition(Vec2(0.0f,0.0f));
 
 	m_bMove = false;

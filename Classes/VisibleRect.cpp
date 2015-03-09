@@ -22,6 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#include "cocos2d_wrapper.h"
+
 #include "VisibleRect.h"
 
 USING_NS_CC;

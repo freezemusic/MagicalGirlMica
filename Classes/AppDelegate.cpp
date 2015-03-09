@@ -1,3 +1,5 @@
+#include "cocos2d_wrapper.h"
+
 #include "AppDelegate.h"
 
 #include <vector>
@@ -13,7 +15,7 @@ AppDelegate::AppDelegate() {
 
 }
 
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()
 {
 }
 
@@ -37,7 +39,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     director->setOpenGLView(glview);
 	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
-	
+
     // turn on display FPS
     director->setDisplayStats(true);
 

@@ -1,3 +1,5 @@
+#include "cocos2d_wrapper.h"
+
 #include "Character.h"
 
 Character::Character()

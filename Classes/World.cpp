@@ -1,3 +1,5 @@
+#include "cocos2d_wrapper.h"
+
 #include "World.h"
 
 Scene* World::createScene()
