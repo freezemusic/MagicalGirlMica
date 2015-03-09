@@ -2,7 +2,7 @@
 
 #include "cocos2d_wrapper.h"
 
-class Interactable : public cocos2d::Node
+class Interactable
 {
 public:
 	virtual void interact(Interactable *other) = 0;

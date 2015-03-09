@@ -1,13 +1,15 @@
 #pragma once
 
-#include "Hittable.h"
+#include "cocos2d_wrapper.h"
 #include "cocostudio/CocoStudio.h"
+
+#include "Hittable.h"
 #include "Joystick.h"
 
 USING_NS_CC;
 using namespace cocostudio;
 
-class Character : public Hittable
+class Character : public Hittable, public cocos2d::Node
 {
 public:
 	enum ROLE_STAT{
