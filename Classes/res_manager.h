@@ -18,8 +18,14 @@ namespace mica
 class ResManager
 {
 public:
-	static std::string getBg(const std::string &bg_name);
-	static std::string getCharacterArmature(const std::string &char_name);
+	static ResManager& get()
+	{
+		static ResManager instance;
+		return instance;
+	}
+
+	std::string getBg(const std::string &bg_name);
+	std::string getCharacterArmature(const std::string &char_name);
 };
 
 }

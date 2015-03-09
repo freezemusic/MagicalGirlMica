@@ -28,11 +28,11 @@ bool World::init()
 		return false;
 	}
 
-	bg = Background::create(ResManager::getBg("bg").c_str());
+	bg = Background::create(ResManager::get().getBg("bg").c_str());
 	this->addChild(bg);
 
 	ArmatureDataManager::getInstance()->addArmatureFileInfo(
-			ResManager::getCharacterArmature("Mica"));
+			ResManager::get().getCharacterArmature("Mica"));
 	player = Player::create("Mica");
 	player->setPosition(VisibleRect::getVisibleRect().size.width / 2, VisibleRect::getVisibleRect().size.height / 2);
 	this->addChild(player, 1);
