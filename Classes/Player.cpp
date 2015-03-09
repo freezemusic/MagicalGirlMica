@@ -33,6 +33,8 @@ bool Player::init(const std::string& name)
 	return true;
 }
 
+void Player::interact(Interactable *other)
+{}
 
 void Player::response(float interval, float x, float y, JoystickEventType type)
 {
@@ -60,7 +62,7 @@ void Player::response(float interval, float x, float y, JoystickEventType type)
 		else{
 			this->walk(x, y);
 		}
-		//str = "Move" + Misc<float>::to_string(visibleSize.width); 
+		//str = "Move" + Misc<float>::to_string(visibleSize.width);
 		str = "Move";
 		//CCLOG("direct:%d isRun:%d", directToR, isRunningAction);
 		break;
