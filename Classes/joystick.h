@@ -27,8 +27,8 @@ public:
 	void addOnMoveListener(const OnMoveListener &listener);
 	void removeOnMoveListener(const Uint id);
 
-	virtual void getX() const = 0;
-	virtual void getY() const = 0;
+	virtual int getX() const = 0;
+	virtual int getY() const = 0;
 
 protected:
 	void invokeOnMoveListeners();
