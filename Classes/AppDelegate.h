@@ -8,14 +8,14 @@
 
 The reason for implement as private inheritance is to hide some interface call by Director.
 */
-class  AppDelegate : private cocos2d::Application
+class AppDelegate : public cocos2d::Application
 {
 public:
     AppDelegate();
     virtual ~AppDelegate();
 
     virtual void initGLContextAttrs();
-    
+
     /**
     @brief    Implement Director and Scene init code here.
     @return true    Initialize success, app continue.
