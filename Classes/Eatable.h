@@ -1,7 +1,6 @@
-#ifndef __EATABLE_H__
-#define __EATABLE_H__
+#pragma once
 
-#include "Interactable.h" 
+#include "Interactable.h"
 
 class Eatable : public Interactable
 {
@@ -11,5 +10,3 @@ public:
 		m_iType = INTERACT_EAT;
 	}
 };
-
-#endif // __EATABLE_H__

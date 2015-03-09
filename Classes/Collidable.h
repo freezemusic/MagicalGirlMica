@@ -1,7 +1,6 @@
-#ifndef __COLLIDABLE_H__
-#define __COLLIDABLE_H__
+#pragma once
 
-#include "Interactable.h" 
+#include "Interactable.h"
 
 class Collidable : public Interactable
 {
@@ -11,5 +10,3 @@ public:
 		m_iType = INTERACT_COLLISION;
 	}
 };
-
-#endif // __COLLIDABLE_H__

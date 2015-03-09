@@ -1,5 +1,4 @@
-#ifndef __CHARACTER_H__
-#define __CHARACTER_H__
+#pragma once
 
 #include "Hittable.h"
 #include "cocostudio/CocoStudio.h"
@@ -55,5 +54,3 @@ protected:
 	bool directToR;
 	bool m_controlable;
 };
-
-#endif // __CHARACTER_H__

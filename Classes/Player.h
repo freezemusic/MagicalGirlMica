@@ -1,5 +1,4 @@
-#ifndef __PLAYER_H__
-#define __PLAYER_H__
+#pragma once
 
 #include "Character.h"
 #include "Joystick.h"
@@ -19,5 +18,3 @@ public:
 
 	virtual void response(float interval, float x, float y, JoystickEventType type);
 };
-
-#endif // __PLAYER_H__

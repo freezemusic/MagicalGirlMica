@@ -18,8 +18,7 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef RENDER_H
-#define RENDER_H
+#pragma once
 
 #include "Box2D/Box2D.h"
 #include "cocos2d_wrapper.h"
@@ -54,10 +53,7 @@ public:
 
     virtual void DrawPoint(const b2Vec2& p, float32 size, const b2Color& color);
 
-    virtual void DrawString(int x, int y, const char* string, ...); 
+    virtual void DrawString(int x, int y, const char* string, ...);
 
     virtual void DrawAABB(b2AABB* aabb, const b2Color& color);
 };
-
-
-#endif

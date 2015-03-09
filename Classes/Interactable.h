@@ -1,5 +1,4 @@
-#ifndef __INTERACTABLE_H__
-#define __INTERACTABLE_H__
+#pragma once
 
 #include "cocos2d_wrapper.h"
 
@@ -19,5 +18,3 @@ public:
 protected:
 	INTERACT_TYPE m_iType;
 };
-
-#endif // __INTERACTABLE_H__

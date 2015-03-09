@@ -1,7 +1,6 @@
-#ifndef __HITTABLE_H__
-#define __HITTABLE_H__
+#pragma once
 
-#include "Interactable.h" 
+#include "Interactable.h"
 
 class Hittable : public Interactable
 {
@@ -12,5 +11,3 @@ public:
 	}
 
 };
-
-#endif // __HITTABLE_H__

@@ -1,7 +1,6 @@
-#ifndef __BACKGROUND_H__ 
-#define __BACKGROUND_H__ 
+#pragma once
 
-#include "cocos2d_wrapper.h"  
+#include "cocos2d_wrapper.h"
 USING_NS_CC;
 
 class Background : public Sprite
@@ -14,5 +13,3 @@ public:
 private:
 	Sprite* bg;
 };
-
-#endif // __BACKGROUND_H__

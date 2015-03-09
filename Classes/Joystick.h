@@ -1,5 +1,4 @@
-#ifndef __JOYSTICK_H__
-#define __JOYSTICK_H__
+#pragma once
 
 #include "cocos2d_wrapper.h"
 
@@ -51,7 +50,7 @@ protected:
 	bool init(const char *fnBg,     float bgRadius,
 			  const char *fnHandle, float handleRadius);
 	void initFunc();
-	
+
 };
 
 inline void Joystick::setHandleEventListener(JoystickEventCallback eventCallback)
@@ -64,5 +63,3 @@ inline void Joystick::setHandleEventListener(cocos2d::Ref *target, SEL_JoystickE
 	m_touchEventListener = target;
 	m_touchEventSelector = selector;
 }
-
-#endif
