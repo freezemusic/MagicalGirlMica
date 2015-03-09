@@ -5,6 +5,4 @@
 class Collidable : public Interactable
 {
 public:
-	virtual void interactable()
-	{}
 };

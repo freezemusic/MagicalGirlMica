@@ -5,6 +5,4 @@
 class Hittable : public Interactable
 {
 public:
-	virtual void interactable()
-	{}
 };
