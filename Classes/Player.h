@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Character.h"
-#include "Joystick.h"
 
 class Player : public Character
 {
@@ -17,6 +16,4 @@ public:
 	{
 		m_controlable = true;
 	};
-
-	virtual void response(float interval, float x, float y, JoystickEventType type);
 };

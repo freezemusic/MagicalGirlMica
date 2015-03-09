@@ -4,7 +4,6 @@
 #include "cocostudio/CocoStudio.h"
 
 #include "Hittable.h"
-#include "Joystick.h"
 
 USING_NS_CC;
 using namespace cocostudio;
