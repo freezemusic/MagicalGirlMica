@@ -2,6 +2,8 @@
 
 #include "Background.h"
 
+namespace mica
+{
 
 Background* Background::create(const char *bg)
 {
@@ -24,4 +26,6 @@ bool Background::init(const char *bg)
 	this->addChild(m_bg);
 
 	return true;
+}
+
 }

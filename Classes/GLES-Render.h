@@ -25,6 +25,9 @@
 
 struct b2AABB;
 
+namespace mica
+{
+
 // This class implements debug drawing callbacks that are invoked
 // inside b2World::Step.
 class GLESDebugDraw : public b2Draw
@@ -57,3 +60,5 @@ public:
 
     virtual void DrawAABB(b2AABB* aabb, const b2Color& color);
 };
+
+}

@@ -28,6 +28,9 @@
 
 USING_NS_CC;
 
+namespace mica
+{
+
 Rect VisibleRect::s_visibleRect;
 
 void VisibleRect::lazyInit()
@@ -95,4 +98,6 @@ Vec2 VisibleRect::rightBottom()
 {
     lazyInit();
     return Vec2(s_visibleRect.origin.x+s_visibleRect.size.width, s_visibleRect.origin.y);
+}
+
 }

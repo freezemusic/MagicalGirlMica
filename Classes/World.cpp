@@ -3,6 +3,9 @@
 #include "res_manager.h"
 #include "World.h"
 
+namespace mica
+{
+
 Scene* World::createScene()
 {
 	// 'scene' is an autorelease object
@@ -36,4 +39,6 @@ bool World::init()
 	//this->runAction(Follow::create(hero, Rect(0, 0, bgSize.width, visibleSize.height)));
 
 	return true;
+}
+
 }

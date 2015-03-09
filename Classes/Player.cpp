@@ -2,6 +2,9 @@
 
 #include "Player.h"
 
+namespace mica
+{
+
 Player::Player()
 {
 	m_id = 1;
@@ -37,3 +40,5 @@ bool Player::init(const std::string& name)
 
 void Player::interact(Interactable *other)
 {}
+
+}

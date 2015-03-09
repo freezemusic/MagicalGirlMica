@@ -3,6 +3,9 @@
 #include "cocos2d_wrapper.h"
 USING_NS_CC;
 
+namespace mica
+{
+
 class Background : public Sprite
 {
 public:
@@ -13,3 +16,5 @@ public:
 private:
 	Sprite* bg;
 };
+
+}

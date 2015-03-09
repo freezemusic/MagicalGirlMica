@@ -2,6 +2,9 @@
 
 #include "Character.h"
 
+namespace mica
+{
+
 class Player : public Character
 {
 public:
@@ -17,3 +20,5 @@ public:
 		m_controlable = true;
 	};
 };
+
+}

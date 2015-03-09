@@ -2,6 +2,9 @@
 
 #include "cocos2d_wrapper.h"
 
+namespace mica
+{
+
 /**
 @brief    The cocos2d Application.
 
@@ -35,3 +38,4 @@ public:
     virtual void applicationWillEnterForeground();
 };
 
+}

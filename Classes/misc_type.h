@@ -9,5 +9,10 @@
 
 #include <cstdint>
 
+namespace mica
+{
+
 typedef unsigned int Uint;
 typedef uint8_t Byte;
+
+}

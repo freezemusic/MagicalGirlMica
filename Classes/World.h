@@ -12,6 +12,9 @@
 
 USING_NS_CC;
 
+namespace mica
+{
+
 class World : public Layer{
 public:
 	static Scene* createScene();
@@ -23,3 +26,5 @@ private:
 	Background* bg;
 	Player* player;
 };
+
+}

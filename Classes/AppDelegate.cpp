@@ -11,6 +11,9 @@
 USING_NS_CC;
 using namespace std;
 
+namespace mica
+{
+
 AppDelegate::AppDelegate() {
 
 }
@@ -69,4 +72,6 @@ void AppDelegate::applicationWillEnterForeground() {
 
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+}
+
 }

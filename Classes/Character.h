@@ -8,6 +8,9 @@
 USING_NS_CC;
 using namespace cocostudio;
 
+namespace mica
+{
+
 class Character : public Hittable, public cocos2d::Node
 {
 public:
@@ -55,3 +58,5 @@ protected:
 	bool directToR;
 	bool m_controlable;
 };
+
+}

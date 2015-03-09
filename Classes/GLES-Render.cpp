@@ -26,6 +26,9 @@
 
 USING_NS_CC;
 
+namespace mica
+{
+
 GLESDebugDraw::GLESDebugDraw()
     : mRatio( 1.0f )
 {
@@ -247,4 +250,6 @@ void GLESDebugDraw::DrawAABB(b2AABB* aabb, const b2Color& color)
     CC_INCREMENT_GL_DRAWN_BATCHES_AND_VERTICES(1,4);
 
     CHECK_GL_ERROR_DEBUG();
+}
+
 }

@@ -13,6 +13,9 @@
 
 #include "misc_type.h"
 
+namespace mica
+{
+
 class Joystick
 {
 public:
@@ -34,3 +37,5 @@ private:
 	std::list<std::pair<Uint, OnMoveListener>> m_listeners;
 	Uint m_id;
 };
+
+}

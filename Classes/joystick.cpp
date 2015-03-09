@@ -12,6 +12,9 @@
 
 using namespace std;
 
+namespace mica
+{
+
 Joystick::Joystick()
 		: m_id(0)
 {}
@@ -42,4 +45,6 @@ void Joystick::invokeOnMoveListeners()
 	{
 		l.second(this);
 	}
+}
+
 }

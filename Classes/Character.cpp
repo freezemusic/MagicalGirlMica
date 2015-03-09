@@ -2,6 +2,9 @@
 
 #include "Character.h"
 
+namespace mica
+{
+
 Character::Character()
 {
 	m_type = ROLE_TYPE_NULL;
@@ -96,4 +99,6 @@ void Character::updateDirection(float delta)
 		setScaleX(-1.0f);
 	else
 		setScaleX(1.0f);
+}
+
 }

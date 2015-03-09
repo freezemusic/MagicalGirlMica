@@ -11,6 +11,9 @@
 
 using namespace std;
 
+namespace mica
+{
+
 string ResManager::getBg(const string &bg_name)
 {
 	return "res/bg/" + bg_name + ".png";
@@ -19,4 +22,6 @@ string ResManager::getBg(const string &bg_name)
 string ResManager::getCharacterArmature(const string &char_name)
 {
 	return "res/char/" + char_name + ".ExportJson";
+}
+
 }

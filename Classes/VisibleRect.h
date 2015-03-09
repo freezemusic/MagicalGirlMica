@@ -2,6 +2,9 @@
 
 #include "cocos2d_wrapper.h"
 
+namespace mica
+{
+
 class VisibleRect
 {
 public:
@@ -20,3 +23,5 @@ private:
     static void lazyInit();
     static cocos2d::Rect s_visibleRect;
 };
+
+}

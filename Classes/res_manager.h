@@ -9,6 +9,9 @@
 
 #include <string>
 
+namespace mica
+{
+
 /**
  * Manage the resource files
  */
@@ -18,3 +21,5 @@ public:
 	static std::string getBg(const std::string &bg_name);
 	static std::string getCharacterArmature(const std::string &char_name);
 };
+
+}
