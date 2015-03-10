@@ -2,6 +2,8 @@
 
 #include "Background.h"
 
+using namespace cocos2d;
+
 namespace mica
 {
 
@@ -19,12 +21,9 @@ Background* Background::create(const char *bg)
 
 bool Background::init(const char *bg)
 {
-
-	auto m_bg = this->bg;
 	m_bg = Sprite::create(bg);
 	m_bg->setAnchorPoint(Vec2(0, 0));
-	this->addChild(m_bg);
-
+	addChild(m_bg);
 	return true;
 }
 

@@ -1,12 +1,11 @@
 #pragma once
 
 #include "cocos2d_wrapper.h"
-USING_NS_CC;
 
 namespace mica
 {
 
-class Background : public Sprite
+class Background : public cocos2d::Sprite
 {
 public:
 	virtual bool init(const char *bg);
@@ -14,7 +13,7 @@ public:
 	static Background* create(const char *bg);
 
 private:
-	Sprite* bg;
+	cocos2d::Sprite* m_bg;
 };
 
 }
