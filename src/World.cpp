@@ -1,4 +1,7 @@
-#include "cocos2d_wrapper.h"
+#include <2d/CCCamera.h>
+#include <2d/CCLayer.h>
+#include <2d/CCScene.h>
+#include <cocostudio/CCArmatureDataManager.h>
 
 #include "res_manager.h"
 #include "World.h"

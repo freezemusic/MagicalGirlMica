@@ -1,7 +1,10 @@
 #pragma once
 
-#include "cocos2d_wrapper.h"
-//#include "Box2D/Box2D.h"
+#include <2d/CCCamera.h>
+#include <2d/CCLayer.h>
+#include <2d/CCScene.h>
+#include <cocostudio/CCArmatureDataManager.h>
+
 #include "GLES-Render.h"
 
 #include "VisibleRect.h"

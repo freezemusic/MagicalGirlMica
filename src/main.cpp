@@ -5,7 +5,7 @@
  * Refer to LICENSE for details
  */
 
-#include "cocos2d_wrapper.h"
+#include <platform/CCApplication.h>
 
 #include "AppDelegate.h"
 

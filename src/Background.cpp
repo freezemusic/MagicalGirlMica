@@ -1,4 +1,5 @@
-#include "cocos2d_wrapper.h"
+#include <2d/CCSprite.h>
+#include <math/Vec2.h>
 
 #include "Background.h"
 

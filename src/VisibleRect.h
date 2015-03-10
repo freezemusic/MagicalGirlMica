@@ -1,6 +1,7 @@
 #pragma once
 
-#include "cocos2d_wrapper.h"
+#include <math/CCGeometry.h>
+#include <math/Vec2.h>
 
 namespace mica
 {

@@ -1,4 +1,5 @@
-#include "cocos2d_wrapper.h"
+#include <2d/CCNode.h>
+#include <cocostudio/CCArmature.h>
 
 #include "Character.h"
 

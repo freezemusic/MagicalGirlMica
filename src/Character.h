@@ -1,7 +1,7 @@
 #pragma once
 
-#include "cocos2d_wrapper.h"
-#include "cocostudio/CocoStudio.h"
+#include <2d/CCNode.h>
+#include <cocostudio/CCArmature.h>
 
 #include "Hittable.h"
 

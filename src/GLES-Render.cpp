@@ -18,7 +18,12 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#include "cocos2d_wrapper.h"
+#include <Box2D/Box2D.h>
+#include <base/CCDirector.h>
+#include <renderer/CCGLProgramCache.h>
+#include <renderer/CCGLProgram.h>
+#include <renderer/CCRenderer.h>
+
 #include "GLES-Render.h"
 #include <stdio.h>
 #include <stdarg.h>

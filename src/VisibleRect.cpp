@@ -22,7 +22,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "cocos2d_wrapper.h"
+#include <base/CCDirector.h>
+#include <math/CCGeometry.h>
+#include <math/Vec2.h>
 
 #include "VisibleRect.h"
 

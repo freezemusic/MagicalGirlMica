@@ -20,8 +20,8 @@
 
 #pragma once
 
-#include "Box2D/Box2D.h"
-#include "cocos2d_wrapper.h"
+#include <Box2D/Box2D.h>
+#include <renderer/CCGLProgram.h>
 
 struct b2AABB;
 

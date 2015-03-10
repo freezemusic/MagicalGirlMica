@@ -1,5 +1,4 @@
-#include "cocos2d_wrapper.h"
-
+#include "Character.h"
 #include "Player.h"
 
 namespace mica

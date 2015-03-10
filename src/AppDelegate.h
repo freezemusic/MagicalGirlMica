@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cocos2d_wrapper.h"
+#include <platform/CCApplication.h>
 
 namespace mica
 {

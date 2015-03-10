@@ -1,3 +1,4 @@
+// For GLViewImpl
 #include "cocos2d_wrapper.h"
 
 #include "AppDelegate.h"
