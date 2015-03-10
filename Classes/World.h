@@ -3,7 +3,6 @@
 #include "cocos2d_wrapper.h"
 //#include "Box2D/Box2D.h"
 #include "GLES-Render.h"
-#include "AppMacros.h"
 
 #include "VisibleRect.h"
 

@@ -9,6 +9,8 @@
 
 #include <string>
 
+#include "misc_type.h"
+
 namespace mica
 {
 
@@ -26,6 +28,16 @@ public:
 
 	std::string getBg(const std::string &bg_name);
 	std::string getCharacterArmature(const std::string &char_name);
+
+	static Uint getDesignW()
+	{
+		return 1024;
+	}
+
+	static Uint getDesignH()
+	{
+		return 576;
+	}
 };
 
 }

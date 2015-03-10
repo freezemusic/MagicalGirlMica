@@ -5,8 +5,8 @@
 #include <vector>
 #include <string>
 
+#include "res_manager.h"
 #include "World.h"
-#include "AppMacros.h"
 
 USING_NS_CC;
 using namespace std;
@@ -41,7 +41,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//cocos2d::Size designResolutionSize = cocos2d::Size(1024, 480);
 
     director->setOpenGLView(glview);
-	glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
+	glview->setDesignResolutionSize(ResManager::getDesignW(),
+			ResManager::getDesignH(), ResolutionPolicy::SHOW_ALL);
 
     // turn on display FPS
     director->setDisplayStats(true);
