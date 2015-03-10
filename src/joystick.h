@@ -24,7 +24,7 @@ public:
 	Joystick();
 	virtual ~Joystick();
 
-	void addOnMoveListener(const OnMoveListener &listener);
+	Uint addOnMoveListener(const OnMoveListener &listener);
 	void removeOnMoveListener(const Uint id);
 
 	virtual int getX() const = 0;

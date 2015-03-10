@@ -22,9 +22,10 @@ Joystick::Joystick()
 Joystick::~Joystick()
 {}
 
-void Joystick::addOnMoveListener(const OnMoveListener &listener)
+Uint Joystick::addOnMoveListener(const OnMoveListener &listener)
 {
-	m_listeners.push_back(make_pair(m_id++, listener));
+	m_listeners.push_back(make_pair(m_id, listener));
+	return m_id++;
 }
 
 void Joystick::removeOnMoveListener(const Uint id)
