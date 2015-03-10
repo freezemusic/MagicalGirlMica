@@ -61,8 +61,8 @@ CXXFLAGS+=-Wall -Wextra -pedantic
 ARFLAGS+=-r
 
 LDFLAGS+=-Wl,--gc-sections
-LDFLAGS+=$(addprefix -L,$(COCOS_LIB_PATH)) $(addprefix -L,$(USER_LIB_PATHS))
-LDLIBS+=$(addprefix -l,$(COCOS_LIBS)) $(addprefix -l,$(USER_LIBS))
+LDFLAGS+=$(addprefix -L,$(USER_LIB_PATHS)) -Lexternal/libutils/lib $(addprefix -L,$(COCOS_LIB_PATH))
+LDLIBS+=$(addprefix -l,$(USER_LIBS)) -lutils $(addprefix -l,$(COCOS_LIBS))
 
 
 ifeq ($(PROJ_BUILD),DEBUG)
@@ -92,6 +92,9 @@ CPPFLAGS+=-fsyntax-only
 $(info Performing dry run (no binary))
 endif
 
+
+EXT_LIBUTILS_FLAGS=LU_BUILD=RELEASE USE_JPEG=0 USE_PNG=0
+
 # End setting flags
 
 $(info Building $(OUT_EXE)$(BIN_SUFFIX)$(OUT_EXE_SUFFIX))
@@ -117,9 +120,12 @@ dry: $(OBJ_FILES)
 
 .SECONDEXPANSION:
 
-$(OUT_EXE_PATH)/$(OUT_EXE)$(BIN_SUFFIX)$(OUT_EXE_SUFFIX): $(SRC_PATH)/cocos2d_wrapper.h.gch $(OBJ_FILES)
+$(OUT_EXE_PATH)/$(OUT_EXE)$(BIN_SUFFIX)$(OUT_EXE_SUFFIX): external/libutils/lib/libutils.a $(SRC_PATH)/cocos2d_wrapper.h.gch $(OBJ_FILES)
 	$(info Linking objects)
 	@$(CXX) $(LDFLAGS) -o $@ $(OBJ_FILES) $(LDLIBS)
+
+external/libutils/lib/libutils.a:
+	$(MAKE) -C external/libutils $(EXT_LIBUTILS_FLAGS) all
 
 $(SRC_PATH)/cocos2d_wrapper.h.gch: $(SRC_PATH)/cocos2d_wrapper.h
 	$(info Precompiling cocos2d-x header)
@@ -133,3 +139,4 @@ clean:
 	$(info Cleaning $(<))
 	@rm -f $(OUT_EXE_PATH)/*
 	@find $(OUT_OBJ_PATH) -type f \( -name *.o -o -name *.d \) -exec rm -f {} \;
+	$(MAKE) -C external/libutils $(EXT_LIBUTILS_FLAGS) clean
