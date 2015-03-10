@@ -1,5 +1,14 @@
+#include <string>
+
+#include <math/CCGeometry.h>
+
 #include "Character.h"
+#include "Interactable.h"
 #include "Player.h"
+
+using namespace cocos2d;
+using namespace cocostudio;
+using namespace std;
 
 namespace mica
 {
@@ -9,7 +18,7 @@ Player::Player()
 	m_id = 1;
 }
 
-Player* Player::create(const std::string& name)
+Player* Player::create(const string& name)
 {
 	Player *player = new Player();
 	if (player && player->init(name))
@@ -21,7 +30,7 @@ Player* Player::create(const std::string& name)
 	return nullptr;
 }
 
-bool Player::init(const std::string& name)
+bool Player::init(const string& name)
 {
 	m_name = name;
 	float scale = 0.6;

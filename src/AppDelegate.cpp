@@ -2,10 +2,6 @@
 #include "cocos2d_wrapper.h"
 
 #include "AppDelegate.h"
-
-#include <vector>
-#include <string>
-
 #include "res_manager.h"
 #include "World.h"
 

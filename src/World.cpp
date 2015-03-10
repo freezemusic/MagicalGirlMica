@@ -6,6 +6,9 @@
 #include "res_manager.h"
 #include "World.h"
 
+using namespace cocos2d;
+using namespace cocostudio;
+
 namespace mica
 {
 

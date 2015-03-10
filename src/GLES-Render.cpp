@@ -29,7 +29,7 @@
 #include <stdarg.h>
 #include <string.h>
 
-USING_NS_CC;
+using namespace cocos2d;
 
 namespace mica
 {

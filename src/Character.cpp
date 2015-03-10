@@ -1,7 +1,14 @@
+#include <functional>
+#include <string>
+
 #include <2d/CCNode.h>
 #include <cocostudio/CCArmature.h>
 
 #include "Character.h"
+
+using namespace cocos2d;
+using namespace cocostudio;
+using namespace std;
 
 namespace mica
 {
@@ -55,7 +62,7 @@ void Character::turn()
 		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
 		m_arm->getAnimation()->play("turn");
 
-		std::function<void(Armature*, MovementEventType, const std::string&)> armatureFun = [=](Armature* armature, MovementEventType type, const std::string& id)
+		function<void(Armature*, MovementEventType, const string&)> armatureFun = [=](Armature* armature, MovementEventType type, const string& id)
 		{
 			if (type == MovementEventType::COMPLETE)
 			{
@@ -79,7 +86,7 @@ void Character::attack()
 		m_stat = ROLE_ATTACK;
 		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
 		m_arm->getAnimation()->play("attack");
-		std::function<void(Armature*, MovementEventType, const std::string&)> armatureStand = [=](Armature* armature, MovementEventType type, const std::string& id)
+		function<void(Armature*, MovementEventType, const string&)> armatureStand = [=](Armature* armature, MovementEventType type, const string& id)
 		{
 			if (type == MovementEventType::COMPLETE)
 			{

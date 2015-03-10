@@ -1,6 +1,9 @@
 #pragma once
 
+#include <string>
+
 #include "Character.h"
+#include "Interactable.h"
 
 namespace mica
 {

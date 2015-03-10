@@ -12,19 +12,18 @@
 #include "Background.h"
 #include "Player.h"
 
-USING_NS_CC;
-
 namespace mica
 {
 
-class World : public Layer{
+class World : public cocos2d::Layer
+{
 public:
-	static Scene* createScene();
+	static cocos2d::Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(World); /// implement the "static create()" method manually
 
 private:
-	Camera* camera;
+	cocos2d::Camera* camera;
 	Background* bg;
 	Player* player;
 };

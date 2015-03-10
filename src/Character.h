@@ -1,12 +1,11 @@
 #pragma once
 
+#include <string>
+
 #include <2d/CCNode.h>
 #include <cocostudio/CCArmature.h>
 
 #include "Hittable.h"
-
-USING_NS_CC;
-using namespace cocostudio;
 
 namespace mica
 {
@@ -53,7 +52,7 @@ protected:
 	int m_id;
 	int m_speed;
 	std::string m_name;
-	Armature* m_arm;
+	cocostudio::Armature* m_arm;
 
 	bool directToR;
 	bool m_controlable;
