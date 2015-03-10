@@ -35,6 +35,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLViewImpl::create("Cpp Empty Test");
+#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 \
+		|| CC_TARGET_PLATFORM == CC_PLATFORM_LINUX \
+		|| CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+        glview->setFrameSize(ResManager::getDesignW(), ResManager::getDesignH());
+#endif
         director->setOpenGLView(glview);
     }
 
