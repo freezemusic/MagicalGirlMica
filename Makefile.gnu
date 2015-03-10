@@ -62,7 +62,7 @@ ARFLAGS+=-r
 
 LDFLAGS+=-Wl,--gc-sections
 LDFLAGS+=$(addprefix -L,$(USER_LIB_PATHS)) -Lexternal/libutils/lib $(addprefix -L,$(COCOS_LIB_PATH))
-LDLIBS+=$(addprefix -l,$(USER_LIBS)) -lutils $(addprefix -l,$(COCOS_LIBS))
+LDLIBS+=$(addprefix -l,$(USER_LIBS)) -lutils-r $(addprefix -l,$(COCOS_LIBS))
 
 
 ifeq ($(PROJ_BUILD),DEBUG)
@@ -120,11 +120,11 @@ dry: $(OBJ_FILES)
 
 .SECONDEXPANSION:
 
-$(OUT_EXE_PATH)/$(OUT_EXE)$(BIN_SUFFIX)$(OUT_EXE_SUFFIX): external/libutils/lib/libutils.a $(SRC_PATH)/cocos2d_wrapper.h.gch $(OBJ_FILES)
+$(OUT_EXE_PATH)/$(OUT_EXE)$(BIN_SUFFIX)$(OUT_EXE_SUFFIX): external/libutils/lib/libutils-r.a $(SRC_PATH)/cocos2d_wrapper.h.gch $(OBJ_FILES)
 	$(info Linking objects)
 	@$(CXX) $(LDFLAGS) -o $@ $(OBJ_FILES) $(LDLIBS)
 
-external/libutils/lib/libutils.a:
+external/libutils/lib/libutils-r.a:
 	$(MAKE) -C external/libutils $(EXT_LIBUTILS_FLAGS) all
 
 $(SRC_PATH)/cocos2d_wrapper.h.gch: $(SRC_PATH)/cocos2d_wrapper.h
