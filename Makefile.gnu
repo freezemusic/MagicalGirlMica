@@ -1,4 +1,4 @@
-SRC_PATH=Classes
+SRC_PATH=src
 OUT_EXE=mgirl-mica
 OUT_EXE_SUFFIX=
 OUT_EXE_PATH=bin

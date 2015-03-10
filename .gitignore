@@ -1,8 +1,7 @@
 # Ignore all sub-dirs but inc/ and src/
 */*
-!Classes/*
+!src/*
 !json/*
-!Resource/*
 
 # Ignore additional files in root dir
 # Eclipse
