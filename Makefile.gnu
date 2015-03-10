@@ -62,7 +62,7 @@ CPPFLAGS+=-MMD
 
 CXXFLAGS+=-fmessage-length=0
 CXXFLAGS+=-fno-strict-aliasing -ffunction-sections -fdata-sections
-CXXFLAGS+=-std=gnu++11
+CXXFLAGS+=-std=gnu++1y
 CXXFLAGS+=-Wall -Wextra -pedantic
 
 ARFLAGS+=-r
