@@ -14,6 +14,13 @@ COCOS_INC_PATHS=$(COCOS_DIR)/cocos $(COCOS_DIR)/cocos/editor-support $(COCOS_DIR
 COCOS_LIB_PATH=$(COCOS_DIR)/build/linux-build/lib
 COCOS_LIBS=cocos2d glfw GLEW GL X11 pthread tinyxml2 freetype jpeg png tiff webp box2d xxhash unzip z fontconfig
 
+# External libs
+EXT_INC_PATHS?=external/libutils/inc
+EXT_LIB_PATHS?=external/libutils/lib
+EXT_LIBS?=utils-r
+
+EXT_LIBUTILS_FLAGS=LU_BUILD=RELEASE USE_JPEG=0 USE_PNG=0
+
 # Additional stuff
 USER_INC_PATHS?=
 USER_LIB_PATHS?=
@@ -48,7 +55,7 @@ LDLIBS=
 BIN_SUFFIX=
 
 # Warnings are all over cocos2d's headers, hide them
-CPPFLAGS+=$(addprefix -isystem,$(COCOS_INC_PATHS)) $(addprefix -I,$(USER_INC_PATHS))
+CPPFLAGS+=$(addprefix -I,$(USER_INC_PATHS)) $(addprefix -I,$(EXT_INC_PATHS)) $(addprefix -isystem,$(COCOS_INC_PATHS))
 CPPFLAGS+=$(addprefix -D,$(USER_SYMBOLS))
 GCH_CPPFLAGS:=$(CPPFLAGS)
 CPPFLAGS+=-MMD
@@ -61,8 +68,8 @@ CXXFLAGS+=-Wall -Wextra -pedantic
 ARFLAGS+=-r
 
 LDFLAGS+=-Wl,--gc-sections
-LDFLAGS+=$(addprefix -L,$(USER_LIB_PATHS)) -Lexternal/libutils/lib $(addprefix -L,$(COCOS_LIB_PATH))
-LDLIBS+=$(addprefix -l,$(USER_LIBS)) -lutils-r $(addprefix -l,$(COCOS_LIBS))
+LDFLAGS+=$(addprefix -L,$(USER_LIB_PATHS)) $(addprefix -L,$(EXT_LIB_PATHS)) $(addprefix -L,$(COCOS_LIB_PATH))
+LDLIBS+=$(addprefix -l,$(USER_LIBS)) $(addprefix -l,$(EXT_LIBS)) $(addprefix -l,$(COCOS_LIBS))
 
 
 ifeq ($(PROJ_BUILD),DEBUG)
@@ -92,9 +99,6 @@ CPPFLAGS+=-fsyntax-only
 $(info Performing dry run (no binary))
 endif
 
-
-EXT_LIBUTILS_FLAGS=LU_BUILD=RELEASE USE_JPEG=0 USE_PNG=0
-
 # End setting flags
 
 $(info Building $(OUT_EXE)$(BIN_SUFFIX)$(OUT_EXE_SUFFIX))
@@ -112,7 +116,7 @@ OUT_DIRS:=$(sort $(dir $(OBJ_FILES)))
 $(shell mkdir -p $(OUT_DIRS) $(OUT_EXE_PATH))
 
 
-.PHONY: all clean dry
+.PHONY: all clean self-clean dry
 
 all: $(OUT_EXE_PATH)/$(OUT_EXE)$(BIN_SUFFIX)$(OUT_EXE_SUFFIX)
 
@@ -135,8 +139,11 @@ $(OUT_OBJ_PATH)/%.o: $$(subst $(BIN_SUFFIX),,$(SRC_PATH)/%.cpp)
 	$(info Compiling $(<))
 	@$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o $@ $<
 
-clean:
+clean: self-clean
+	$(info Cleaning external libs $(<))
+	$(MAKE) -C external/libutils $(EXT_LIBUTILS_FLAGS) clean
+
+self-clean:
 	$(info Cleaning $(<))
 	@rm -f $(OUT_EXE_PATH)/*
 	@find $(OUT_OBJ_PATH) -type f \( -name *.o -o -name *.d \) -exec rm -f {} \;
-	$(MAKE) -C external/libutils $(EXT_LIBUTILS_FLAGS) clean
