@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <2d/CCCamera.h>
 #include <2d/CCLayer.h>
 #include <2d/CCScene.h>
@@ -8,6 +10,7 @@
 #include "VisibleRect.h"
 
 #include "Background.h"
+#include "on_screen_joystick.h"
 #include "Player.h"
 
 namespace mica
@@ -24,6 +27,7 @@ private:
 	cocos2d::Camera* camera;
 	Background* bg;
 	Player* player;
+	std::unique_ptr<OnScreenJoystick> m_joystick;
 };
 
 }

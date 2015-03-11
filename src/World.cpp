@@ -1,13 +1,21 @@
+#include <memory>
+
 #include <2d/CCCamera.h>
 #include <2d/CCLayer.h>
 #include <2d/CCScene.h>
 #include <cocostudio/CCArmatureDataManager.h>
 
+#include "area_joystick.h"
+#include "log.h"
 #include "res_manager.h"
 #include "World.h"
 
 using namespace cocos2d;
 using namespace cocostudio;
+using namespace std;
+
+#define NS_TAG "mica::"
+#define TAG NS_TAG "World::"
 
 namespace mica
 {
@@ -44,6 +52,17 @@ bool World::init()
 	this->addChild(player, 1);
 	//this->runAction(Follow::create(hero, Rect(0, 0, bgSize.width, visibleSize.height)));
 
+	AreaJoystick::Config joystick_conf;
+	//joystick_conf.is_visible = true;
+	joystick_conf.rect.size.w = ResManager::getDesignW() / 2;
+	joystick_conf.rect.size.h = ResManager::getDesignH();
+	m_joystick = make_unique<AreaJoystick>(joystick_conf);
+	if (!*m_joystick)
+	{
+		LOG_W(TAG "init", "Failed while creating AreaJoystick");
+		return false;
+	}
+	addChild(m_joystick->getView(), 2);
 	return true;
 }
 
