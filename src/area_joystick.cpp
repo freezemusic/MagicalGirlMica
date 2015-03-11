@@ -5,10 +5,13 @@
  * Refer to LICENSE for details
  */
 
+#include <2d/CCActionInterval.h>
 #include <2d/CCLayer.h>
 #include <2d/CCNode.h>
+#include <2d/CCSprite.h>
 #include <base/CCEventDispatcher.h>
 #include <base/CCEventListenerTouch.h>
+#include <math/Vec2.h>
 
 #include <libutils/type/coord.h>
 #include <libutils/type/rect.h>
@@ -16,6 +19,7 @@
 
 #include "area_joystick.h"
 #include "log.h"
+#include "misc_utils.h"
 #include "res_manager.h"
 
 using namespace cocos2d;
@@ -29,7 +33,9 @@ namespace mica
 
 AreaJoystick::AreaJoystick()
 		: m_x(0),
-		  m_y(0)
+		  m_y(0),
+		  m_indicators{nullptr, nullptr},
+		  m_is_indicator_moved(false)
 {
 	setGood(false);
 }
@@ -50,14 +56,23 @@ bool AreaJoystick::init(const Config &config)
 	uninit();
 
 	m_rect = config.rect;
-	setGood(initView(config) && initListeners());
+	setGood(initView(config) && initIndicator() && initListeners());
 	return *this;
 }
 
 bool AreaJoystick::initView(const Config &config)
 {
-	Node *view = LayerGradient::create(Color4B(0, 0, 0, 0x80),
-			Color4B(0, 0, 0, 0), Vec2(1, 0));
+	Node *view = nullptr;
+	if (config.is_visible)
+	{
+		view = LayerGradient::create(Color4B(0, 0, 0, 0x80), Color4B(0, 0, 0, 0),
+				Vec2(1, 0));
+	}
+	else
+	{
+		view = LayerColor::create(Color4B(0, 0, 0, 0), m_rect.coord.x,
+				m_rect.coord.y);
+	}
 	if (!view)
 	{
 		LOG_E(TAG "initView", "Failed while LayerColor::create");
@@ -66,8 +81,32 @@ bool AreaJoystick::initView(const Config &config)
 
 	view->setContentSize(cocos2d::Size(m_rect.size.w, m_rect.size.h));
 	view->setPosition(m_rect.coord.x, m_rect.coord.y);
-	view->setVisible(config.is_visible);
 	setView(view);
+	return true;
+}
+
+bool AreaJoystick::initIndicator()
+{
+	Sprite *begin = Sprite::create(ResManager::get().getSystem("joystick"));
+	if (!begin)
+	{
+		LOG_E(TAG "initIndicator", "Failed while Sprite::create");
+		return false;
+	}
+	begin->setOpacity(0);
+
+	Sprite *move = Sprite::create(ResManager::get().getSystem("joystick"));
+	if (!move)
+	{
+		LOG_E(TAG "initIndicator", "Failed while Sprite::create");
+		return false;
+	}
+	move->setOpacity(0);
+
+	m_indicators[0] = begin;
+	getView()->addChild(m_indicators[0]);
+	m_indicators[1] = move;
+	getView()->addChild(m_indicators[1]);
 	return true;
 }
 
@@ -76,18 +115,23 @@ bool AreaJoystick::initListeners()
 	auto *listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
 
-	auto reset_touch = [this](Touch*, Event*)
+	auto end_touch = [this](Touch*, Event*)
 			{
 				m_x = 0;
 				m_y = 0;
 				invokeOnMoveListeners();
+				endIndicator();
 			};
-	listener->onTouchBegan = [this, reset_touch](Touch *touch, Event*)
+
+	listener->onTouchBegan = [this](Touch *touch, Event*)
 			{
 				const Vec2 &pt = touch->getStartLocation();
 				if (RectUtils::IsInsidePx(m_rect, Coord(pt.x, pt.y)))
 				{
-					reset_touch(touch, nullptr);
+					m_x = 0;
+					m_y = 0;
+					invokeOnMoveListeners();
+					beginIndicator(pt);
 					return true;
 				}
 				else
@@ -95,18 +139,21 @@ bool AreaJoystick::initListeners()
 					return false;
 				}
 			};
+
 	listener->onTouchMoved = [this](Touch *touch, Event*)
 			{
-				const Vec2 &coord = touch->getLocation()
-						- touch->getStartLocation();
-				m_x = coord.x;
-				m_y = coord.y;
+				const Vec2 &pt = touch->getLocation();
+				const Vec2 &diff = pt - touch->getStartLocation();
+				m_x = diff.x;
+				m_y = diff.y;
 				invokeOnMoveListeners();
+				moveIndicator(pt);
 //				LOG_V(TAG "initListeners(onTouchMoved)",
 //						utils::str::StrUtils::Concat(m_x, ", ", m_y));
 			};
-	listener->onTouchEnded = reset_touch;
-	listener->onTouchCancelled = reset_touch;
+
+	listener->onTouchEnded = end_touch;
+	listener->onTouchCancelled = end_touch;
 
 	getView()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(
 			listener, getView());
@@ -116,6 +163,34 @@ bool AreaJoystick::initListeners()
 void AreaJoystick::uninit()
 {
 	setView(nullptr);
+	m_indicators[0] = m_indicators[1] = nullptr;
+}
+
+void AreaJoystick::beginIndicator(const Vec2 &pt)
+{
+	STATE_GUARD(getView(), TAG "beginIndicator", VOID);
+
+	m_indicators[0]->runAction(FadeTo::create(0.1f, 0xC0));
+	m_indicators[0]->setPosition(pt);
+	m_is_indicator_moved = false;
+}
+
+void AreaJoystick::moveIndicator(const Vec2 &pt)
+{
+	STATE_GUARD(getView(), TAG "moveIndicator", VOID);
+	if (!m_is_indicator_moved)
+	{
+		m_indicators[1]->runAction(FadeTo::create(0.1f, 0xC0));
+		m_is_indicator_moved = true;
+	}
+	m_indicators[1]->setPosition(pt);
+}
+
+void AreaJoystick::endIndicator()
+{
+	STATE_GUARD(getView(), TAG "endIndicator", VOID);
+	m_indicators[0]->runAction(FadeTo::create(0.1f, 0));
+	m_indicators[1]->runAction(FadeTo::create(0.1f, 0));
 }
 
 }

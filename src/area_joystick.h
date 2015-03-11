@@ -11,6 +11,14 @@
 
 #include "on_screen_joystick.h"
 
+namespace cocos2d
+{
+
+class Node;
+class Vec2;
+
+}
+
 namespace mica
 {
 
@@ -53,12 +61,20 @@ protected:
 
 private:
 	bool initView(const Config &config);
+	bool initIndicator();
 	bool initListeners();
+
+	void beginIndicator(const cocos2d::Vec2 &pt);
+	void moveIndicator(const cocos2d::Vec2 &pt);
+	void endIndicator();
 
 	utils::type::Rect m_rect;
 
 	int m_x;
 	int m_y;
+
+	cocos2d::Node* m_indicators[2];
+	bool m_is_indicator_moved;
 };
 
 }
