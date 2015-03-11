@@ -5,8 +5,6 @@
 #include <2d/CCScene.h>
 #include <cocostudio/CCArmatureDataManager.h>
 
-#include "GLES-Render.h"
-
 #include "VisibleRect.h"
 
 #include "Background.h"
