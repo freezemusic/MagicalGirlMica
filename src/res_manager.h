@@ -48,12 +48,12 @@ public:
 	 */
 	std::string getSystem(const std::string &system_name);
 
-	static Uint getDesignW()
+	static constexpr Uint getDesignW()
 	{
 		return 1024;
 	}
 
-	static Uint getDesignH()
+	static constexpr Uint getDesignH()
 	{
 		return 576;
 	}
