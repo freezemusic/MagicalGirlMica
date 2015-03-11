@@ -42,7 +42,13 @@ bool World::init()
 		return false;
 	}
 
-	bg = Background::create(ResManager::get().getBg("bg").c_str());
+	Sprite *bg = Sprite::create(ResManager::get().getBg("bg").c_str());
+	if (!bg)
+	{
+		LOG_W(TAG "init", "Failed while creating background sprite");
+		return false;
+	}
+	bg->setAnchorPoint({0, 0});
 	this->addChild(bg);
 
 	ArmatureDataManager::getInstance()->addArmatureFileInfo(

@@ -7,11 +7,9 @@
 #include <2d/CCScene.h>
 #include <cocostudio/CCArmatureDataManager.h>
 
-#include "VisibleRect.h"
-
-#include "Background.h"
 #include "on_screen_joystick.h"
 #include "Player.h"
+#include "VisibleRect.h"
 
 namespace mica
 {
@@ -25,7 +23,6 @@ public:
 
 private:
 	cocos2d::Camera* camera;
-	Background* bg;
 	Player* player;
 	std::unique_ptr<OnScreenJoystick> m_joystick;
 };
