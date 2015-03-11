@@ -12,6 +12,8 @@
 
 #include <platform/CCApplication.h>
 
+#include <libutils/io/basic_log_strategy.h>
+#include <libutils/io/composite_log_strategy.h>
 #include <libutils/io/js_html_log_strategy.h>
 #include <libutils/io/logger.h>
 #include <libutils/io/system_log.h>
@@ -27,9 +29,12 @@ using namespace utils::io;
 int main()
 {
 #if !NO_LOG
-	LOG.SetLogStrategy(make_unique<JsHtmlLogStrategy<char>>(
+	auto log_strategy = make_unique<CompositeLogStrategy<char>>();
+	log_strategy->PushStrategy(make_unique<JsHtmlLogStrategy<char>>(
 			new ofstream(utils::str::StrUtils::Concat("log-", time(nullptr),
 					".html"))));
+	log_strategy->PushStrategy(make_unique<BasicLogStrategy<char>>(&cout, false));
+	LOG.SetLogStrategy(std::move(log_strategy));
 #endif
 
     // create the application instance
