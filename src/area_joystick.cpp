@@ -65,7 +65,6 @@ bool AreaJoystick::initView(const Config &config)
 	}
 
 	view->setContentSize(cocos2d::Size(m_rect.size.w, m_rect.size.h));
-	view->setAnchorPoint({0.0f, 0.0f});
 	view->setPosition(m_rect.coord.x, m_rect.coord.y);
 	view->setVisible(config.is_visible);
 	setView(view);
