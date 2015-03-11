@@ -26,8 +26,27 @@ public:
 		return instance;
 	}
 
+	/**
+	 * Return the path for a background resource
+	 *
+	 * @param char_name
+	 * @return
+	 */
 	std::string getBg(const std::string &bg_name);
+	/**
+	 * Return the path for a character armature resource
+	 *
+	 * @param char_name
+	 * @return
+	 */
 	std::string getCharacterArmature(const std::string &char_name);
+	/**
+	 * Return the path for a system resource
+	 *
+	 * @param system_name
+	 * @return
+	 */
+	std::string getSystem(const std::string &system_name);
 
 	static Uint getDesignW()
 	{

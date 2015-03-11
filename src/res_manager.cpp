@@ -49,4 +49,9 @@ string ResManager::getCharacterArmature(const string &char_name)
 	return "res/char/" + char_name + ".ExportJson";
 }
 
+string ResManager::getSystem(const std::string &system_name)
+{
+	return addImageExt("res/sys/" + system_name);
+}
+
 }
