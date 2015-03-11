@@ -102,8 +102,8 @@ bool AreaJoystick::initListeners()
 				m_x = coord.x;
 				m_y = coord.y;
 				invokeOnMoveListeners();
-				LOG_V(TAG "initListeners(onTouchMoved)",
-						utils::str::StrUtils::Concat(m_x, ", ", m_y));
+//				LOG_V(TAG "initListeners(onTouchMoved)",
+//						utils::str::StrUtils::Concat(m_x, ", ", m_y));
 			};
 	listener->onTouchEnded = reset_touch;
 	listener->onTouchCancelled = reset_touch;
