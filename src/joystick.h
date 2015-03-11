@@ -11,6 +11,8 @@
 #include <list>
 #include <utility>
 
+#include <libutils/type/coord.h>
+
 #include "misc_type.h"
 
 namespace mica
@@ -32,8 +34,12 @@ public:
 	Uint addOnMoveListener(const OnMoveListener &listener);
 	void removeOnMoveListener(const Uint id);
 
-	virtual int getX() const = 0;
-	virtual int getY() const = 0;
+	/**
+	 * Return the joystick posittion, normalized to [-1000, 1000] in both axis
+	 *
+	 * @return
+	 */
+	virtual utils::type::Coord getPosition() const = 0;
 
 protected:
 	void invokeOnMoveListeners();

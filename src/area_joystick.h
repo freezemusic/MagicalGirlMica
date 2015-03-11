@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <libutils/type/coord.h>
 #include <libutils/type/rect.h>
 
 #include "on_screen_joystick.h"
@@ -15,6 +16,7 @@ namespace cocos2d
 {
 
 class Node;
+class Touch;
 class Vec2;
 
 }
@@ -38,14 +40,9 @@ public:
 	explicit AreaJoystick(const Config &config);
 	virtual ~AreaJoystick();
 
-	int getX() const override
+	utils::type::Coord getPosition() const override
 	{
-		return m_x;
-	}
-
-	int getY() const override
-	{
-		return m_y;
+		return m_position;
 	}
 
 protected:
@@ -64,14 +61,14 @@ private:
 	bool initIndicator();
 	bool initListeners();
 
+	void updatePosition(const cocos2d::Touch &touch);
+
 	void beginIndicator(const cocos2d::Vec2 &pt);
 	void moveIndicator(const cocos2d::Vec2 &pt);
 	void endIndicator();
 
 	utils::type::Rect m_rect;
-
-	int m_x;
-	int m_y;
+	utils::type::Coord m_position;
 
 	cocos2d::Node* m_indicators[2];
 	bool m_is_indicator_moved;

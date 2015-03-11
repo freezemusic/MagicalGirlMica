@@ -13,6 +13,7 @@
 #include <base/CCEventListenerTouch.h>
 #include <math/Vec2.h>
 
+#include <libutils/math/math_utils.h>
 #include <libutils/type/coord.h>
 #include <libutils/type/rect.h>
 #include <libutils/type/rect_utils.h>
@@ -23,18 +24,19 @@
 #include "res_manager.h"
 
 using namespace cocos2d;
+using namespace utils::math;
 using namespace utils::type;
 
 #define NS_TAG "mica::"
 #define TAG NS_TAG "AreaJoystick::"
 
+#define AMPLITUDE 128
+
 namespace mica
 {
 
 AreaJoystick::AreaJoystick()
-		: m_x(0),
-		  m_y(0),
-		  m_indicators{nullptr, nullptr},
+		: m_indicators{nullptr, nullptr},
 		  m_is_indicator_moved(false)
 {
 	setGood(false);
@@ -117,8 +119,7 @@ bool AreaJoystick::initListeners()
 
 	auto end_touch = [this](Touch*, Event*)
 			{
-				m_x = 0;
-				m_y = 0;
+				m_position = {0, 0};
 				invokeOnMoveListeners();
 				endIndicator();
 			};
@@ -128,8 +129,7 @@ bool AreaJoystick::initListeners()
 				const Vec2 &pt = touch->getStartLocation();
 				if (RectUtils::IsInsidePx(m_rect, Coord(pt.x, pt.y)))
 				{
-					m_x = 0;
-					m_y = 0;
+					m_position = {0, 0};
 					invokeOnMoveListeners();
 					beginIndicator(pt);
 					return true;
@@ -142,14 +142,12 @@ bool AreaJoystick::initListeners()
 
 	listener->onTouchMoved = [this](Touch *touch, Event*)
 			{
-				const Vec2 &pt = touch->getLocation();
-				const Vec2 &diff = pt - touch->getStartLocation();
-				m_x = diff.x;
-				m_y = diff.y;
+				updatePosition(*touch);
 				invokeOnMoveListeners();
-				moveIndicator(pt);
+				moveIndicator(touch->getLocation());
 //				LOG_V(TAG "initListeners(onTouchMoved)",
-//						utils::str::StrUtils::Concat(m_x, ", ", m_y));
+//						utils::str::StrUtils::Concat(m_position.x, ", ",
+//								m_position.y));
 			};
 
 	listener->onTouchEnded = end_touch;
@@ -164,6 +162,13 @@ void AreaJoystick::uninit()
 {
 	setView(nullptr);
 	m_indicators[0] = m_indicators[1] = nullptr;
+}
+
+void AreaJoystick::updatePosition(const Touch &touch)
+{
+	const Vec2 &diff = touch.getLocation() - touch.getStartLocation();
+	m_position.x = MathUtils::Clamp<int>(-1000, diff.x / AMPLITUDE * 1000, 1000);
+	m_position.y = MathUtils::Clamp<int>(-1000, diff.y / AMPLITUDE * 1000, 1000);
 }
 
 void AreaJoystick::beginIndicator(const Vec2 &pt)
