@@ -50,23 +50,24 @@ bool AreaJoystick::init(const Config &config)
 	uninit();
 
 	m_rect = config.rect;
-	setGood(initView() && initListeners());
+	setGood(initView(config) && initListeners());
 	return *this;
 }
 
-bool AreaJoystick::initView()
+bool AreaJoystick::initView(const Config &config)
 {
-	Node *view = LayerColor::create(Color4B(0, 0, 0, 0), m_rect.size.w,
-			m_rect.size.h);
+	Node *view = LayerGradient::create(Color4B(0, 0, 0, 0x80),
+			Color4B(0, 0, 0, 0), Vec2(1, 0));
 	if (!view)
 	{
 		LOG_E(TAG "initView", "Failed while LayerColor::create");
 		return false;
 	}
 
+	view->setContentSize(cocos2d::Size(m_rect.size.w, m_rect.size.h));
 	view->setAnchorPoint({0.0f, 0.0f});
 	view->setPosition(m_rect.coord.x, m_rect.coord.y);
-	view->setVisible(false);
+	view->setVisible(config.is_visible);
 	setView(view);
 	return true;
 }

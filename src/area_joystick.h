@@ -24,6 +24,7 @@ public:
 	struct Config
 	{
 		utils::type::Rect rect;
+		bool is_visible = false;
 	};
 
 	explicit AreaJoystick(const Config &config);
@@ -51,7 +52,7 @@ protected:
 	}
 
 private:
-	bool initView();
+	bool initView(const Config &config);
 	bool initListeners();
 
 	utils::type::Rect m_rect;
