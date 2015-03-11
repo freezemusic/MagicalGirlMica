@@ -24,6 +24,11 @@ public:
 	Joystick();
 	virtual ~Joystick();
 
+	operator bool() const
+	{
+		return m_is_good;
+	}
+
 	Uint addOnMoveListener(const OnMoveListener &listener);
 	void removeOnMoveListener(const Uint id);
 
@@ -33,9 +38,16 @@ public:
 protected:
 	void invokeOnMoveListeners();
 
+	void setGood(const bool flag)
+	{
+		m_is_good = flag;
+	}
+
 private:
 	std::list<std::pair<Uint, OnMoveListener>> m_listeners;
 	Uint m_id;
+
+	bool m_is_good = true;
 };
 
 }
