@@ -5,21 +5,18 @@
  * Refer to LICENSE for details
  */
 
-#include <algorithm>
-
-#include <base/CCDirector.h>
-#include <base/CCEventDispatcher.h>
-#include <base/CCEventKeyboard.h>
-#include <base/CCEventListenerKeyboard.h>
+#include <array>
+#include <memory>
 
 #include <libutils/math/math_utils.h>
-#include <libutils/str/str_utils.h>
 #include <libutils/type/coord.h>
 
+#include "keyboard_button.h"
 #include "keyboard_joystick.h"
 #include "log.h"
+#include "misc_type.h"
 
-using namespace cocos2d;
+using namespace std;
 
 #define NS_TAG "mica::"
 #define TAG NS_TAG "KeyboardJoystick::"
@@ -28,13 +25,7 @@ namespace mica
 {
 
 KeyboardJoystick::KeyboardJoystick()
-		: m_keys{EventKeyboard::KeyCode::KEY_NONE,
-				EventKeyboard::KeyCode::KEY_NONE,
-				EventKeyboard::KeyCode::KEY_NONE,
-				EventKeyboard::KeyCode::KEY_NONE},
-		  m_is_pressed{false, false, false, false},
-		  m_modifier(1.0f),
-		  m_listener(nullptr)
+		: m_modifier(1.0f)
 {
 	setGood(false);
 }
@@ -54,87 +45,67 @@ bool KeyboardJoystick::init(const Config &config)
 {
 	uninit();
 
-	m_keys[0] = config.up_key;
-	m_keys[1] = config.down_key;
-	m_keys[2] = config.left_key;
-	m_keys[3] = config.right_key;
-	std::fill(m_is_pressed, m_is_pressed + 4, false);
 	m_modifier = utils::math::MathUtils::Clamp(0.0f, config.modifier, 1.0f);
 
-	setGood(initListeners());
+	setGood(initButtons(config));
 	return *this;
 }
 
-bool KeyboardJoystick::initListeners()
+bool KeyboardJoystick::initButtons(const Config &config)
 {
-	m_listener = EventListenerKeyboard::create();
+	for (Uint i = 0; i < m_btns.size(); ++i)
+	{
+		KeyboardButton::Config btn_conf;
+		switch (i)
+		{
+		default:
+			LOG_E(TAG "initButton", "Too many keys");
+			assert(false);
+			return false;
 
-	m_listener->onKeyPressed = [this](EventKeyboard::KeyCode key, Event*)
-			{
-				bool is_change = false;
-				for (int i = 0; i < 4; ++i)
-				{
-					if (m_keys[i] == key)
-					{
-						m_is_pressed[i] = true;
-						is_change = true;
-					}
-				}
-				if (is_change)
+		case 0:
+			btn_conf.key = config.up_key;
+			break;
+
+		case 1:
+			btn_conf.key = config.down_key;
+			break;
+
+		case 2:
+			btn_conf.key = config.left_key;
+			break;
+
+		case 3:
+			btn_conf.key = config.right_key;
+			break;
+		}
+		m_btns[i] = make_unique<KeyboardButton>(btn_conf);
+		m_btns[i]->addListener([this](Button*)
 				{
 					updatePosition();
 					invokeListeners();
-//					LOG_V(TAG "initListeners(onKeyPressed)",
-//							utils::str::StrUtils::Concat(m_position.x, ", ",
-//									m_position.y));
-				}
-			};
-
-	m_listener->onKeyReleased = [this](EventKeyboard::KeyCode key, Event*)
-			{
-				bool is_change = false;
-				for (int i = 0; i < 4; ++i)
-				{
-					if (m_keys[i] == key)
-					{
-						m_is_pressed[i] = false;
-						is_change = true;
-					}
-				}
-				if (is_change)
-				{
-					updatePosition();
-					invokeListeners();
-//					LOG_V(TAG "initListeners(onKeyReleased)",
-//							utils::str::StrUtils::Concat(m_position.x, ", ",
-//									m_position.y));
-				}
-			};
-
-	Director::getInstance()->getEventDispatcher()
-			->addEventListenerWithFixedPriority(m_listener, 1);
+				});
+	}
 	return true;
 }
 
 void KeyboardJoystick::uninit()
 {
-	if (m_listener)
+	for (auto &btn : m_btns)
 	{
-		Director::getInstance()->getEventDispatcher()->removeEventListener(
-				m_listener);
-		m_listener = nullptr;
+		btn.reset();
 	}
 	setGood(false);
 }
 
 void KeyboardJoystick::updatePosition()
 {
-	if (m_is_pressed[0])
+	if (m_btns[0]->isDown())
 	{
 		// Up
 		m_position.y = 1000 * m_modifier;
 	}
-	else if (m_is_pressed[1])
+	else if (m_btns[1]->isDown())
 	{
 		// Down
 		m_position.y = -1000 * m_modifier;
@@ -144,12 +115,12 @@ void KeyboardJoystick::updatePosition()
 		m_position.y = 0;
 	}
 
-	if (m_is_pressed[2])
+	if (m_btns[2]->isDown())
 	{
 		// Left
 		m_position.x = -1000 * m_modifier;
 	}
-	else if (m_is_pressed[3])
+	else if (m_btns[3]->isDown())
 	{
 		// Right
 		m_position.x = 1000 * m_modifier;

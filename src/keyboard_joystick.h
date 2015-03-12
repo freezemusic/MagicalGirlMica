@@ -7,18 +7,15 @@
 
 #pragma once
 
+#include <array>
+#include <memory>
+
 #include <base/CCEventKeyboard.h>
 
 #include <libutils/type/coord.h>
 
 #include "joystick.h"
-
-namespace cocos2d
-{
-
-class EventListenerKeyboard;
-
-}
+#include "keyboard_button.h"
 
 namespace mica
 {
@@ -67,18 +64,15 @@ protected:
 	void uninit();
 
 private:
-	bool initListeners();
+	bool initButtons(const Config &config);
 
 	void updatePosition();
 
 	utils::type::Coord m_position;
 
 	// up, down, left, right
-	cocos2d::EventKeyboard::KeyCode m_keys[4];
-	bool m_is_pressed[4];
+	std::array<std::unique_ptr<KeyboardButton>, 4> m_btns;
 	float m_modifier;
-
-	cocos2d::EventListenerKeyboard *m_listener;
 };
 
 }
