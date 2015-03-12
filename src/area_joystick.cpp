@@ -120,7 +120,7 @@ bool AreaJoystick::initListeners()
 	auto end_touch = [this](Touch*, Event*)
 			{
 				m_position = {0, 0};
-				invokeOnMoveListeners();
+				invokeListeners();
 				endIndicator();
 			};
 
@@ -130,7 +130,7 @@ bool AreaJoystick::initListeners()
 				if (RectUtils::IsInsidePx(m_rect, Coord(pt.x, pt.y)))
 				{
 					m_position = {0, 0};
-					invokeOnMoveListeners();
+					invokeListeners();
 					beginIndicator(pt);
 					return true;
 				}
@@ -143,7 +143,7 @@ bool AreaJoystick::initListeners()
 	listener->onTouchMoved = [this](Touch *touch, Event*)
 			{
 				updatePosition(*touch);
-				invokeOnMoveListeners();
+				invokeListeners();
 				moveIndicator(touch->getLocation());
 //				LOG_V(TAG "initListeners(onTouchMoved)",
 //						utils::str::StrUtils::Concat(m_position.x, ", ",

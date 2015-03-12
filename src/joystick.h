@@ -7,32 +7,26 @@
 
 #pragma once
 
-#include <functional>
-#include <list>
-#include <utility>
-
 #include <libutils/type/coord.h>
 
-#include "misc_type.h"
+#include "listenable.h"
 
 namespace mica
 {
 
-class Joystick
+/**
+ * A joystick interface. Add listeners to be notified when the joystick moves
+ */
+class Joystick : public Listenable<Joystick>
 {
 public:
-	typedef std::function<void(Joystick*)> OnMoveListener;
-
-	Joystick();
-	virtual ~Joystick();
+	virtual ~Joystick()
+	{}
 
 	operator bool() const
 	{
 		return m_is_good;
 	}
-
-	Uint addOnMoveListener(const OnMoveListener &listener);
-	void removeOnMoveListener(const Uint id);
 
 	/**
 	 * Return the joystick posittion, normalized to [-1000, 1000] in both axis
@@ -42,17 +36,12 @@ public:
 	virtual utils::type::Coord getPosition() const = 0;
 
 protected:
-	void invokeOnMoveListeners();
-
 	void setGood(const bool flag)
 	{
 		m_is_good = flag;
 	}
 
 private:
-	std::list<std::pair<Uint, OnMoveListener>> m_listeners;
-	Uint m_id;
-
 	bool m_is_good = true;
 };
 
