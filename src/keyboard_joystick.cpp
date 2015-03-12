@@ -83,6 +83,7 @@ bool KeyboardJoystick::initListeners()
 				if (is_change)
 				{
 					updatePosition();
+					invokeListeners();
 //					LOG_V(TAG "initListeners(onKeyPressed)",
 //							utils::str::StrUtils::Concat(m_position.x, ", ",
 //									m_position.y));
@@ -103,6 +104,7 @@ bool KeyboardJoystick::initListeners()
 				if (is_change)
 				{
 					updatePosition();
+					invokeListeners();
 //					LOG_V(TAG "initListeners(onKeyReleased)",
 //							utils::str::StrUtils::Concat(m_position.x, ", ",
 //									m_position.y));
