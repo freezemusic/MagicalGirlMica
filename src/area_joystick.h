@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <array>
+
 #include <libutils/type/coord.h>
 #include <libutils/type/rect.h>
 
@@ -70,7 +72,7 @@ private:
 	utils::type::Rect m_rect;
 	utils::type::Coord m_position;
 
-	cocos2d::Node* m_indicators[2];
+	std::array<cocos2d::Node*, 2> m_indicators;
 	bool m_is_indicator_moved;
 };
 

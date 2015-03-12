@@ -36,7 +36,7 @@ namespace mica
 {
 
 AreaJoystick::AreaJoystick()
-		: m_indicators{nullptr, nullptr},
+		: m_indicators({nullptr, nullptr}),
 		  m_is_indicator_moved(false)
 {
 	setGood(false);
