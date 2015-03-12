@@ -13,13 +13,6 @@
 
 #include "button.h"
 
-namespace cocos2d
-{
-
-class EventListenerKeyboard;
-
-}
-
 namespace mica
 {
 
@@ -50,8 +43,6 @@ private:
 
 	cocos2d::EventKeyboard::KeyCode m_key;
 	bool m_is_pressed;
-
-	cocos2d::EventListenerKeyboard *m_listener;
 };
 
 }

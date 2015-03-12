@@ -7,12 +7,10 @@
 
 #include <cassert>
 
-#include <base/CCDirector.h>
-#include <base/CCEventDispatcher.h>
 #include <base/CCEventKeyboard.h>
-#include <base/CCEventListenerKeyboard.h>
 
 #include "keyboard_button.h"
+#include "keyboard_manager.h"
 
 using namespace cocos2d;
 
@@ -21,8 +19,7 @@ namespace mica
 
 KeyboardButton::KeyboardButton()
 		: m_key(EventKeyboard::KeyCode::KEY_NONE),
-		  m_is_pressed(false),
-		  m_listener(nullptr)
+		  m_is_pressed(false)
 {
 	setGood(false);
 }
@@ -57,39 +54,17 @@ bool KeyboardButton::init(const Config &config)
 
 bool KeyboardButton::initListener()
 {
-	m_listener = EventListenerKeyboard::create();
-
-	m_listener->onKeyPressed = [this](EventKeyboard::KeyCode key, Event*)
+	KeyboardManager::get().addListener(m_key, [this](const bool is_press)
 			{
-				if (m_key == key)
-				{
-					m_is_pressed = true;
-					invokeListeners();
-				}
-			};
-
-	m_listener->onKeyReleased = [this](EventKeyboard::KeyCode key, Event*)
-			{
-				if (m_key == key)
-				{
-					m_is_pressed = false;
-					invokeListeners();
-				}
-			};
-
-	Director::getInstance()->getEventDispatcher()
-			->addEventListenerWithFixedPriority(m_listener, 1);
+				m_is_pressed = is_press;
+				invokeListeners();
+			});
 	return true;
 }
 
 void KeyboardButton::uninit()
 {
-	if (m_listener)
-	{
-		Director::getInstance()->getEventDispatcher()->removeEventListener(
-				m_listener);
-		m_listener = nullptr;
-	}
+	KeyboardManager::get().removeListener(m_key);
 	setGood(false);
 }
 
