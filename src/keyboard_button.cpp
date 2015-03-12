@@ -40,9 +40,13 @@ KeyboardButton::~KeyboardButton()
 
 bool KeyboardButton::init(const Config &config)
 {
-	assert(config.key != EventKeyboard::KeyCode::KEY_NONE);
-
 	uninit();
+
+	if (config.key == EventKeyboard::KeyCode::KEY_NONE)
+	{
+		setGood(false);
+		return false;
+	}
 
 	m_key = config.key;
 	m_is_pressed = false;
