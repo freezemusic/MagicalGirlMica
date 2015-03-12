@@ -12,6 +12,9 @@
 #include "log.h"
 #include "misc_type.h"
 
+#ifdef VOID
+#undef VOID
+#endif
 #define VOID
 #define STATE_GUARD(expression, tag, ret) \
 		if (!(expression)) { LOG_E(tag, utils::str::StrUtils::Concat("Illegal state @", __LINE__)); return ret; }
