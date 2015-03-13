@@ -49,7 +49,6 @@ bool Player::init(const string& name)
 
 void Player::update(float delta)
 {
-	cocos2d::log("run %d", 123);
 	Player::updateDirection(delta);
 	return;
 }
