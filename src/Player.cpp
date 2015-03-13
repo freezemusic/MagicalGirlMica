@@ -41,7 +41,6 @@ bool Player::init(const string& name)
 	m_arm->setTag(1);
 	addChild(m_arm, 1);
 
-	//this->schedule(schedule_selector(mica::Player::updateDirection));
 	this->scheduleUpdate();
 
 	return true;
@@ -49,8 +48,7 @@ bool Player::init(const string& name)
 
 void Player::update(float delta)
 {
-	Player::updateDirection(delta);
-	return;
+	Player::updateDirection();
 }
 
 void Player::interact(Interactable *other)

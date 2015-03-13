@@ -101,7 +101,7 @@ void Character::attack()
 	}
 }
 
-void Character::updateDirection(float delta)
+void Character::updateDirection()
 {
 	if (directToR)
 		setScaleX(-1.0f);

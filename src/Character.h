@@ -43,7 +43,7 @@ public:
 	virtual void turn();
 	virtual void attack();
 
-	virtual void updateDirection(float delta);
+	virtual void updateDirection();
 
 protected:
 	ROLE_TYPE m_type;
