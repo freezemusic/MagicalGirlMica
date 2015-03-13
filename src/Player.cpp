@@ -41,9 +41,17 @@ bool Player::init(const string& name)
 	m_arm->setTag(1);
 	addChild(m_arm, 1);
 
-	this->schedule(schedule_selector(Character::updateDirection), 0);
+	//this->schedule(schedule_selector(mica::Player::updateDirection));
+	this->scheduleUpdate();
 
 	return true;
+}
+
+void Player::update(float delta)
+{
+	cocos2d::log("run %d", 123);
+	Player::updateDirection(delta);
+	return;
 }
 
 void Player::interact(Interactable *other)

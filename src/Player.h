@@ -15,6 +15,7 @@ public:
 
 	static Player* create(const std::string& name);
 	virtual bool init(const std::string& name);
+	virtual void update(float) override;
 
 	void interact(Interactable *other) override;
 
