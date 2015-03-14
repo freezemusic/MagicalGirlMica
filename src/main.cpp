@@ -19,8 +19,8 @@
 #include <libutils/io/system_log.h>
 #include <libutils/str/str_utils.h>
 
-#include "AppDelegate.h"
 #include "log.h"
+#include "mgirl_mica.h"
 
 using namespace std;
 using namespace utils::io;
@@ -38,7 +38,7 @@ int main()
 #endif
 
     // create the application instance
-    mica::AppDelegate app;
+    mica::MgirlMica app;
     return cocos2d::Application::getInstance()->run();
 }
 

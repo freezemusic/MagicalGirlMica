@@ -1,3 +1,10 @@
+/*
+ * mgirl_mica.h
+ *
+ * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
+ * Refer to LICENSE for details
+ */
+
 #pragma once
 
 #include <memory>
@@ -7,7 +14,7 @@
 namespace mica
 {
 
-class AppDelegate : public cocos2d::Application
+class MgirlMica : public cocos2d::Application
 {
 public:
 	void initGLContextAttrs() override;

@@ -1,8 +1,15 @@
+/*
+ * mgirl_mica.cpp
+ *
+ * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
+ * Refer to LICENSE for details
+ */
+
 // For GLViewImpl
 #include "cocos2d_wrapper.h"
 
-#include "AppDelegate.h"
 #include "log.h"
+#include "mgirl_mica.h"
 #include "res_manager.h"
 #include "test_stage_scene.h"
 
@@ -10,18 +17,18 @@ using namespace cocos2d;
 using namespace std;
 
 #define NS_TAG "mica::"
-#define TAG NS_TAG "AppDelegate::"
+#define TAG NS_TAG "MgirlMica::"
 
 namespace mica
 {
 
-void AppDelegate::initGLContextAttrs()
+void MgirlMica::initGLContextAttrs()
 {
 	GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
 	GLView::setGLContextAttrs(glContextAttrs);
 }
 
-bool AppDelegate::applicationDidFinishLaunching()
+bool MgirlMica::applicationDidFinishLaunching()
 {
 	// initialize director
 	auto *director = Director::getInstance();
@@ -57,7 +64,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 	return true;
 }
 
-void AppDelegate::applicationDidEnterBackground()
+void MgirlMica::applicationDidEnterBackground()
 {
 	Director::getInstance()->stopAnimation();
 
@@ -65,7 +72,7 @@ void AppDelegate::applicationDidEnterBackground()
 	// SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 }
 
-void AppDelegate::applicationWillEnterForeground()
+void MgirlMica::applicationWillEnterForeground()
 {
 	Director::getInstance()->startAnimation();
 
