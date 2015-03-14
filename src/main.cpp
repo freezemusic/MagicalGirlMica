@@ -25,8 +25,10 @@
 using namespace std;
 using namespace utils::io;
 
-#if __linux__
-int main()
+namespace
+{
+
+void initLog()
 {
 #if !NO_LOG
 	auto log_strategy = make_unique<CompositeLogStrategy<char>>();
@@ -36,8 +38,14 @@ int main()
 	log_strategy->PushStrategy(make_unique<BasicLogStrategy<char>>(&cout, false));
 	LOG.SetLogStrategy(std::move(log_strategy));
 #endif
+}
 
-    // create the application instance
+}
+
+#if __linux__
+int main()
+{
+	initLog();
     mica::MgirlMica app;
     return cocos2d::Application::getInstance()->run();
 }
