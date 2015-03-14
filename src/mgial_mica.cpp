@@ -10,6 +10,7 @@
 
 #include "log.h"
 #include "mgirl_mica.h"
+#include "res.h"
 #include "res_manager.h"
 #include "test_stage_scene.h"
 
@@ -35,7 +36,7 @@ bool MgirlMica::applicationDidFinishLaunching()
 	GLView *glview = director->getOpenGLView();
 	if (!glview)
 	{
-		glview = GLViewImpl::create("Cpp Empty Test");
+		glview = GLViewImpl::create(Res::kAppName);
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 \
 		|| CC_TARGET_PLATFORM == CC_PLATFORM_LINUX \
 		|| CC_TARGET_PLATFORM == CC_PLATFORM_MAC
