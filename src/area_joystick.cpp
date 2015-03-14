@@ -111,10 +111,20 @@ bool AreaJoystick::initIndicator()
 	}
 	move->setOpacity(0);
 
+	Sprite *line = Sprite::create(ResManager::get().getSystem("joystick_line"));
+	if (!line)
+	{
+		LOG_E(TAG "initIndicator", "Failed while Sprite::create");
+		return false;
+	}
+	line->setOpacity(0);
+
 	m_indicators[0] = begin;
 	getView()->addChild(m_indicators[0]);
 	m_indicators[1] = move;
 	getView()->addChild(m_indicators[1]);
+	m_indicator_line = line;
+	getView()->addChild(m_indicator_line);
 	return true;
 }
 
@@ -171,7 +181,7 @@ bool AreaJoystick::initTouchListener()
 			{
 				updatePosition(*touch);
 				invokeListeners();
-				moveIndicator(touch->getLocation());
+				moveIndicator(touch->getStartLocation(), touch->getLocation());
 //				LOG_V(TAG "initListeners(onTouchMoved)",
 //						utils::str::StrUtils::Concat(m_position.x, ", ",
 //								m_position.y));
@@ -215,7 +225,7 @@ void AreaJoystick::beginIndicator(const Vec2 &pt)
 	m_is_indicator_moved = false;
 }
 
-void AreaJoystick::moveIndicator(const Vec2 &pt)
+void AreaJoystick::moveIndicator(const Vec2 &origin, const Vec2 &pt)
 {
 	STATE_GUARD(getView(), TAG "moveIndicator", VOID);
 	if (!m_is_indicator_moved)
@@ -224,6 +234,15 @@ void AreaJoystick::moveIndicator(const Vec2 &pt)
 		m_is_indicator_moved = true;
 	}
 	m_indicators[1]->setPosition(pt);
+
+	const float distance = abs((pt - origin).length());
+	m_indicator_line->setPosition(origin.lerp(pt, 0.5f));
+	m_indicator_line->setScaleY(MathUtils::Clamp<float>(0.0f, distance / 192.0f,
+			1.5f));
+	// gl uses right-hand rule
+	m_indicator_line->setRotation(-MathUtils::GetAngleFromX(origin, pt) + 90);
+	m_indicator_line->setOpacity(MathUtils::Clamp<Uint>(0,
+			distance / 128.0f * 0x90, 0x90));
 }
 
 void AreaJoystick::endIndicator()
@@ -231,6 +250,7 @@ void AreaJoystick::endIndicator()
 	STATE_GUARD(getView(), TAG "endIndicator", VOID);
 	m_indicators[0]->runAction(FadeTo::create(0.1f, 0));
 	m_indicators[1]->runAction(FadeTo::create(0.1f, 0));
+	m_indicator_line->runAction(FadeTo::create(0.1f, 0));
 }
 
 }

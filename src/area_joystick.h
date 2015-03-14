@@ -68,13 +68,14 @@ private:
 	void updatePosition(const cocos2d::Touch &touch);
 
 	void beginIndicator(const cocos2d::Vec2 &pt);
-	void moveIndicator(const cocos2d::Vec2 &pt);
+	void moveIndicator(const cocos2d::Vec2 &origin, const cocos2d::Vec2 &pt);
 	void endIndicator();
 
 	utils::type::Rect m_rect;
 	utils::type::Coord m_position;
 
 	std::array<cocos2d::Node*, 2> m_indicators;
+	cocos2d::Node *m_indicator_line;
 	bool m_is_indicator_moved;
 
 	EventStageScene::Listener *m_scene_listener;
