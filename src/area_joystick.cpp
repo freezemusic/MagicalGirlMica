@@ -41,7 +41,6 @@ namespace mica
 
 AreaJoystick::AreaJoystick()
 		: m_indicators({nullptr, nullptr}),
-		  m_is_indicator_moved(false),
 		  m_scene_listener(nullptr)
 {
 	setGood(false);
@@ -222,20 +221,17 @@ void AreaJoystick::beginIndicator(const Vec2 &pt)
 
 	m_indicators[0]->runAction(FadeTo::create(0.1f, 0xC0));
 	m_indicators[0]->setPosition(pt);
-	m_is_indicator_moved = false;
 }
 
 void AreaJoystick::moveIndicator(const Vec2 &origin, const Vec2 &pt)
 {
 	STATE_GUARD(getView(), TAG "moveIndicator", VOID);
-	if (!m_is_indicator_moved)
-	{
-		m_indicators[1]->runAction(FadeTo::create(0.1f, 0xC0));
-		m_is_indicator_moved = true;
-	}
-	m_indicators[1]->setPosition(pt);
 
 	const float distance = abs((pt - origin).length());
+	m_indicators[1]->setPosition(pt);
+	m_indicators[1]->setOpacity(MathUtils::Clamp<Uint>(0,
+			distance / 32.0f * 0xC0, 0xC0));
+
 	m_indicator_line->setPosition(origin.lerp(pt, 0.5f));
 	m_indicator_line->setScaleY(MathUtils::Clamp<float>(0.0f, distance / 192.0f,
 			1.5f));

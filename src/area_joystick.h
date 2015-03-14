@@ -76,7 +76,6 @@ private:
 
 	std::array<cocos2d::Node*, 2> m_indicators;
 	cocos2d::Node *m_indicator_line;
-	bool m_is_indicator_moved;
 
 	EventStageScene::Listener *m_scene_listener;
 };
