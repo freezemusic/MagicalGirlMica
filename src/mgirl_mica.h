@@ -11,6 +11,8 @@
 
 #include <platform/CCApplication.h>
 
+#include "controller.h"
+
 namespace cocos2d
 {
 
@@ -33,7 +35,10 @@ public:
 private:
 	void initDirector();
 	void initView();
+	void initController();
 	cocos2d::Scene* initScene();
+
+	std::unique_ptr<Controller> m_controller;
 };
 
 }

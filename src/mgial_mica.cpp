@@ -10,6 +10,9 @@
 // For GLViewImpl
 #include "cocos2d_wrapper.h"
 
+#include "area_joystick.h"
+#include "keyboard_button.h"
+#include "controller.h"
 #include "log.h"
 #include "mgirl_mica.h"
 #include "res.h"
@@ -35,6 +38,7 @@ bool MgirlMica::applicationDidFinishLaunching()
 {
 	initDirector();
 	initView();
+	initController();
 
 	Scene *scene = initScene();
 	if (!scene)
@@ -72,6 +76,24 @@ void MgirlMica::initView()
 
 	glview->setDesignResolutionSize(ResManager::getDesignW(),
 			ResManager::getDesignH(), ResolutionPolicy::SHOW_ALL);
+}
+
+void MgirlMica::initController()
+{
+	Controller::Config controller_conf;
+
+	AreaJoystick::Config joystick_conf;
+	joystick_conf.rect.size.w = ResManager::getDesignW() / 2;
+	joystick_conf.rect.size.h = ResManager::getDesignH();
+	controller_conf.joystick = make_unique<AreaJoystick>(joystick_conf);
+
+	KeyboardButton::Config button_conf[2];
+	button_conf[0].key = EventKeyboard::KeyCode::KEY_0;
+	controller_conf.buttons[0] = make_unique<KeyboardButton>(button_conf[0]);
+	button_conf[1].key = EventKeyboard::KeyCode::KEY_PERIOD;
+	controller_conf.buttons[1] = make_unique<KeyboardButton>(button_conf[1]);
+
+	m_controller = make_unique<Controller>(std::move(controller_conf));
 }
 
 Scene* MgirlMica::initScene()
