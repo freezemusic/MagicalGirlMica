@@ -12,6 +12,7 @@
 #include <libutils/type/coord.h>
 #include <libutils/type/rect.h>
 
+#include "event_stage_scene.h"
 #include "on_screen_joystick.h"
 
 namespace cocos2d
@@ -61,7 +62,8 @@ protected:
 private:
 	bool initView(const Config &config);
 	bool initIndicator();
-	bool initListeners();
+	bool initSceneListener();
+	bool initTouchListener();
 
 	void updatePosition(const cocos2d::Touch &touch);
 
@@ -74,6 +76,8 @@ private:
 
 	std::array<cocos2d::Node*, 2> m_indicators;
 	bool m_is_indicator_moved;
+
+	EventStageScene::Listener *m_scene_listener;
 };
 
 }

@@ -8,7 +8,9 @@
 #include <2d/CCActionInterval.h>
 #include <2d/CCLayer.h>
 #include <2d/CCNode.h>
+#include <2d/CCScene.h>
 #include <2d/CCSprite.h>
+#include <base/CCDirector.h>
 #include <base/CCEventDispatcher.h>
 #include <base/CCEventListenerTouch.h>
 #include <math/Vec2.h>
@@ -19,8 +21,10 @@
 #include <libutils/type/rect_utils.h>
 
 #include "area_joystick.h"
+#include "event_stage_scene.h"
 #include "log.h"
 #include "misc_utils.h"
+#include "res.h"
 #include "res_manager.h"
 
 using namespace cocos2d;
@@ -37,7 +41,8 @@ namespace mica
 
 AreaJoystick::AreaJoystick()
 		: m_indicators({nullptr, nullptr}),
-		  m_is_indicator_moved(false)
+		  m_is_indicator_moved(false),
+		  m_scene_listener(nullptr)
 {
 	setGood(false);
 }
@@ -58,7 +63,8 @@ bool AreaJoystick::init(const Config &config)
 	uninit();
 
 	m_rect = config.rect;
-	setGood(initView(config) && initIndicator() && initListeners());
+	setGood(initView(config) && initIndicator() && initSceneListener()
+			&& initTouchListener());
 	return *this;
 }
 
@@ -112,7 +118,28 @@ bool AreaJoystick::initIndicator()
 	return true;
 }
 
-bool AreaJoystick::initListeners()
+bool AreaJoystick::initSceneListener()
+{
+	m_scene_listener = EventStageScene::Listener::create();
+	m_scene_listener->retain();
+
+	m_scene_listener->onLostFocus = [this](Scene *scene, Event*)
+			{
+				scene->removeChild(getView());
+			};
+
+	m_scene_listener->onGainFocus = [this](Scene *scene, Event*)
+			{
+				scene->addChild(getView(), Res::kOnScreenControlZ);
+			};
+
+	Director::getInstance()->getEventDispatcher()
+			->addEventListenerWithFixedPriority(m_scene_listener,
+					Res::kControlEventPriority);
+	return true;
+}
+
+bool AreaJoystick::initTouchListener()
 {
 	auto *listener = EventListenerTouchOneByOne::create();
 	listener->setSwallowTouches(true);
@@ -160,6 +187,14 @@ bool AreaJoystick::initListeners()
 
 void AreaJoystick::uninit()
 {
+	if (m_scene_listener)
+	{
+		Director::getInstance()->getEventDispatcher()->removeEventListener(
+				m_scene_listener);
+		m_scene_listener->release();
+		m_scene_listener = nullptr;
+	}
+
 	setView(nullptr);
 	m_indicators[0] = m_indicators[1] = nullptr;
 }
