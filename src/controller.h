@@ -9,12 +9,14 @@
 
 #include <cassert>
 
+#include <array>
 #include <memory>
 
 #include <libutils/type/coord.h>
 
 #include "button.h"
 #include "joystick.h"
+#include "misc_type.h"
 
 namespace mica
 {
@@ -28,7 +30,7 @@ public:
 		std::unique_ptr<Button> buttons[2];
 	};
 
-	explicit Controller(const Config &config);
+	explicit Controller(Config &&config);
 
 	/**
 	 * Return the position of the joystick
@@ -41,15 +43,15 @@ public:
 		return m_joystick->getPosition();
 	}
 
-	bool isButtonDown(const int which) const
+	bool isButtonDown(const Uint which) const
 	{
-		assert(which < 2);
+		assert(which < m_buttons.size());
 		return m_buttons[which]->isDown();
 	}
 
 private:
 	std::unique_ptr<Joystick> m_joystick;
-	std::unique_ptr<Button> m_buttons[2];
+	std::array<std::unique_ptr<Button>, 2> m_buttons;
 };
 
 }
