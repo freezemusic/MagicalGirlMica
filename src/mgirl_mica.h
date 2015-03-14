@@ -11,6 +11,13 @@
 
 #include <platform/CCApplication.h>
 
+namespace cocos2d
+{
+
+class Scene;
+
+}
+
 namespace mica
 {
 
@@ -22,6 +29,11 @@ public:
 	bool applicationDidFinishLaunching() override;
 	void applicationDidEnterBackground() override;
 	void applicationWillEnterForeground() override;
+
+private:
+	void initDirector();
+	void initView();
+	cocos2d::Scene* initScene();
 };
 
 }

@@ -5,6 +5,8 @@
  * Refer to LICENSE for details
  */
 
+#include <cassert>
+
 // For GLViewImpl
 #include "cocos2d_wrapper.h"
 
@@ -31,9 +33,32 @@ void MgirlMica::initGLContextAttrs()
 
 bool MgirlMica::applicationDidFinishLaunching()
 {
-	// initialize director
-	auto *director = Director::getInstance();
-	GLView *glview = director->getOpenGLView();
+	initDirector();
+	initView();
+
+	Scene *scene = initScene();
+	if (!scene)
+	{
+		assert(false);
+		return false;
+	}
+	else
+	{
+		Director::getInstance()->runWithScene(scene);
+		return true;
+	}
+}
+
+void MgirlMica::initDirector()
+{
+	Director::getInstance()->setDisplayStats(true);
+	// 60 FPS
+	Director::getInstance()->setAnimationInterval(1.0 / 60.0);
+}
+
+void MgirlMica::initView()
+{
+	GLView *glview = Director::getInstance()->getOpenGLView();
 	if (!glview)
 	{
 		glview = GLViewImpl::create(Res::kAppName);
@@ -42,27 +67,25 @@ bool MgirlMica::applicationDidFinishLaunching()
 		|| CC_TARGET_PLATFORM == CC_PLATFORM_MAC
 		glview->setFrameSize(ResManager::getDesignW(), ResManager::getDesignH());
 #endif
-		director->setOpenGLView(glview);
+		Director::getInstance()->setOpenGLView(glview);
 	}
+
 	glview->setDesignResolutionSize(ResManager::getDesignW(),
 			ResManager::getDesignH(), ResolutionPolicy::SHOW_ALL);
+}
 
-	director->setDisplayStats(true);
-	// set FPS
-	director->setAnimationInterval(1.0 / 60);
-
-	// Load the test scene
+Scene* MgirlMica::initScene()
+{
 	auto *scene = TestStageScene::create();
 	if (!scene)
 	{
-		LOG_E(TAG "applicationDidFinishLaunching",
-				"Failed while creating TestStageScene");
-		return false;
+		LOG_E(TAG "initScene", "Failed while creating TestStageScene");
+		return nullptr;
 	}
-
-	// run
-	director->runWithScene(scene);
-	return true;
+	else
+	{
+		return scene;
+	}
 }
 
 void MgirlMica::applicationDidEnterBackground()
