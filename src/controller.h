@@ -32,6 +32,28 @@ public:
 
 	explicit Controller(Config &&config);
 
+	Uint addJoystickListener(const Joystick::Listener &listener)
+	{
+		return m_joystick->addListener(listener);
+	}
+
+	void removeJoystickListener(const Uint id)
+	{
+		m_joystick->removeListener(id);
+	}
+
+	Uint addButtonListener(const Uint which, const Button::Listener &listener)
+	{
+		assert(which < m_buttons.size());
+		return m_buttons[which]->addListener(listener);
+	}
+
+	void removeButtonListener(const Uint which, const Uint id)
+	{
+		assert(which < m_buttons.size());
+		m_buttons[which]->removeListener(id);
+	}
+
 	/**
 	 * Return the position of the joystick
 	 *
