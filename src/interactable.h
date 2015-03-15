@@ -1,7 +1,5 @@
 #pragma once
 
-#include "cocos2d_wrapper.h"
-
 namespace mica
 {
 
