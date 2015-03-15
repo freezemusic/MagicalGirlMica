@@ -2,9 +2,8 @@
 
 #include <math/CCGeometry.h>
 
-#include "Character.h"
-#include "Interactable.h"
-#include "Player.h"
+#include "character.h"
+#include "player.h"
 
 using namespace cocos2d;
 using namespace cocostudio;

@@ -9,7 +9,7 @@
 #include <cocostudio/CCArmatureDataManager.h>
 
 #include "log.h"
-#include "Player.h"
+#include "player.h"
 #include "res_manager.h"
 #include "stage_scene.h"
 #include "test_stage_scene.h"

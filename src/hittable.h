@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Interactable.h"
+#include "interactable.h"
 
 namespace mica
 {

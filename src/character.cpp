@@ -4,7 +4,8 @@
 #include <2d/CCNode.h>
 #include <cocostudio/CCArmature.h>
 
-#include "Character.h"
+#include "character.h"
+#include "hittable.h"
 
 using namespace cocos2d;
 using namespace cocostudio;

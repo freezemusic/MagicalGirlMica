@@ -2,8 +2,7 @@
 
 #include <string>
 
-#include "Character.h"
-#include "Interactable.h"
+#include "character.h"
 
 namespace mica
 {
