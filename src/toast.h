@@ -29,13 +29,15 @@ class Toast : public Notification
 public:
 	explicit Toast(const std::string &text);
 	explicit Toast(std::string &&text);
+	~Toast();
 
 	cocos2d::Node* getView() override;
 
 private:
-	cocos2d::Node* getView_();
+	void initView();
 
 	std::string m_text;
+	cocos2d::Node *m_view;
 };
 
 }
