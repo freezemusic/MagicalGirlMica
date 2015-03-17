@@ -60,7 +60,6 @@ bool KeyboardJoystick::initButtons(const Config &config)
 		{
 		default:
 			LOG_E(TAG "initButton", "Too many keys");
-			assert(false);
 			return false;
 
 		case 0:
