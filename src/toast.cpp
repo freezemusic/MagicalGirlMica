@@ -25,11 +25,13 @@ namespace mica
 {
 
 Toast::Toast(const string &text)
-		: m_text(text)
+		: m_text(text),
+		  m_duration(0.0f)
 {}
 
 Toast::Toast(string &&text)
-		: m_text(std::move(text))
+		: m_text(std::move(text)),
+		  m_duration(0.0f)
 {}
 
 Node* Toast::getView()
@@ -59,7 +61,8 @@ Node* Toast::getView()
 				view->getScheduler()->schedule(dismiss, view, 0.25f, 0, 0.0f,
 						false, "toast_dismiss");
 			};
-	const float duration = 2.0f + m_text.size() * 0.1f;
+	const float duration = (m_duration == 0.0f) ? 2.0f + m_text.size() * 0.1f
+			: m_duration;
 	view->getScheduler()->schedule(exit, view, duration, 0, 0.0f, false,
 			"toast_exit");
 
