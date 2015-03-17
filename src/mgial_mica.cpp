@@ -55,7 +55,9 @@ bool MgirlMica::applicationDidFinishLaunching()
 
 void MgirlMica::initDirector()
 {
+#if DEBUG
 	Director::getInstance()->setDisplayStats(true);
+#endif
 	// 60 FPS
 	Director::getInstance()->setAnimationInterval(1.0 / 60.0);
 }
