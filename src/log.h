@@ -10,11 +10,12 @@
 #include <libutils/log.h>
 
 #if defined(DEBUG) && !defined(NO_LOG)
+	#include <cassert>
 	#undef NO_LOG
 
 	#define LOG LU_LOG
 	#define LOG_WTF(tag, msg) LU_LOG_WTF(tag, msg)
-	#define LOG_E(tag, msg) LU_LOG_E(tag, msg)
+	#define LOG_E(tag, msg) do { LU_LOG_E(tag, msg); assert(false); } while (false)
 	#define LOG_W(tag, msg) LU_LOG_W(tag, msg)
 	#define LOG_I(tag, msg) LU_LOG_I(tag, msg)
 	#define LOG_D(tag, msg) LU_LOG_D(tag, msg)
