@@ -50,6 +50,7 @@ Node* Toast::getView()
 		auto dismiss = [this](const float)
 				{
 					m_view->removeFromParent();
+					m_view = nullptr;
 					invokeOnDismissListener();
 				};
 		auto exit = [this, dismiss](const float)
