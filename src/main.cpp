@@ -10,6 +10,12 @@
 #include <fstream>
 #include <memory>
 
+#if _WIN32
+#include <windows.h>
+#include <tchar.h>
+
+#endif
+
 #include <platform/CCApplication.h>
 
 #include <libutils/io/basic_log_strategy.h>
@@ -49,5 +55,14 @@ int main()
     mica::MgirlMica app;
     return cocos2d::Application::getInstance()->run();
 }
+
+#elif _WIN32
+int APIENTRY _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
+{
+    // create the application instance
+    mica::MgirlMica app;
+    return cocos2d::Application::getInstance()->run();
+}
+
 
 #endif
