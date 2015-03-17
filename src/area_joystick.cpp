@@ -64,6 +64,12 @@ bool AreaJoystick::init(const Config &config)
 	m_rect = config.rect;
 	setGood(initView(config) && initIndicator() && initSceneListener()
 			&& initTouchListener());
+
+	if (Director::getInstance()->getRunningScene())
+	{
+		Director::getInstance()->getRunningScene()->addChild(getView(),
+				Res::kOnScreenControlZ);
+	}
 	return *this;
 }
 
