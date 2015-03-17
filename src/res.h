@@ -21,6 +21,7 @@ public:
 	static constexpr const char *kAppName = "Magical Girl Mica";
 
 	static constexpr Uint kOnScreenControlZ = 10;
+	static constexpr Uint kNotificationZ = 20;
 
 	static constexpr Uint kControlEventPriority = 1;
 };
