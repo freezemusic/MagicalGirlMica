@@ -1,5 +1,6 @@
 #include <string>
 
+#include <cocostudio/CCArmature.h>
 #include <math/CCGeometry.h>
 
 #include "character.h"
@@ -11,11 +12,6 @@ using namespace std;
 
 namespace mica
 {
-
-Player::Player()
-{
-	m_id = 1;
-}
 
 Player* Player::create(const string& name)
 {
@@ -31,7 +27,6 @@ Player* Player::create(const string& name)
 
 bool Player::init(const string& name)
 {
-	m_name = name;
 	float scale = 0.6;
 	m_arm = Armature::create(name);
 	m_arm->getAnimation()->play("stand");

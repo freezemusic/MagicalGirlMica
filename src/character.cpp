@@ -16,14 +16,9 @@ namespace mica
 
 Character::Character()
 {
-	m_type = ROLE_TYPE_NULL;
-
-	m_id = 0;
 	m_speed = 0;
-	m_name = "";
 
 	directToR = false;
-	m_controlable = false;
 }
 
 void Character::stand()
@@ -35,7 +30,6 @@ void Character::stand()
 		m_stat = ROLE_STAND;
 		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
 		m_arm->getAnimation()->play("stand");
-		CCLOG("id=%d:stand", m_id);
 	}
 }
 
@@ -48,8 +42,6 @@ void Character::walk(float x, float y)
 	if (m_arm && m_stat != ROLE_WALK){
 		m_stat = ROLE_WALK;
 		m_arm->getAnimation()->play("walk");
-		CCLOG("id=%d:walk", m_id);
-		CCLOG("walk");
 	}
 }
 
@@ -73,8 +65,6 @@ void Character::turn()
 			}
 		};
 		m_arm->getAnimation()->setMovementEventCallFunc(armatureFun);
-		CCLOG("id=%d:turn", m_id);
-		CCLOG("turn");
 	}
 }
 
@@ -96,9 +86,6 @@ void Character::attack()
 			}
 		};
 		m_arm->getAnimation()->setMovementEventCallFunc(armatureStand);
-
-		CCLOG("id=%d:attack", m_id);
-		CCLOG("attack");
 	}
 }
 
