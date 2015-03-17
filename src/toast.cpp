@@ -41,7 +41,8 @@ Node* Toast::getView()
 		// -10 is just to play safe
 		m_view->setPosition(ResManager::getDesignW() / 2, ResManager::getDesignH()
 				+ half_h + 10);
-		m_view->runAction(MoveBy::create(0.25f, Vec2(0, -half_h - 10 - 100)));
+		m_view->runAction(MoveBy::create(0.25f, Vec2(0,
+				-m_view->getContentSize().height - 10 - 16)));
 
 		m_view->setCascadeOpacityEnabled(true);
 		m_view->setOpacity(0);
