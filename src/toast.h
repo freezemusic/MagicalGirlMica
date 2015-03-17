@@ -33,10 +33,9 @@ public:
 	cocos2d::Node* getView() override;
 
 private:
-	void initView();
+	cocos2d::Node* createView();
 
 	std::string m_text;
-	cocos2d::Node *m_view;
 };
 
 }
