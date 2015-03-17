@@ -32,11 +32,6 @@ Toast::Toast(string &&text)
 		  m_view(nullptr)
 {}
 
-Toast::~Toast()
-{
-	m_view->removeFromParent();
-}
-
 Node* Toast::getView()
 {
 	if (!m_view)

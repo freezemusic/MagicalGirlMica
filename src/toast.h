@@ -29,7 +29,6 @@ class Toast : public Notification
 public:
 	explicit Toast(const std::string &text);
 	explicit Toast(std::string &&text);
-	~Toast();
 
 	cocos2d::Node* getView() override;
 
