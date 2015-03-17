@@ -52,11 +52,15 @@ public:
 	 * @param notification
 	 */
 	void addNotifiction(std::unique_ptr<Notification> &&notification);
+	/**
+	 * Remove the current notification and show the next one. Not necessary to
+	 * call after addNotifiction() as it's already been done
+	 */
+	void next();
 
 private:
 	void initSceneListener();
 
-	void next();
 	void showNext();
 
 	std::deque<std::unique_ptr<Notification>> m_queue;

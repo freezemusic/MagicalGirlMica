@@ -5,6 +5,7 @@
  * Refer to LICENSE for details
  */
 
+#include <functional>
 #include <string>
 
 #include <2d/CCActionInterval.h>
@@ -13,6 +14,7 @@
 #include <math/CCGeometry.h>
 #include <ui/UIScale9Sprite.h>
 
+#include "notification_manager.h"
 #include "res_manager.h"
 #include "toast.h"
 
@@ -52,7 +54,8 @@ Node* Toast::getView()
 				{
 					m_view->removeFromParent();
 					m_view = nullptr;
-					invokeOnDismissListener();
+					invokeListeners();
+					NotificationManager::get().next();
 				};
 		auto exit = [this, dismiss](const float)
 				{

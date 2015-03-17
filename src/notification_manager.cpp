@@ -115,9 +115,7 @@ void NotificationManager::next()
 
 void NotificationManager::showNext()
 {
-	Notification *n = m_queue.front().get();
-	m_view->addChild(n->getView());
-	n->setOnDismissListener(std::bind(&NotificationManager::next, this));
+	m_view->addChild(m_queue.front().get()->getView());
 	m_is_active = true;
 }
 

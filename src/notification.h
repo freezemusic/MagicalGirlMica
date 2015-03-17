@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <functional>
+#include "listenable.h"
 
 namespace cocos2d
 {
@@ -20,31 +20,17 @@ namespace mica
 {
 
 /**
- * Notify user with different information
+ * Notify user with different information. Notification must go through the
+ * NotificationManager and cannot be used independently. Add listeners to be
+ * notified when the notification is dismissed from screen
  */
-class Notification
+class Notification : public Listenable<Notification>
 {
 public:
-	typedef std::function<void(void)> DismissListener;
-
 	virtual ~Notification()
 	{}
 
 	virtual cocos2d::Node* getView() = 0;
-
-	void setOnDismissListener(const DismissListener &listener)
-	{
-		m_listener = listener;
-	}
-
-protected:
-	void invokeOnDismissListener()
-	{
-		m_listener();
-	}
-
-private:
-	DismissListener m_listener;
 };
 
 }
