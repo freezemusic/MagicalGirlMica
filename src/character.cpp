@@ -13,6 +13,7 @@
 #include <cocostudio/CCArmatureDataManager.h>
 
 #include "character.h"
+#include "character_control.h"
 #include "hittable.h"
 #include "log.h"
 #include "res_manager.h"
@@ -33,10 +34,10 @@ Character::Character()
 		  directToR(false)
 {}
 
-Character::Character(const Config &config)
+Character::Character(Config &&config)
 		: Character()
 {
-	init(config);
+	init(std::move(config));
 }
 
 Character::~Character()
@@ -44,11 +45,12 @@ Character::~Character()
 	uninit();
 }
 
-bool Character::init(const Config &config)
+bool Character::init(Config &&config)
 {
 	uninit();
 
-	setGood(initView(config));
+	m_control = std::move(config.control);
+	setGood(initView(config) && initControl());
 	return *this;
 }
 
@@ -64,6 +66,16 @@ bool Character::initView(const Config &config)
 	}
 
 	setView(view);
+	return true;
+}
+
+bool Character::initControl()
+{
+	auto control = [this](const float)
+			{
+				m_control->control(this);
+			};
+	getView()->schedule(control, 0, "control");
 	return true;
 }
 

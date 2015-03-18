@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 
 #include "dynamic_scene_object.h"
@@ -22,6 +23,13 @@ class Armature;
 namespace mica
 {
 
+class CharacterControl;
+
+}
+
+namespace mica
+{
+
 /**
  * Character is a controllable object moving around the scene
  */
@@ -31,9 +39,10 @@ public:
 	struct Config
 	{
 		std::string identifier;
+		std::unique_ptr<CharacterControl> control;
 	};
 
-	explicit Character(const Config &config);
+	explicit Character(Config &&config);
 	~Character();
 
 	virtual void stand();
@@ -46,7 +55,7 @@ public:
 protected:
 	Character();
 
-	bool init(const Config &config);
+	bool init(Config &&config);
 	void uninit();
 
 private:
@@ -60,12 +69,12 @@ private:
 	};
 
 	bool initView(const Config &config);
+	bool initControl();
 
 	Status m_stat;
-
 	int m_speed;
-
 	bool directToR;
+	std::unique_ptr<CharacterControl> m_control;
 };
 
 }
