@@ -37,7 +37,7 @@ public:
 
 	virtual void updateDirection();
 
-protected:
+private:
 	enum struct Status
 	{
 		kNull = 0,
