@@ -23,11 +23,11 @@ Character::Character()
 
 void Character::stand()
 {
-	if (m_stat == ROLE_INJURED || m_stat == ROLE_ATTACK || m_stat == ROLE_TURN){
+	if (m_stat == Status::kInjured || m_stat == Status::kAttack || m_stat == Status::kTurn){
 		return;
 	}
-	if (m_arm && m_stat != ROLE_STAND){
-		m_stat = ROLE_STAND;
+	if (m_arm && m_stat != Status::kStand){
+		m_stat = Status::kStand;
 		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
 		m_arm->getAnimation()->play("stand");
 	}
@@ -35,23 +35,23 @@ void Character::stand()
 
 void Character::walk(float x, float y)
 {
-	if (m_stat == ROLE_ATTACK){
+	if (m_stat == Status::kAttack){
 		return;
 	}
 	//physicsBody->SetLinearVelocity(b2Vec2(x*m_speed, physicsBody->GetLinearVelocity().y));
-	if (m_arm && m_stat != ROLE_WALK){
-		m_stat = ROLE_WALK;
+	if (m_arm && m_stat != Status::kWalk){
+		m_stat = Status::kWalk;
 		m_arm->getAnimation()->play("walk");
 	}
 }
 
 void Character::turn()
 {
-	if (m_stat == ROLE_ATTACK){
+	if (m_stat == Status::kAttack){
 		return;
 	}
-	if (m_arm && m_stat != ROLE_TURN){
-		m_stat = ROLE_TURN;
+	if (m_arm && m_stat != Status::kTurn){
+		m_stat = Status::kTurn;
 		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
 		m_arm->getAnimation()->play("turn");
 
@@ -60,7 +60,7 @@ void Character::turn()
 			if (type == MovementEventType::COMPLETE)
 			{
 				directToR = !directToR;
-				m_stat = ROLE_NULL;
+				m_stat = Status::kNull;
 				this->stand();
 			}
 		};
@@ -70,18 +70,18 @@ void Character::turn()
 
 void Character::attack()
 {
-	if (m_stat == ROLE_INJURED){
+	if (m_stat == Status::kInjured){
 		return;
 	}
-	if (m_arm && m_stat != ROLE_ATTACK){
-		m_stat = ROLE_ATTACK;
+	if (m_arm && m_stat != Status::kAttack){
+		m_stat = Status::kAttack;
 		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
 		m_arm->getAnimation()->play("attack");
 		function<void(Armature*, MovementEventType, const string&)> armatureStand = [=](Armature* armature, MovementEventType type, const string& id)
 		{
 			if (type == MovementEventType::COMPLETE)
 			{
-				m_stat = ROLE_NULL;
+				m_stat = Status::kNull;
 				this->stand();
 			}
 		};
