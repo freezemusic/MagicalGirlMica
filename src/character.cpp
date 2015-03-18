@@ -77,10 +77,10 @@ void Character::stand()
 	if (m_stat == Status::kAttack || m_stat == Status::kTurn){
 		return;
 	}
-	if (m_arm && m_stat != Status::kStand){
+	if (getView() && m_stat != Status::kStand){
 		m_stat = Status::kStand;
 		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
-		m_arm->getAnimation()->play("stand");
+		getView()->getAnimation()->play("stand");
 	}
 }
 
@@ -90,9 +90,9 @@ void Character::walk(float x, float y)
 		return;
 	}
 	//physicsBody->SetLinearVelocity(b2Vec2(x*m_speed, physicsBody->GetLinearVelocity().y));
-	if (m_arm && m_stat != Status::kWalk){
+	if (getView() && m_stat != Status::kWalk){
 		m_stat = Status::kWalk;
-		m_arm->getAnimation()->play("walk");
+		getView()->getAnimation()->play("walk");
 	}
 }
 
@@ -101,10 +101,10 @@ void Character::turn()
 	if (m_stat == Status::kAttack){
 		return;
 	}
-	if (m_arm && m_stat != Status::kTurn){
+	if (getView() && m_stat != Status::kTurn){
 		m_stat = Status::kTurn;
 		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
-		m_arm->getAnimation()->play("turn");
+		getView()->getAnimation()->play("turn");
 
 		function<void(Armature*, MovementEventType, const string&)> armatureFun = [=](Armature* armature, MovementEventType type, const string& id)
 		{
@@ -115,16 +115,16 @@ void Character::turn()
 				this->stand();
 			}
 		};
-		m_arm->getAnimation()->setMovementEventCallFunc(armatureFun);
+		getView()->getAnimation()->setMovementEventCallFunc(armatureFun);
 	}
 }
 
 void Character::attack()
 {
-	if (m_arm && m_stat != Status::kAttack){
+	if (getView() && m_stat != Status::kAttack){
 		m_stat = Status::kAttack;
 		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
-		m_arm->getAnimation()->play("attack");
+		getView()->getAnimation()->play("attack");
 		function<void(Armature*, MovementEventType, const string&)> armatureStand = [=](Armature* armature, MovementEventType type, const string& id)
 		{
 			if (type == MovementEventType::COMPLETE)
@@ -133,16 +133,16 @@ void Character::attack()
 				this->stand();
 			}
 		};
-		m_arm->getAnimation()->setMovementEventCallFunc(armatureStand);
+		getView()->getAnimation()->setMovementEventCallFunc(armatureStand);
 	}
 }
 
 void Character::updateDirection()
 {
 	if (directToR)
-		m_arm->setScaleX(-1.0f);
+		getView()->setScaleX(-1.0f);
 	else
-		m_arm->setScaleX(1.0f);
+		getView()->setScaleX(1.0f);
 }
 
 }

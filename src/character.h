@@ -64,7 +64,6 @@ private:
 	Status m_stat;
 
 	int m_speed;
-	cocostudio::Armature *m_arm;
 
 	bool directToR;
 };
