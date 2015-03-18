@@ -44,6 +44,13 @@ public:
 	void addStageObject(std::unique_ptr<StageObject> &&obj);
 
 protected:
+	/**
+	 * Invoked when the scene is being updated in a frame
+	 *
+	 * @param delta
+	 */
+	virtual void onSceneUpdate(const float delta);
+
 	void setScene(StageScene *scene);
 
 	void setGood(const bool flag)

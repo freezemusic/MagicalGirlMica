@@ -5,10 +5,12 @@
  * Refer to LICENSE for details
  */
 
+#include <functional>
 #include <list>
 #include <memory>
 
 #include <base/CCEventDispatcher.h>
+#include <base/CCScheduler.h>
 
 #include "stage.h"
 #include "stage_object.h"
@@ -30,6 +32,9 @@ Stage::~Stage()
 	m_objs.clear();
 }
 
+void Stage::onSceneUpdate(const float)
+{}
+
 void Stage::setScene(StageScene *scene)
 {
 	if (m_scene)
@@ -42,6 +47,8 @@ void Stage::setScene(StageScene *scene)
 	if (m_scene)
 	{
 		m_scene->retain();
+		m_scene->getScheduler()->schedule(std::bind(&Stage::onSceneUpdate, this,
+				placeholders::_1), m_scene, 0.0f, false, "update");
 		setGood(true);
 	}
 	else
