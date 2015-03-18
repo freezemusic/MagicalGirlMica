@@ -45,6 +45,9 @@ public:
 	explicit Character(Config &&config);
 	~Character();
 
+	void interact(Interactable*) override
+	{}
+
 	virtual void stand();
 	virtual void walk(float x, float y);
 	virtual void turn();
