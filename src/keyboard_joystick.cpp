@@ -26,9 +26,7 @@ namespace mica
 
 KeyboardJoystick::KeyboardJoystick()
 		: m_modifier(1.0f)
-{
-	setGood(false);
-}
+{}
 
 KeyboardJoystick::KeyboardJoystick(const Config &config)
 		: KeyboardJoystick()

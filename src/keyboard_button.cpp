@@ -20,9 +20,7 @@ namespace mica
 KeyboardButton::KeyboardButton()
 		: m_key(EventKeyboard::KeyCode::KEY_NONE),
 		  m_is_pressed(false)
-{
-	setGood(false);
-}
+{}
 
 KeyboardButton::KeyboardButton(const Config &config)
 		: KeyboardButton()
@@ -41,7 +39,6 @@ bool KeyboardButton::init(const Config &config)
 
 	if (config.key == EventKeyboard::KeyCode::KEY_NONE)
 	{
-		setGood(false);
 		return false;
 	}
 

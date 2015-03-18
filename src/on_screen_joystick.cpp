@@ -17,9 +17,7 @@ namespace mica
 
 OnScreenJoystick::OnScreenJoystick()
 		: m_view(nullptr)
-{
-	setGood(false);
-}
+{}
 
 OnScreenJoystick::~OnScreenJoystick()
 {

@@ -42,9 +42,7 @@ namespace mica
 AreaJoystick::AreaJoystick()
 		: m_indicators({nullptr, nullptr}),
 		  m_scene_listener(nullptr)
-{
-	setGood(false);
-}
+{}
 
 AreaJoystick::AreaJoystick(const Config &config)
 		: AreaJoystick()
