@@ -23,7 +23,7 @@ Character::Character()
 
 void Character::stand()
 {
-	if (m_stat == Status::kInjured || m_stat == Status::kAttack || m_stat == Status::kTurn){
+	if (m_stat == Status::kAttack || m_stat == Status::kTurn){
 		return;
 	}
 	if (m_arm && m_stat != Status::kStand){
@@ -70,9 +70,6 @@ void Character::turn()
 
 void Character::attack()
 {
-	if (m_stat == Status::kInjured){
-		return;
-	}
 	if (m_arm && m_stat != Status::kAttack){
 		m_stat = Status::kAttack;
 		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));

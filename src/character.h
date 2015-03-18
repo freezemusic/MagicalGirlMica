@@ -34,12 +34,8 @@ protected:
 		kNull = 0,
 		kStand,
 		kWalk,
-		kInjured,
 		kTurn,
-		kDie,
-		kJump,
 		kAttack,
-		kSkill,
 	};
 
 	Status m_stat;
