@@ -1,5 +1,5 @@
 /*
- * test_stage_scene.cpp
+ * test_stage.cpp
  *
  * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
  * Refer to LICENSE for details
@@ -9,47 +9,36 @@
 
 #include <2d/CCSprite.h>
 #include <base/CCScheduler.h>
-#include <cocostudio/CCArmatureDataManager.h>
 
 #include "log.h"
+#include "notification_manager.h"
 #include "res_manager.h"
 #include "stage_scene.h"
-#include "test_stage_scene.h"
-
-#include "notification_manager.h"
-#include "res.h"
+#include "test_stage.h"
 #include "toast.h"
 
 using namespace cocos2d;
-using namespace cocostudio;
 using namespace std;
 
 #define NS_TAG "mica::"
-#define TAG NS_TAG "TestStageScene::"
+#define TAG NS_TAG "TestStage::"
 
 namespace mica
 {
 
-TestStageScene* TestStageScene::create()
+TestStage::TestStage()
 {
-	auto ret = new TestStageScene;
-	if (ret && ret->init())
-	{
-		ret->autorelease();
-	}
-	else
-	{
-		CC_SAFE_DELETE(ret);
-	}
-	return ret;
+	setGood(initScene());
 }
 
-bool TestStageScene::init()
+bool TestStage::initScene()
 {
 	static bool flag = false;
 
-	if (!StageScene::init())
+	auto *scene = StageScene::create();
+	if (!scene)
 	{
+		LOG_E(TAG "initScene", "Failed while StageScene::create");
 		return false;
 	}
 
@@ -58,11 +47,11 @@ bool TestStageScene::init()
 			: Sprite::create(ResManager::get().getBg("bg2").c_str());
 	if (!bg)
 	{
-		LOG_W(TAG "init", "Failed while creating background sprite");
+		LOG_W(TAG "initScene", "Failed while creating background sprite");
 		return false;
 	}
 	bg->setAnchorPoint({0, 0});
-	addChild(bg, 0);
+	scene->addChild(bg, 0);
 
 //	ArmatureDataManager::getInstance()->addArmatureFileInfo(
 //			ResManager::get().getCharacterArmature("Mica"));
@@ -81,23 +70,10 @@ bool TestStageScene::init()
 				NotificationManager::get().addNotifiction(make_unique<Toast>(
 						"Test Stage"));
 			};
-	getScheduler()->schedule(welcome, this, 1.0f, 0, 0.0f, false, "toast");
+	scene->getScheduler()->schedule(welcome, scene, 1.0f, 0, 0.0f, false, "toast");
 
-	auto next = [this, &flag](float)
-			{
-				flag ^= true;
-				if (flag)
-				{
-					Director::getInstance()->pushScene(create());
-				}
-				else
-				{
-					Director::getInstance()->popScene();
-				}
-			};
-	getScheduler()->schedule(next, this, 5.0f, 0, 0.0f, false, "next");
-
-	return true;
+	setScene(scene);
+	return *this;
 }
 
 }
