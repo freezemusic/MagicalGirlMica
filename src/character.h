@@ -2,8 +2,6 @@
 
 #include <string>
 
-#include <2d/CCNode.h>
-
 #include "hittable.h"
 
 namespace cocostudio
@@ -16,7 +14,7 @@ class Armature;
 namespace mica
 {
 
-class Character : public Hittable, public cocos2d::Node
+class Character : public Hittable
 {
 public:
 	Character();

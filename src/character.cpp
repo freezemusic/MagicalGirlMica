@@ -89,9 +89,9 @@ void Character::attack()
 void Character::updateDirection()
 {
 	if (directToR)
-		setScaleX(-1.0f);
+		m_arm->setScaleX(-1.0f);
 	else
-		setScaleX(1.0f);
+		m_arm->setScaleX(1.0f);
 }
 
 }
