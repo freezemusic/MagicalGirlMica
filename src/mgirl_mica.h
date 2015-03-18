@@ -23,7 +23,7 @@ class Scene;
 namespace mica
 {
 
-class MgirlMica : public cocos2d::Application
+class MgirlMica final : public cocos2d::Application
 {
 public:
 	void initGLContextAttrs() override;
