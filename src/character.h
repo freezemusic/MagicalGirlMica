@@ -9,6 +9,7 @@
 
 #include <string>
 
+#include "dynamic_scene_object.h"
 #include "hittable.h"
 
 namespace cocostudio
@@ -21,7 +22,7 @@ class Armature;
 namespace mica
 {
 
-class Character : public Hittable
+class Character : public Hittable, public DynamicSceneObject
 {
 public:
 	Character();
