@@ -17,9 +17,7 @@ namespace mica
 
 DynamicStageObject::DynamicStageObject()
 		: m_view(nullptr)
-{
-	setGood(false);
-}
+{}
 
 DynamicStageObject::~DynamicStageObject()
 {
