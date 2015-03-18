@@ -5,7 +5,10 @@
  * Refer to LICENSE for details
  */
 
+#include <memory>
+
 #include <2d/CCSprite.h>
+#include <base/CCScheduler.h>
 #include <cocostudio/CCArmatureDataManager.h>
 
 #include "log.h"
@@ -14,8 +17,13 @@
 #include "stage_scene.h"
 #include "test_stage_scene.h"
 
+#include "notification_manager.h"
+#include "res.h"
+#include "toast.h"
+
 using namespace cocos2d;
 using namespace cocostudio;
+using namespace std;
 
 #define NS_TAG "mica::"
 #define TAG NS_TAG "TestStageScene::"
@@ -64,6 +72,13 @@ bool TestStageScene::init()
 	player->setPosition(ResManager::getDesignW() / 2,
 			ResManager::getDesignH() / 2);
 	addChild(player, 1);
+
+	auto welcome = [this](float)
+			{
+				NotificationManager::get().addNotifiction(make_unique<Toast>(
+						"Test Stage"));
+			};
+	getScheduler()->schedule(welcome, this, 1.0f, 0, 0.0f, false, "toast");
 
 	return true;
 }
