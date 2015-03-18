@@ -47,12 +47,16 @@ TestStageScene* TestStageScene::create()
 
 bool TestStageScene::init()
 {
+	static bool flag = false;
+
 	if (!StageScene::init())
 	{
 		return false;
 	}
 
-	auto *bg = Sprite::create(ResManager::get().getBg("bg").c_str());
+	auto *bg = !flag
+			? Sprite::create(ResManager::get().getBg("bg").c_str())
+			: Sprite::create(ResManager::get().getBg("bg2").c_str());
 	if (!bg)
 	{
 		LOG_W(TAG "init", "Failed while creating background sprite");
@@ -79,6 +83,20 @@ bool TestStageScene::init()
 						"Test Stage"));
 			};
 	getScheduler()->schedule(welcome, this, 1.0f, 0, 0.0f, false, "toast");
+
+	auto next = [this, &flag](float)
+			{
+				flag ^= true;
+				if (flag)
+				{
+					Director::getInstance()->pushScene(create());
+				}
+				else
+				{
+					Director::getInstance()->popScene();
+				}
+			};
+	getScheduler()->schedule(next, this, 5.0f, 0, 0.0f, false, "next");
 
 	return true;
 }
