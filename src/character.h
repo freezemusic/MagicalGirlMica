@@ -22,6 +22,9 @@ class Armature;
 namespace mica
 {
 
+/**
+ * Character is a controllable object moving around the scene
+ */
 class Character : public Hittable, public DynamicSceneObject
 {
 public:
