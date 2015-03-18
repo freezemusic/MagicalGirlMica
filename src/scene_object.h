@@ -37,7 +37,7 @@ protected:
 	}
 
 private:
-	bool m_is_good = true;
+	bool m_is_good = false;
 };
 
 }
