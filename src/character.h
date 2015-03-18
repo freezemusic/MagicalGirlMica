@@ -10,7 +10,7 @@
 #include <memory>
 #include <string>
 
-#include "dynamic_scene_object.h"
+#include "dynamic_stage_object.h"
 #include "hittable.h"
 
 namespace cocostudio
@@ -33,7 +33,7 @@ namespace mica
 /**
  * Character is a controllable object moving around the scene
  */
-class Character : public Hittable, public DynamicSceneObject
+class Character : public Hittable, public DynamicStageObject
 {
 public:
 	struct Config

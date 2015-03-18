@@ -17,7 +17,7 @@
 #include "mgirl_mica.h"
 #include "res.h"
 #include "res_manager.h"
-#include "test_stage_scene.h"
+#include "test_stage.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -27,6 +27,9 @@ using namespace std;
 
 namespace mica
 {
+
+MgirlMica::~MgirlMica()
+{}
 
 void MgirlMica::initGLContextAttrs()
 {
@@ -40,15 +43,13 @@ bool MgirlMica::applicationDidFinishLaunching()
 	initView();
 	initController();
 
-	Scene *scene = initScene();
-	if (!scene)
+	if (!initStage())
 	{
-		assert(false);
 		return false;
 	}
 	else
 	{
-		Director::getInstance()->runWithScene(scene);
+		Director::getInstance()->runWithScene(m_stages.top()->getScene());
 		return true;
 	}
 }
@@ -98,17 +99,18 @@ void MgirlMica::initController()
 	m_controller = make_unique<Controller>(std::move(controller_conf));
 }
 
-Scene* MgirlMica::initScene()
+bool MgirlMica::initStage()
 {
-	auto *scene = TestStageScene::create();
-	if (!scene)
+	auto stage = make_unique<TestStage>();
+	if (!*stage)
 	{
-		LOG_E(TAG "initScene", "Failed while creating TestStageScene");
-		return nullptr;
+		LOG_E(TAG "initStage", "Failed while creating TestStage");
+		return false;
 	}
 	else
 	{
-		return scene;
+		m_stages.push(std::move(stage));
+		return true;
 	}
 }
 

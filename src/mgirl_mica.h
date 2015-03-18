@@ -8,10 +8,12 @@
 #pragma once
 
 #include <memory>
+#include <stack>
 
 #include <platform/CCApplication.h>
 
 #include "controller.h"
+#include "stage.h"
 
 namespace cocos2d
 {
@@ -23,9 +25,11 @@ class Scene;
 namespace mica
 {
 
-class MgirlMica : public cocos2d::Application
+class MgirlMica final : public cocos2d::Application
 {
 public:
+	~MgirlMica();
+
 	void initGLContextAttrs() override;
 
 	bool applicationDidFinishLaunching() override;
@@ -36,9 +40,10 @@ private:
 	void initDirector();
 	void initView();
 	void initController();
-	cocos2d::Scene* initScene();
+	bool initStage();
 
 	std::unique_ptr<Controller> m_controller;
+	std::stack<std::unique_ptr<Stage>> m_stages;
 };
 
 }

@@ -16,6 +16,20 @@ using namespace cocos2d;
 namespace mica
 {
 
+StageScene* StageScene::create()
+{
+	auto ret = new StageScene;
+	if (ret && ret->init())
+	{
+		ret->autorelease();
+	}
+	else
+	{
+		CC_SAFE_DELETE(ret);
+	}
+	return ret;
+}
+
 void StageScene::onEnterTransitionDidFinish()
 {
 	EventStageScene ev(this, true);

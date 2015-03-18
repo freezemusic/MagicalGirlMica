@@ -1,5 +1,5 @@
 /*
- * scene_object.h
+ * stage_object.h
  *
  * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
  * Refer to LICENSE for details
@@ -17,10 +17,10 @@ class Node;
 namespace mica
 {
 
-class SceneObject
+class StageObject
 {
 public:
-	virtual ~SceneObject()
+	virtual ~StageObject()
 	{}
 
 	operator bool() const
