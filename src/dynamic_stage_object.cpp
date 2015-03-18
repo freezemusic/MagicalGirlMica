@@ -1,5 +1,5 @@
 /*
- * dynamic_scene_object.cpp
+ * dynamic_stage_object.cpp
  *
  * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
  * Refer to LICENSE for details
@@ -8,25 +8,25 @@
 #include <base/CCEventDispatcher.h>
 #include <cocostudio/CCArmature.h>
 
-#include "dynamic_scene_object.h"
+#include "dynamic_stage_object.h"
 
 using namespace cocostudio;
 
 namespace mica
 {
 
-DynamicSceneObject::DynamicSceneObject()
+DynamicStageObject::DynamicStageObject()
 		: m_view(nullptr)
 {
 	setGood(false);
 }
 
-DynamicSceneObject::~DynamicSceneObject()
+DynamicStageObject::~DynamicStageObject()
 {
 	setView(nullptr);
 }
 
-void DynamicSceneObject::setView(Armature *view)
+void DynamicStageObject::setView(Armature *view)
 {
 	if (m_view)
 	{

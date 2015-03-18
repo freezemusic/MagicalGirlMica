@@ -1,5 +1,5 @@
 /*
- * dynamic_scene_object.h
+ * dynamic_stage_object.h
  *
  * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
  * Refer to LICENSE for details
@@ -9,16 +9,16 @@
 
 #include <cocostudio/CCArmature.h>
 
-#include "scene_object.h"
+#include "stage_object.h"
 
 namespace mica
 {
 
-class DynamicSceneObject : public SceneObject
+class DynamicStageObject : public StageObject
 {
 public:
-	DynamicSceneObject();
-	virtual ~DynamicSceneObject();
+	DynamicStageObject();
+	virtual ~DynamicStageObject();
 
 	cocostudio::Armature* getView() override
 	{
