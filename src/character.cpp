@@ -10,22 +10,66 @@
 
 #include <2d/CCNode.h>
 #include <cocostudio/CCArmature.h>
+#include <cocostudio/CCArmatureDataManager.h>
 
 #include "character.h"
 #include "hittable.h"
+#include "log.h"
+#include "res_manager.h"
 
 using namespace cocos2d;
 using namespace cocostudio;
 using namespace std;
 
+#define NS_TAG "mica::"
+#define TAG NS_TAG "Character::"
+
 namespace mica
 {
 
 Character::Character()
-{
-	m_speed = 0;
+		: m_stat(Status::kNull),
+		  m_speed(0),
+		  directToR(false)
+{}
 
-	directToR = false;
+Character::Character(const Config &config)
+		: Character()
+{
+	init(config);
+}
+
+Character::~Character()
+{
+	uninit();
+}
+
+bool Character::init(const Config &config)
+{
+	uninit();
+
+	setGood(initView(config));
+	return *this;
+}
+
+bool Character::initView(const Config &config)
+{
+	ArmatureDataManager::getInstance()->addArmatureFileInfo(ResManager::get()
+			.getCharacterArmature(config.identifier));
+	Armature *view = Armature::create(config.identifier);
+	if (!view)
+	{
+		LOG_E(TAG "Character", "Failed while Armature::create");
+		return false;
+	}
+
+	setView(view);
+	return true;
+}
+
+void Character::uninit()
+{
+	setView(nullptr);
 }
 
 void Character::stand()

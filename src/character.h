@@ -28,7 +28,13 @@ namespace mica
 class Character : public Hittable, public DynamicSceneObject
 {
 public:
-	Character();
+	struct Config
+	{
+		std::string identifier;
+	};
+
+	explicit Character(const Config &config);
+	~Character();
 
 	virtual void stand();
 	virtual void walk(float x, float y);
@@ -36,6 +42,12 @@ public:
 	virtual void attack();
 
 	virtual void updateDirection();
+
+protected:
+	Character();
+
+	bool init(const Config &config);
+	void uninit();
 
 private:
 	enum struct Status
@@ -46,6 +58,8 @@ private:
 		kTurn,
 		kAttack,
 	};
+
+	bool initView(const Config &config);
 
 	Status m_stat;
 
