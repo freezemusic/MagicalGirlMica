@@ -33,7 +33,20 @@ Stage::~Stage()
 }
 
 void Stage::onSceneUpdate(const float)
-{}
+{
+	auto it = m_objs.begin();
+	while (it != m_objs.end())
+	{
+		if (!**it)
+		{
+			it = m_objs.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
 
 void Stage::setScene(StageScene *scene)
 {
