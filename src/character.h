@@ -1,9 +1,16 @@
+/*
+ * character.h
+ *
+ * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
+ * Refer to LICENSE for details
+ */
+
 #pragma once
 
+#include <memory>
 #include <string>
 
-#include <2d/CCNode.h>
-
+#include "dynamic_scene_object.h"
 #include "hittable.h"
 
 namespace cocostudio
@@ -16,22 +23,30 @@ class Armature;
 namespace mica
 {
 
-class Character : public Hittable, public cocos2d::Node
+class CharacterControl;
+
+}
+
+namespace mica
+{
+
+/**
+ * Character is a controllable object moving around the scene
+ */
+class Character : public Hittable, public DynamicSceneObject
 {
 public:
-	enum ROLE_STAT{
-		ROLE_STAND,
-		ROLE_WALK,
-		ROLE_INJURED,
-		ROLE_TURN,
-		ROLE_DIE,
-		ROLE_JUMP,
-		ROLE_ATTACK,
-		ROLE_SKILL,
-		ROLE_NULL
+	struct Config
+	{
+		std::string identifier;
+		std::unique_ptr<CharacterControl> control;
 	};
 
-	Character();
+	explicit Character(Config &&config);
+	~Character();
+
+	void interact(Interactable*) override
+	{}
 
 	virtual void stand();
 	virtual void walk(float x, float y);
@@ -41,12 +56,28 @@ public:
 	virtual void updateDirection();
 
 protected:
-	ROLE_STAT m_stat;
+	Character();
 
+	bool init(Config &&config);
+	void uninit();
+
+private:
+	enum struct Status
+	{
+		kNull = 0,
+		kStand,
+		kWalk,
+		kTurn,
+		kAttack,
+	};
+
+	bool initView(const Config &config);
+	bool initControl();
+
+	Status m_stat;
 	int m_speed;
-	cocostudio::Armature *m_arm;
-
 	bool directToR;
+	std::unique_ptr<CharacterControl> m_control;
 };
 
 }

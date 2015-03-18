@@ -12,7 +12,6 @@
 #include <cocostudio/CCArmatureDataManager.h>
 
 #include "log.h"
-#include "player.h"
 #include "res_manager.h"
 #include "stage_scene.h"
 #include "test_stage_scene.h"
@@ -65,17 +64,17 @@ bool TestStageScene::init()
 	bg->setAnchorPoint({0, 0});
 	addChild(bg, 0);
 
-	ArmatureDataManager::getInstance()->addArmatureFileInfo(
-			ResManager::get().getCharacterArmature("Mica"));
-	auto *player = Player::create("Mica");
-	if (!player)
-	{
-		LOG_W(TAG "init", "Failed while creating player");
-		return false;
-	}
-	player->setPosition(ResManager::getDesignW() / 2,
-			ResManager::getDesignH() / 2);
-	addChild(player, 1);
+//	ArmatureDataManager::getInstance()->addArmatureFileInfo(
+//			ResManager::get().getCharacterArmature("Mica"));
+//	auto *player = Player::create("Mica");
+//	if (!player)
+//	{
+//		LOG_W(TAG "init", "Failed while creating player");
+//		return false;
+//	}
+//	player->setPosition(ResManager::getDesignW() / 2,
+//			ResManager::getDesignH() / 2);
+//	addChild(player, 1);
 
 	auto welcome = [this](float)
 			{
