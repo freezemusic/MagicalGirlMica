@@ -45,8 +45,8 @@ bool TestStage::initScene()
 	}
 
 	auto *bg = !flag
-			? Sprite::create(ResManager::get().getBg("bg").c_str())
-			: Sprite::create(ResManager::get().getBg("bg2").c_str());
+			? Sprite::create(getContext().getResManager()->getBg("bg").c_str())
+			: Sprite::create(getContext().getResManager()->getBg("bg2").c_str());
 	if (!bg)
 	{
 		LOG_W(TAG "initScene", "Failed while creating background sprite");
