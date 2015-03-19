@@ -50,6 +50,12 @@ public:
 
 	cocos2d::Node* getView() override;
 
+protected:
+	const Context& getContext() const
+	{
+		return m_context;
+	}
+
 private:
 	cocos2d::Node* createView();
 

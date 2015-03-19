@@ -56,7 +56,7 @@ Node* Toast::getView()
 				view->removeFromParent();
 				invokeListeners();
 				// FIXME
-				m_context.getNotificationManager()->next();
+				getContext().getNotificationManager()->next();
 			};
 	auto exit = [this, view, dismiss](const float)
 			{
@@ -80,7 +80,7 @@ Node* Toast::createView()
 			TextHAlignment::CENTER, TextVAlignment::CENTER);
 
 	auto *bg = ui::Scale9Sprite::create(Rect(30, 30, 4, 4),
-			ResManager::get().getSystem("toast"));
+			getContext().getResManager()->getSystem("toast"));
 	Size toast_size = label->getContentSize();
 	toast_size.width += 64;
 	toast_size.height += 64;
