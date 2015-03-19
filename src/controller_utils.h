@@ -29,7 +29,7 @@ public:
 	static utils::type::Coord filterDeadzone(const utils::type::Coord &coord);
 
 private:
-	static constexpr int kDeadzone = 80;
+	static constexpr int kDeadzone = 200;
 };
 
 }
