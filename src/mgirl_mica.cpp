@@ -94,7 +94,7 @@ void MgirlMica::initController()
 	joystick_conf.rect.size.h = ResManager::getDesignH();
 	controller_conf.joystick = make_unique<AreaJoystick>(joystick_conf);
 
-	m_keyboard_manager = make_unique<KeyboardManager>();
+	ensureKeyboardManager();
 	KeyboardButton::Config button_conf[2];
 	button_conf[0].keyboard_manager = m_keyboard_manager.get();
 	button_conf[0].key = EventKeyboard::KeyCode::KEY_0;
@@ -135,6 +135,14 @@ void MgirlMica::applicationWillEnterForeground()
 
 	// if you use SimpleAudioEngine, it must resume here
 	// SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+}
+
+void MgirlMica::ensureKeyboardManager()
+{
+	if (!m_keyboard_manager)
+	{
+		m_keyboard_manager = make_unique<KeyboardManager>();
+	}
 }
 
 }

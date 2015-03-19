@@ -62,6 +62,8 @@ private:
 	void initController();
 	bool initStage();
 
+	void ensureKeyboardManager();
+
 	std::unique_ptr<KeyboardManager> m_keyboard_manager;
 	NotificationManager m_notification_manager;
 
