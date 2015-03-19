@@ -14,6 +14,7 @@
 
 #include "character.h"
 #include "character_control.h"
+#include "context.h"
 #include "hittable.h"
 #include "log.h"
 #include "res_manager.h"
@@ -28,14 +29,15 @@ using namespace std;
 namespace mica
 {
 
-Character::Character()
-		: m_stat(Status::kNull),
+Character::Character(const Context &context)
+		: m_context(context),
+		  m_stat(Status::kNull),
 		  m_speed(0),
 		  directToR(false)
 {}
 
-Character::Character(Config &&config)
-		: Character()
+Character::Character(const Context &context, Config &&config)
+		: Character(context)
 {
 	init(std::move(config));
 }
@@ -56,8 +58,8 @@ bool Character::init(Config &&config)
 
 bool Character::initView(const Config &config)
 {
-	ArmatureDataManager::getInstance()->addArmatureFileInfo(ResManager::get()
-			.getCharacterArmature(config.identifier));
+	ArmatureDataManager::getInstance()->addArmatureFileInfo(getContext()
+			.getResManager()->getCharacterArmature(config.identifier));
 	Armature *view = Armature::create(config.identifier);
 	if (!view)
 	{

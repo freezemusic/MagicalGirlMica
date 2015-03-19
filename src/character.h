@@ -24,6 +24,7 @@ namespace mica
 {
 
 class CharacterControl;
+class Context;
 
 }
 
@@ -42,7 +43,7 @@ public:
 		std::unique_ptr<CharacterControl> control;
 	};
 
-	explicit Character(Config &&config);
+	Character(const Context &context, Config &&config);
 	~Character();
 
 	void interact(Interactable*) override
@@ -56,10 +57,15 @@ public:
 	virtual void updateDirection();
 
 protected:
-	Character();
+	explicit Character(const Context &context);
 
 	bool init(Config &&config);
 	void uninit();
+
+	const Context& getContext() const
+	{
+		return m_context;
+	}
 
 private:
 	enum struct Status
@@ -74,6 +80,7 @@ private:
 	bool initView(const Config &config);
 	bool initControl();
 
+	const Context &m_context;
 	Status m_stat;
 	int m_speed;
 	bool directToR;
