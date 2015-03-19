@@ -73,6 +73,7 @@ bool TestStage::initObjects()
 {
 	Character::Config char_conf;
 	char_conf.identifier = "Mica";
+	char_conf.pos = {100, 300};
 	ManualCharacterControl::Config char_control_conf;
 	char_control_conf.controller = getController();
 	char_conf.control = make_unique<ManualCharacterControl>(char_control_conf);
