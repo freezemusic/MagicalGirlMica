@@ -57,10 +57,7 @@ private:
 	void initController();
 	bool initStage();
 
-	void ensureKeyboardManager();
-
 	std::unique_ptr<Context> m_context;
-	std::unique_ptr<KeyboardManager> m_keyboard_manager;
 
 	std::stack<std::unique_ptr<Stage>> m_stages;
 	std::unique_ptr<Controller> m_controller;

@@ -57,7 +57,7 @@ public:
 		float modifier = 1.0f;
 	};
 
-	explicit KeyboardJoystick(const Config &config);
+	KeyboardJoystick(const Context &context, const Config &config);
 	virtual ~KeyboardJoystick();
 
 	utils::type::Coord getPosition() const override
@@ -66,15 +66,22 @@ public:
 	}
 
 protected:
-	KeyboardJoystick();
+	explicit KeyboardJoystick(const Context &context);
 
 	bool init(const Config &config);
 	void uninit();
+
+	const Context& getContext() const
+	{
+		return m_context;
+	}
 
 private:
 	bool initButtons(const Config &config);
 
 	void updatePosition();
+
+	const Context &m_context;
 
 	utils::type::Coord m_position;
 

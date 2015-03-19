@@ -24,12 +24,13 @@ using namespace std;
 namespace mica
 {
 
-KeyboardJoystick::KeyboardJoystick()
-		: m_modifier(1.0f)
+KeyboardJoystick::KeyboardJoystick(const Context &context)
+		: m_context(context),
+		  m_modifier(1.0f)
 {}
 
-KeyboardJoystick::KeyboardJoystick(const Config &config)
-		: KeyboardJoystick()
+KeyboardJoystick::KeyboardJoystick(const Context &context, const Config &config)
+		: KeyboardJoystick(context)
 {
 	init(config);
 }
@@ -59,7 +60,6 @@ bool KeyboardJoystick::initButtons(const Config &config)
 	for (Uint i = 0; i < m_btns.size(); ++i)
 	{
 		KeyboardButton::Config btn_conf;
-		btn_conf.keyboard_manager = config.keyboard_manager;
 		switch (i)
 		{
 		default:
@@ -82,7 +82,7 @@ bool KeyboardJoystick::initButtons(const Config &config)
 			btn_conf.key = config.right_key;
 			break;
 		}
-		m_btns[i] = make_unique<KeyboardButton>(btn_conf);
+		m_btns[i] = make_unique<KeyboardButton>(getContext(), btn_conf);
 		m_btns[i]->addListener([this](Button*)
 				{
 					updatePosition();

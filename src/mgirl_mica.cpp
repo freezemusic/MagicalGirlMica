@@ -96,14 +96,13 @@ void MgirlMica::initController()
 	controller_conf.joystick = make_unique<AreaJoystick>(getContext(),
 			joystick_conf);
 
-	ensureKeyboardManager();
 	KeyboardButton::Config button_conf[2];
-	button_conf[0].keyboard_manager = m_keyboard_manager.get();
 	button_conf[0].key = EventKeyboard::KeyCode::KEY_0;
-	controller_conf.buttons[0] = make_unique<KeyboardButton>(button_conf[0]);
-	button_conf[1].keyboard_manager = m_keyboard_manager.get();
+	controller_conf.buttons[0] = make_unique<KeyboardButton>(getContext(),
+			button_conf[0]);
 	button_conf[1].key = EventKeyboard::KeyCode::KEY_PERIOD;
-	controller_conf.buttons[1] = make_unique<KeyboardButton>(button_conf[1]);
+	controller_conf.buttons[1] = make_unique<KeyboardButton>(getContext(),
+			button_conf[1]);
 
 	m_controller = make_unique<Controller>(std::move(controller_conf));
 }
@@ -137,14 +136,6 @@ void MgirlMica::applicationWillEnterForeground()
 
 	// if you use SimpleAudioEngine, it must resume here
 	// SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
-}
-
-void MgirlMica::ensureKeyboardManager()
-{
-	if (!m_keyboard_manager)
-	{
-		m_keyboard_manager = make_unique<KeyboardManager>();
-	}
 }
 
 }
