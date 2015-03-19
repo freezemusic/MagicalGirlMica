@@ -13,7 +13,6 @@
 #include <platform/CCApplication.h>
 
 #include "controller.h"
-#include "notification_manager.h"
 #include "stage.h"
 
 namespace cocos2d
@@ -51,11 +50,6 @@ public:
 	void applicationDidEnterBackground() override;
 	void applicationWillEnterForeground() override;
 
-	NotificationManager& getNotificationManager()
-	{
-		return m_notification_manager;
-	}
-
 private:
 	void initDirector();
 	void initView();
@@ -65,7 +59,6 @@ private:
 	void ensureKeyboardManager();
 
 	std::unique_ptr<KeyboardManager> m_keyboard_manager;
-	NotificationManager m_notification_manager;
 
 	std::stack<std::unique_ptr<Stage>> m_stages;
 	std::unique_ptr<Controller> m_controller;
