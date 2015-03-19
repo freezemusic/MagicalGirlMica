@@ -26,21 +26,21 @@ public:
 	 * @param char_name
 	 * @return
 	 */
-	std::string getBg(const std::string &bg_name);
+	std::string getBg(const std::string &bg_name) const;
 	/**
 	 * Return the path for a character armature resource
 	 *
 	 * @param char_name
 	 * @return
 	 */
-	std::string getCharacterArmature(const std::string &char_name);
+	std::string getCharacterArmature(const std::string &char_name) const;
 	/**
 	 * Return the path for a system resource
 	 *
 	 * @param system_name
 	 * @return
 	 */
-	std::string getSystem(const std::string &system_name);
+	std::string getSystem(const std::string &system_name) const;
 };
 
 }
