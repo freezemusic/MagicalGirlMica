@@ -93,7 +93,8 @@ void MgirlMica::initController()
 	AreaJoystick::Config joystick_conf;
 	joystick_conf.rect.size.w = Res::kDesignW / 2;
 	joystick_conf.rect.size.h = Res::kDesignH;
-	controller_conf.joystick = make_unique<AreaJoystick>(joystick_conf);
+	controller_conf.joystick = make_unique<AreaJoystick>(getContext(),
+			joystick_conf);
 
 	ensureKeyboardManager();
 	KeyboardButton::Config button_conf[2];
