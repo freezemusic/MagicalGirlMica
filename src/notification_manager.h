@@ -37,12 +37,6 @@ namespace mica
 class NotificationManager final
 {
 public:
-	static NotificationManager& get()
-	{
-		static NotificationManager instance;
-		return instance;
-	}
-
 	NotificationManager();
 	~NotificationManager();
 

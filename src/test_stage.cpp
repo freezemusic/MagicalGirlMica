@@ -11,6 +11,7 @@
 #include <base/CCScheduler.h>
 
 #include "log.h"
+#include "mgirl_mica.h"
 #include "notification_manager.h"
 #include "res_manager.h"
 #include "stage_scene.h"
@@ -67,8 +68,8 @@ bool TestStage::initScene()
 
 	auto welcome = [this](float)
 			{
-				NotificationManager::get().addNotifiction(make_unique<Toast>(
-						"Test Stage"));
+				MgirlMica::get().getNotificationManager().addNotifiction(
+						make_unique<Toast>("Test Stage"));
 			};
 	scene->getScheduler()->schedule(welcome, scene, 1.0f, 0, 0.0f, false, "toast");
 

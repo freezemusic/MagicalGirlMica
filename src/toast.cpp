@@ -14,6 +14,7 @@
 #include <math/CCGeometry.h>
 #include <ui/UIScale9Sprite.h>
 
+#include "mgirl_mica.h"
 #include "notification_manager.h"
 #include "res_manager.h"
 #include "toast.h"
@@ -52,7 +53,8 @@ Node* Toast::getView()
 			{
 				view->removeFromParent();
 				invokeListeners();
-				NotificationManager::get().next();
+				// FIXME
+				MgirlMica::get().getNotificationManager().next();
 			};
 	auto exit = [this, view, dismiss](const float)
 			{
