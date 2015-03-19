@@ -98,13 +98,24 @@ void Character::stand()
 	}
 }
 
-void Character::move(const float, const float)
+void Character::move(const float x, const float y)
 {
-	if (m_stat == Status::kAttack){
+	if (m_stat == Status::kAttack || !getView())
+	{
 		return;
 	}
+
 	//physicsBody->SetLinearVelocity(b2Vec2(x*m_speed, physicsBody->GetLinearVelocity().y));
-	if (getView() && m_stat != Status::kWalk){
+	if (x == 0.0f && y == 0.0f)
+	{
+		stand();
+	}
+	else if ((x > 0) != directToR)
+	{
+		turn();
+	}
+	else if (m_stat != Status::kWalk)
+	{
 		m_stat = Status::kWalk;
 		getView()->getAnimation()->play("walk");
 	}
