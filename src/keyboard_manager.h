@@ -36,6 +36,7 @@ public:
 	typedef std::function<void(const bool is_press)> Listener;
 
 	KeyboardManager();
+	virtual ~KeyboardManager();
 
 	void addListener(const cocos2d::EventKeyboard::KeyCode key,
 			const Listener &listener);

@@ -27,6 +27,11 @@ KeyboardManager::KeyboardManager()
 		  m_listener(nullptr)
 {}
 
+KeyboardManager::~KeyboardManager()
+{
+	uninit();
+}
+
 void KeyboardManager::init()
 {
 	m_listener = EventListenerKeyboard::create();
