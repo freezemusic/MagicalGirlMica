@@ -26,6 +26,7 @@ public:
 
 private:
 	bool initScene();
+	bool initObjects();
 };
 
 }
