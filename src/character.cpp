@@ -53,6 +53,7 @@ bool Character::init(Config &&config)
 
 	m_control = std::move(config.control);
 	setGood(initView(config) && initControl());
+	getView()->setPosition(config.pos.x, config.pos.y);
 	return *this;
 }
 

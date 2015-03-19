@@ -10,6 +10,8 @@
 #include <memory>
 #include <string>
 
+#include <libutils/type/coord.h>
+
 #include "dynamic_stage_object.h"
 #include "hittable.h"
 
@@ -41,6 +43,8 @@ public:
 	{
 		std::string identifier;
 		std::unique_ptr<CharacterControl> control;
+		/// The initial position
+		utils::type::Coord pos;
 	};
 
 	Character(const Context &context, Config &&config);
