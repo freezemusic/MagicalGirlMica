@@ -12,8 +12,6 @@
 #include <cocostudio/CCArmature.h>
 #include <cocostudio/CCArmatureDataManager.h>
 
-#include <libutils/type/coord.h>
-
 #include "character.h"
 #include "character_control.h"
 #include "context.h"
@@ -24,7 +22,6 @@
 using namespace cocos2d;
 using namespace cocostudio;
 using namespace std;
-using namespace utils::type;
 
 #define NS_TAG "mica::"
 #define TAG NS_TAG "Character::"
@@ -101,7 +98,7 @@ void Character::stand()
 	}
 }
 
-void Character::move(const Coord&)
+void Character::move(const float, const float)
 {
 	if (m_stat == Status::kAttack){
 		return;

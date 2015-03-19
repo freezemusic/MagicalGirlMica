@@ -10,8 +10,6 @@
 #include <memory>
 #include <string>
 
-#include <libutils/type/coord.h>
-
 #include "dynamic_stage_object.h"
 #include "hittable.h"
 
@@ -52,7 +50,14 @@ public:
 	{}
 
 	virtual void stand();
-	virtual void move(const utils::type::Coord &coord);
+	/**
+	 * Move with a specific speed factor alone each axis. A 0 in both axes would
+	 * result in a stop
+	 *
+	 * @param x Speed factor alone x-axis
+	 * @param y Speed factor alone y-axis
+	 */
+	virtual void move(const float x, const float y);
 	virtual void turn();
 	virtual void attack();
 
