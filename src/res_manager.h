@@ -47,16 +47,6 @@ public:
 	 * @return
 	 */
 	std::string getSystem(const std::string &system_name);
-
-	static constexpr Uint getDesignW()
-	{
-		return 1024;
-	}
-
-	static constexpr Uint getDesignH()
-	{
-		return 576;
-	}
 };
 
 }

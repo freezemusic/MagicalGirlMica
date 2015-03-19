@@ -16,6 +16,7 @@
 
 #include "context.h"
 #include "notification_manager.h"
+#include "res.h"
 #include "res_manager.h"
 #include "toast.h"
 
@@ -42,8 +43,7 @@ Node* Toast::getView()
 	Node *view = createView();
 	const float half_h = view->getContentSize().height / 2;
 	// -10 is just to play safe
-	view->setPosition(ResManager::getDesignW() / 2, ResManager::getDesignH()
-			+ half_h + 10);
+	view->setPosition(Res::kDesignW / 2, Res::kDesignH + half_h + 10);
 	view->runAction(MoveBy::create(0.25f, Vec2(0,
 			-view->getContentSize().height - 10 - 16)));
 

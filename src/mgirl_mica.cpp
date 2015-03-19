@@ -18,7 +18,6 @@
 #include "log.h"
 #include "mgirl_mica.h"
 #include "res.h"
-#include "res_manager.h"
 #include "test_stage.h"
 
 using namespace cocos2d;
@@ -78,13 +77,13 @@ void MgirlMica::initView()
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 \
 		|| CC_TARGET_PLATFORM == CC_PLATFORM_LINUX \
 		|| CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-		glview->setFrameSize(ResManager::getDesignW(), ResManager::getDesignH());
+		glview->setFrameSize(Res::kDesignW, Res::kDesignH);
 #endif
 		Director::getInstance()->setOpenGLView(glview);
 	}
 
-	glview->setDesignResolutionSize(ResManager::getDesignW(),
-			ResManager::getDesignH(), ResolutionPolicy::SHOW_ALL);
+	glview->setDesignResolutionSize(Res::kDesignW, Res::kDesignH,
+			ResolutionPolicy::SHOW_ALL);
 }
 
 void MgirlMica::initController()
@@ -92,8 +91,8 @@ void MgirlMica::initController()
 	Controller::Config controller_conf;
 
 	AreaJoystick::Config joystick_conf;
-	joystick_conf.rect.size.w = ResManager::getDesignW() / 2;
-	joystick_conf.rect.size.h = ResManager::getDesignH();
+	joystick_conf.rect.size.w = Res::kDesignW / 2;
+	joystick_conf.rect.size.h = Res::kDesignH;
 	controller_conf.joystick = make_unique<AreaJoystick>(joystick_conf);
 
 	ensureKeyboardManager();
