@@ -43,6 +43,11 @@ bool KeyboardJoystick::init(const Config &config)
 {
 	uninit();
 
+	if (!config.keyboard_manager)
+	{
+		LOG_E(TAG "init", "keyboard_manager can't be null");
+		return false;
+	}
 	m_modifier = utils::math::MathUtils::Clamp(0.0f, config.modifier, 1.0f);
 
 	setGood(initButtons(config));
@@ -54,6 +59,7 @@ bool KeyboardJoystick::initButtons(const Config &config)
 	for (Uint i = 0; i < m_btns.size(); ++i)
 	{
 		KeyboardButton::Config btn_conf;
+		btn_conf.keyboard_manager = config.keyboard_manager;
 		switch (i)
 		{
 		default:

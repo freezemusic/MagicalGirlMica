@@ -12,6 +12,7 @@
 
 #include "area_joystick.h"
 #include "keyboard_button.h"
+#include "keyboard_manager.h"
 #include "controller.h"
 #include "log.h"
 #include "mgirl_mica.h"
@@ -27,6 +28,9 @@ using namespace std;
 
 namespace mica
 {
+
+MgirlMica::MgirlMica()
+{}
 
 MgirlMica::~MgirlMica()
 {}
@@ -90,9 +94,12 @@ void MgirlMica::initController()
 	joystick_conf.rect.size.h = ResManager::getDesignH();
 	controller_conf.joystick = make_unique<AreaJoystick>(joystick_conf);
 
+	m_keyboard_manager = make_unique<KeyboardManager>();
 	KeyboardButton::Config button_conf[2];
+	button_conf[0].keyboard_manager = m_keyboard_manager.get();
 	button_conf[0].key = EventKeyboard::KeyCode::KEY_0;
 	controller_conf.buttons[0] = make_unique<KeyboardButton>(button_conf[0]);
+	button_conf[1].keyboard_manager = m_keyboard_manager.get();
 	button_conf[1].key = EventKeyboard::KeyCode::KEY_PERIOD;
 	controller_conf.buttons[1] = make_unique<KeyboardButton>(button_conf[1]);
 

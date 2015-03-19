@@ -13,7 +13,6 @@
 #include <platform/CCApplication.h>
 
 #include "controller.h"
-#include "keyboard_manager.h"
 #include "notification_manager.h"
 #include "stage.h"
 
@@ -21,6 +20,13 @@ namespace cocos2d
 {
 
 class Scene;
+
+}
+
+namespace mica
+{
+
+class KeyboardManager;
 
 }
 
@@ -36,6 +42,7 @@ public:
 		return instance;
 	}
 
+	MgirlMica();
 	~MgirlMica();
 
 	void initGLContextAttrs() override;
@@ -43,11 +50,6 @@ public:
 	bool applicationDidFinishLaunching() override;
 	void applicationDidEnterBackground() override;
 	void applicationWillEnterForeground() override;
-
-	KeyboardManager& getKeyboardManager()
-	{
-		return m_keyboard_manager;
-	}
 
 	NotificationManager& getNotificationManager()
 	{
@@ -60,7 +62,7 @@ private:
 	void initController();
 	bool initStage();
 
-	KeyboardManager m_keyboard_manager;
+	std::unique_ptr<KeyboardManager> m_keyboard_manager;
 	NotificationManager m_notification_manager;
 
 	std::stack<std::unique_ptr<Stage>> m_stages;

@@ -20,6 +20,13 @@
 namespace mica
 {
 
+class KeyboardManager;
+
+}
+
+namespace mica
+{
+
 /**
  * Using keyboard to emulate a joystick, since there's no half pressed state for
  * a key, the joystick position will simply be either 0 or max
@@ -29,6 +36,7 @@ class KeyboardJoystick : public Joystick
 public:
 	struct Config
 	{
+		KeyboardManager *keyboard_manager;
 		/// @{
 		/**
 		 * Map the joystick keys to different keycodes

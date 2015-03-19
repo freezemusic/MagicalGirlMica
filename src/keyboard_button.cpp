@@ -9,17 +9,21 @@
 
 #include <base/CCEventKeyboard.h>
 
-#include "mgirl_mica.h"
 #include "keyboard_button.h"
 #include "keyboard_manager.h"
+#include "log.h"
 
 using namespace cocos2d;
+
+#define NS_TAG "mica::"
+#define TAG NS_TAG "KeyboardButton::"
 
 namespace mica
 {
 
 KeyboardButton::KeyboardButton()
-		: m_key(EventKeyboard::KeyCode::KEY_NONE),
+		: m_keyboard_manager(nullptr),
+		  m_key(EventKeyboard::KeyCode::KEY_NONE),
 		  m_is_pressed(false)
 {}
 
@@ -38,11 +42,17 @@ bool KeyboardButton::init(const Config &config)
 {
 	uninit();
 
+	if (!config.keyboard_manager)
+	{
+		LOG_E(TAG "init", "keyboard_manager can't be null");
+		return false;
+	}
 	if (config.key == EventKeyboard::KeyCode::KEY_NONE)
 	{
 		return false;
 	}
 
+	m_keyboard_manager = config.keyboard_manager;
 	m_key = config.key;
 	m_is_pressed = false;
 
@@ -52,8 +62,7 @@ bool KeyboardButton::init(const Config &config)
 
 bool KeyboardButton::initListener()
 {
-	MgirlMica::get().getKeyboardManager().addListener(m_key,
-			[this](const bool is_press)
+	m_keyboard_manager->addListener(m_key, [this](const bool is_press)
 			{
 				m_is_pressed = is_press;
 				invokeListeners();
@@ -63,7 +72,10 @@ bool KeyboardButton::initListener()
 
 void KeyboardButton::uninit()
 {
-	MgirlMica::get().getKeyboardManager().removeListener(m_key);
+	if (m_keyboard_manager)
+	{
+		m_keyboard_manager->removeListener(m_key);
+	}
 	setGood(false);
 }
 

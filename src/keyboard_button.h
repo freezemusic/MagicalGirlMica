@@ -16,11 +16,19 @@
 namespace mica
 {
 
+class KeyboardManager;
+
+}
+
+namespace mica
+{
+
 class KeyboardButton : public Button
 {
 public:
 	struct Config
 	{
+		KeyboardManager *keyboard_manager;
 		cocos2d::EventKeyboard::KeyCode key;
 	};
 
@@ -41,6 +49,7 @@ protected:
 private:
 	bool initListener();
 
+	KeyboardManager *m_keyboard_manager;
 	cocos2d::EventKeyboard::KeyCode m_key;
 	bool m_is_pressed;
 };
