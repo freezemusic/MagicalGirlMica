@@ -16,6 +16,7 @@ namespace mica
 {
 
 class Context;
+class Controller;
 class StageObject;
 
 }
@@ -29,7 +30,12 @@ namespace mica
 class Stage
 {
 public:
-	explicit Stage(const Context &context);
+	struct Config
+	{
+		Controller *controller;
+	};
+
+	Stage(const Context &context, const Config &config);
 	virtual ~Stage();
 
 	operator bool() const
@@ -64,8 +70,15 @@ protected:
 		return m_context;
 	}
 
+	Controller* getController() const
+	{
+		return m_controller;
+	}
+
 private:
 	const Context &m_context;
+	Controller *m_controller;
+
 	std::list<std::unique_ptr<StageObject>> m_objs;
 	StageScene *m_scene;
 	bool m_is_good = false;

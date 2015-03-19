@@ -20,6 +20,7 @@ namespace mica
 {
 
 class Context;
+class Controller;
 
 }
 
@@ -28,10 +29,13 @@ using namespace std;
 namespace mica
 {
 
-Stage::Stage(const Context &context)
+Stage::Stage(const Context &context, const Config &config)
 		: m_context(context),
+		  m_controller(config.controller),
 		  m_scene(nullptr)
-{}
+{
+	assert(m_controller);
+}
 
 Stage::~Stage()
 {

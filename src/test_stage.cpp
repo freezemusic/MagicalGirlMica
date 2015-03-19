@@ -13,6 +13,7 @@
 #include "character.h"
 #include "context.h"
 #include "log.h"
+#include "manual_character_control.h"
 #include "notification_manager.h"
 #include "null_character_control.h"
 #include "res_manager.h"
@@ -29,8 +30,8 @@ using namespace std;
 namespace mica
 {
 
-TestStage::TestStage(const Context &context)
-		: Stage(context)
+TestStage::TestStage(const Context &context, const Config &config)
+		: Stage(context, config)
 {
 	setGood(initScene() && initObjects());
 }
@@ -72,7 +73,9 @@ bool TestStage::initObjects()
 {
 	Character::Config char_conf;
 	char_conf.identifier = "Mica";
-	char_conf.control = make_unique<NullCharacterControl>();
+	ManualCharacterControl::Config char_control_conf;
+	char_control_conf.controller = getController();
+	char_conf.control = make_unique<ManualCharacterControl>(char_control_conf);
 	auto character = make_unique<Character>(getContext(), std::move(char_conf));
 	if (!character || !*character)
 	{
