@@ -62,6 +62,11 @@ void Stage::setScene(StageScene *scene)
 		m_scene->retain();
 		m_scene->getScheduler()->schedule(std::bind(&Stage::onSceneUpdate, this,
 				placeholders::_1), m_scene, 0.0f, false, "update");
+		for (auto &obj : m_objs)
+		{
+			m_scene->addChild(obj->getView());
+		}
+
 		setGood(true);
 	}
 	else
