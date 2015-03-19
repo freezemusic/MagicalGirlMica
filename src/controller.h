@@ -15,6 +15,7 @@
 #include <libutils/type/coord.h>
 
 #include "button.h"
+#include "controller_utils.h"
 #include "joystick.h"
 #include "misc_type.h"
 
@@ -64,12 +65,21 @@ public:
 	/**
 	 * Return the position of the joystick
 	 *
+	 * @param is_filter Perform deadzone filtering or not, normally you would
+	 * like it to be true
 	 * @return
 	 * @see Joystick::getPosition()
 	 */
-	utils::type::Coord getJoystickPosition() const
+	utils::type::Coord getJoystickPosition(const bool is_filter) const
 	{
-		return m_joystick->getPosition();
+		if (is_filter)
+		{
+			return ControllerUtils::filterDeadzone(m_joystick->getPosition());
+		}
+		else
+		{
+			return m_joystick->getPosition();
+		}
 	}
 
 	bool isButtonDown(const Button which) const
