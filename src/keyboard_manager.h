@@ -35,12 +35,6 @@ public:
 	 */
 	typedef std::function<void(const bool is_press)> Listener;
 
-	static KeyboardManager& get()
-	{
-		static KeyboardManager instance;
-		return instance;
-	}
-
 	KeyboardManager();
 
 	void addListener(const cocos2d::EventKeyboard::KeyCode key,

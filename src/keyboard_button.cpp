@@ -9,6 +9,7 @@
 
 #include <base/CCEventKeyboard.h>
 
+#include "mgirl_mica.h"
 #include "keyboard_button.h"
 #include "keyboard_manager.h"
 
@@ -51,7 +52,8 @@ bool KeyboardButton::init(const Config &config)
 
 bool KeyboardButton::initListener()
 {
-	KeyboardManager::get().addListener(m_key, [this](const bool is_press)
+	MgirlMica::get().getKeyboardManager().addListener(m_key,
+			[this](const bool is_press)
 			{
 				m_is_pressed = is_press;
 				invokeListeners();
@@ -61,7 +63,7 @@ bool KeyboardButton::initListener()
 
 void KeyboardButton::uninit()
 {
-	KeyboardManager::get().removeListener(m_key);
+	MgirlMica::get().getKeyboardManager().removeListener(m_key);
 	setGood(false);
 }
 
