@@ -65,8 +65,6 @@ public:
 	virtual void turn();
 	virtual void attack();
 
-	virtual void updateDirection();
-
 protected:
 	explicit Character(const Context &context);
 

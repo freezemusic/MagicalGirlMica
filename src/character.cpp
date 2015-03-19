@@ -164,12 +164,4 @@ void Character::attack()
 	}
 }
 
-void Character::updateDirection()
-{
-	if (directToR)
-		getView()->setScaleX(-1.0f);
-	else
-		getView()->setScaleX(1.0f);
-}
-
 }
