@@ -5,6 +5,8 @@
  * Refer to LICENSE for details
  */
 
+#include <cstdlib>
+
 #include <libutils/type/coord.h>
 
 #include "controller_utils.h"
@@ -16,8 +18,8 @@ namespace mica
 
 Coord ControllerUtils::filterDeadzone(const Coord &coord)
 {
-	return {(coord.x < kDeadzone) ? 0 : coord.x,
-			(coord.y < kDeadzone) ? 0 : coord.y};
+	return {(abs(coord.x) < kDeadzone) ? 0 : coord.x,
+			(abs(coord.y) < kDeadzone) ? 0 : coord.y};
 }
 
 }
