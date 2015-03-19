@@ -30,15 +30,16 @@ public:
 	ContextImpl();
 	virtual ~ContextImpl();
 
-	NotificationManager* getNotificationManager() override
+	NotificationManager* getNotificationManager() const override
 	{
 		return getNotificationManager_();
 	}
 
 private:
-	NotificationManager* getNotificationManager_();
+	NotificationManager* getNotificationManager_() const;
 
-	std::unique_ptr<NotificationManager> m_notification_manager;
+	// For lazy init
+	mutable std::unique_ptr<NotificationManager> m_notification_manager;
 };
 
 }

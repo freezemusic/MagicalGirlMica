@@ -27,7 +27,7 @@ public:
 	virtual ~Context()
 	{}
 
-	virtual NotificationManager* getNotificationManager() = 0;
+	virtual NotificationManager* getNotificationManager() const = 0;
 };
 
 }

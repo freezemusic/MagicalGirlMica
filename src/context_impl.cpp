@@ -22,7 +22,7 @@ ContextImpl::ContextImpl()
 ContextImpl::~ContextImpl()
 {}
 
-NotificationManager* ContextImpl::getNotificationManager_()
+NotificationManager* ContextImpl::getNotificationManager_() const
 {
 	if (!m_notification_manager)
 	{
