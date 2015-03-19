@@ -50,13 +50,15 @@ void initLog()
 int main()
 {
 	initLog();
-	return mica::MgirlMica::get().run();
+	mica::MgirlMica app;
+	return app.run();
 }
 
 #elif _WIN32
 int APIENTRY _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
-	return mica::MgirlMica::get().run();
+	mica::MgirlMica app;
+	return app.run();
 }
 
 #endif
