@@ -14,7 +14,7 @@
 #include <math/CCGeometry.h>
 #include <ui/UIScale9Sprite.h>
 
-#include "mgirl_mica.h"
+#include "context.h"
 #include "notification_manager.h"
 #include "res_manager.h"
 #include "toast.h"
@@ -25,13 +25,15 @@ using namespace std;
 namespace mica
 {
 
-Toast::Toast(const string &text)
-		: m_text(text),
+Toast::Toast(const Context &context, const string &text)
+		: m_context(context),
+		  m_text(text),
 		  m_duration(0.0f)
 {}
 
-Toast::Toast(string &&text)
-		: m_text(std::move(text)),
+Toast::Toast(const Context &context, string &&text)
+		: m_context(context),
+		  m_text(std::move(text)),
 		  m_duration(0.0f)
 {}
 
@@ -54,7 +56,7 @@ Node* Toast::getView()
 				view->removeFromParent();
 				invokeListeners();
 				// FIXME
-				MgirlMica::get().getNotificationManager().next();
+				m_context.getNotificationManager()->next();
 			};
 	auto exit = [this, view, dismiss](const float)
 			{
