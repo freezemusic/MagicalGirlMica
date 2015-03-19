@@ -137,6 +137,7 @@ void Character::turn()
 			if (type == MovementEventType::COMPLETE)
 			{
 				directToR = !directToR;
+				getView()->setScaleX(-getView()->getScaleX());
 				m_stat = Status::kNull;
 				this->stand();
 			}
