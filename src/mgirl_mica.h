@@ -45,6 +45,12 @@ public:
 	void applicationDidEnterBackground() override;
 	void applicationWillEnterForeground() override;
 
+protected:
+	const Context& getContext() const
+	{
+		return *m_context;
+	}
+
 private:
 	void initDirector();
 	void initView();

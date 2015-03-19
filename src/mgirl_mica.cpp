@@ -109,7 +109,7 @@ void MgirlMica::initController()
 
 bool MgirlMica::initStage()
 {
-	auto stage = make_unique<TestStage>(*m_context.get());
+	auto stage = make_unique<TestStage>(getContext());
 	if (!*stage)
 	{
 		LOG_E(TAG "initStage", "Failed while creating TestStage");
