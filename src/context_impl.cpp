@@ -10,6 +10,7 @@
 #include "context.h"
 #include "context_impl.h"
 #include "notification_manager.h"
+#include "res_manager.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ namespace mica
 {
 
 ContextImpl::ContextImpl()
+		: m_res_manager(make_unique<ResManager>())
 {}
 
 ContextImpl::~ContextImpl()

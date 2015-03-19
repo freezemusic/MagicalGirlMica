@@ -20,12 +20,6 @@ namespace mica
 class ResManager
 {
 public:
-	static ResManager& get()
-	{
-		static ResManager instance;
-		return instance;
-	}
-
 	/**
 	 * Return the path for a background resource
 	 *

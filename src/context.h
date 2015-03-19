@@ -11,6 +11,7 @@ namespace mica
 {
 
 class NotificationManager;
+class ResManager;
 
 }
 
@@ -28,6 +29,7 @@ public:
 	{}
 
 	virtual NotificationManager* getNotificationManager() const = 0;
+	virtual ResManager* getResManager() const = 0;
 };
 
 }

@@ -15,6 +15,7 @@ namespace mica
 {
 
 class NotificationManager;
+class ResManager;
 
 }
 
@@ -35,9 +36,15 @@ public:
 		return getNotificationManager_();
 	}
 
+	ResManager* getResManager() const override
+	{
+		return m_res_manager.get();
+	}
+
 private:
 	NotificationManager* getNotificationManager_() const;
 
+	std::unique_ptr<ResManager> m_res_manager;
 	// For lazy init
 	mutable std::unique_ptr<NotificationManager> m_notification_manager;
 };
