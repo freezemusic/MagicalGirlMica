@@ -27,6 +27,13 @@ class Vec2;
 namespace mica
 {
 
+class Context;
+
+}
+
+namespace mica
+{
+
 /**
  * A joystick that covers an invisible rectangular area. The center point would
  * be the point you dropped your finger
@@ -40,7 +47,7 @@ public:
 		bool is_visible = false;
 	};
 
-	explicit AreaJoystick(const Config &config);
+	AreaJoystick(const Context &context, const Config &config);
 	virtual ~AreaJoystick();
 
 	utils::type::Coord getPosition() const override
@@ -49,7 +56,7 @@ public:
 	}
 
 protected:
-	AreaJoystick();
+	explicit AreaJoystick(const Context &context);
 
 	bool init(const Config &config);
 	void uninit();

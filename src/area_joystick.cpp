@@ -21,6 +21,7 @@
 #include <libutils/type/rect_utils.h>
 
 #include "area_joystick.h"
+#include "context.h"
 #include "event_stage_scene.h"
 #include "log.h"
 #include "misc_utils.h"
@@ -39,13 +40,14 @@ using namespace utils::type;
 namespace mica
 {
 
-AreaJoystick::AreaJoystick()
-		: m_indicators({nullptr, nullptr}),
+AreaJoystick::AreaJoystick(const Context &context)
+		: OnScreenJoystick(context),
+		  m_indicators({nullptr, nullptr}),
 		  m_scene_listener(nullptr)
 {}
 
-AreaJoystick::AreaJoystick(const Config &config)
-		: AreaJoystick()
+AreaJoystick::AreaJoystick(const Context &context, const Config &config)
+		: AreaJoystick(context)
 {
 	init(config);
 }
@@ -98,7 +100,8 @@ bool AreaJoystick::initView(const Config &config)
 
 bool AreaJoystick::initIndicator()
 {
-	Sprite *begin = Sprite::create(ResManager::get().getSystem("joystick"));
+	Sprite *begin = Sprite::create(getContext().getResManager()->getSystem(
+			"joystick"));
 	if (!begin)
 	{
 		LOG_E(TAG "initIndicator", "Failed while Sprite::create");
@@ -106,7 +109,8 @@ bool AreaJoystick::initIndicator()
 	}
 	begin->setOpacity(0);
 
-	Sprite *move = Sprite::create(ResManager::get().getSystem("joystick"));
+	Sprite *move = Sprite::create(getContext().getResManager()->getSystem(
+			"joystick"));
 	if (!move)
 	{
 		LOG_E(TAG "initIndicator", "Failed while Sprite::create");
@@ -114,7 +118,8 @@ bool AreaJoystick::initIndicator()
 	}
 	move->setOpacity(0);
 
-	Sprite *line = Sprite::create(ResManager::get().getSystem("joystick_line"));
+	Sprite *line = Sprite::create(getContext().getResManager()->getSystem(
+			"joystick_line"));
 	if (!line)
 	{
 		LOG_E(TAG "initIndicator", "Failed while Sprite::create");
