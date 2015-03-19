@@ -9,6 +9,7 @@
 
 #include "context.h"
 #include "context_impl.h"
+#include "keyboard_manager.h"
 #include "notification_manager.h"
 #include "res_manager.h"
 
@@ -23,6 +24,15 @@ ContextImpl::ContextImpl()
 
 ContextImpl::~ContextImpl()
 {}
+
+KeyboardManager* ContextImpl::getKeyboardManager_() const
+{
+	if (!m_keyboard_manager)
+	{
+		m_keyboard_manager = make_unique<KeyboardManager>();
+	}
+	return m_keyboard_manager.get();
+}
 
 NotificationManager* ContextImpl::getNotificationManager_() const
 {

@@ -10,6 +10,7 @@
 namespace mica
 {
 
+class KeyboardManager;
 class NotificationManager;
 class ResManager;
 
@@ -28,6 +29,7 @@ public:
 	virtual ~Context()
 	{}
 
+	virtual KeyboardManager* getKeyboardManager() const = 0;
 	virtual NotificationManager* getNotificationManager() const = 0;
 	virtual ResManager* getResManager() const = 0;
 };
