@@ -14,8 +14,9 @@
 #include <math/CCGeometry.h>
 #include <ui/UIScale9Sprite.h>
 
-#include "mgirl_mica.h"
+#include "context.h"
 #include "notification_manager.h"
+#include "res.h"
 #include "res_manager.h"
 #include "toast.h"
 
@@ -25,13 +26,15 @@ using namespace std;
 namespace mica
 {
 
-Toast::Toast(const string &text)
-		: m_text(text),
+Toast::Toast(const Context &context, const string &text)
+		: m_context(context),
+		  m_text(text),
 		  m_duration(0.0f)
 {}
 
-Toast::Toast(string &&text)
-		: m_text(std::move(text)),
+Toast::Toast(const Context &context, string &&text)
+		: m_context(context),
+		  m_text(std::move(text)),
 		  m_duration(0.0f)
 {}
 
@@ -40,8 +43,7 @@ Node* Toast::getView()
 	Node *view = createView();
 	const float half_h = view->getContentSize().height / 2;
 	// -10 is just to play safe
-	view->setPosition(ResManager::getDesignW() / 2, ResManager::getDesignH()
-			+ half_h + 10);
+	view->setPosition(Res::kDesignW / 2, Res::kDesignH + half_h + 10);
 	view->runAction(MoveBy::create(0.25f, Vec2(0,
 			-view->getContentSize().height - 10 - 16)));
 
@@ -54,7 +56,7 @@ Node* Toast::getView()
 				view->removeFromParent();
 				invokeListeners();
 				// FIXME
-				MgirlMica::get().getNotificationManager().next();
+				getContext().getNotificationManager()->next();
 			};
 	auto exit = [this, view, dismiss](const float)
 			{
@@ -78,7 +80,7 @@ Node* Toast::createView()
 			TextHAlignment::CENTER, TextVAlignment::CENTER);
 
 	auto *bg = ui::Scale9Sprite::create(Rect(30, 30, 4, 4),
-			ResManager::get().getSystem("toast"));
+			getContext().getResManager()->getSystem("toast"));
 	Size toast_size = label->getContentSize();
 	toast_size.width += 64;
 	toast_size.height += 64;

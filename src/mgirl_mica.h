@@ -13,7 +13,6 @@
 #include <platform/CCApplication.h>
 
 #include "controller.h"
-#include "notification_manager.h"
 #include "stage.h"
 
 namespace cocos2d
@@ -26,6 +25,7 @@ class Scene;
 namespace mica
 {
 
+class Context;
 class KeyboardManager;
 
 }
@@ -36,12 +36,6 @@ namespace mica
 class MgirlMica final : public cocos2d::Application
 {
 public:
-	static MgirlMica& get()
-	{
-		static MgirlMica instance;
-		return instance;
-	}
-
 	MgirlMica();
 	~MgirlMica();
 
@@ -51,9 +45,10 @@ public:
 	void applicationDidEnterBackground() override;
 	void applicationWillEnterForeground() override;
 
-	NotificationManager& getNotificationManager()
+protected:
+	const Context& getContext() const
 	{
-		return m_notification_manager;
+		return *m_context;
 	}
 
 private:
@@ -62,10 +57,7 @@ private:
 	void initController();
 	bool initStage();
 
-	void ensureKeyboardManager();
-
-	std::unique_ptr<KeyboardManager> m_keyboard_manager;
-	NotificationManager m_notification_manager;
+	std::unique_ptr<Context> m_context;
 
 	std::stack<std::unique_ptr<Stage>> m_stages;
 	std::unique_ptr<Controller> m_controller;

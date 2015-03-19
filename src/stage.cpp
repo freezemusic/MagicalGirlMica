@@ -16,13 +16,21 @@
 #include "stage_object.h"
 #include "stage_scene.h"
 
+namespace mica
+{
+
+class Context;
+
+}
+
 using namespace std;
 
 namespace mica
 {
 
-Stage::Stage()
-		: m_scene(nullptr)
+Stage::Stage(const Context &context)
+		: m_context(context),
+		  m_scene(nullptr)
 {}
 
 Stage::~Stage()

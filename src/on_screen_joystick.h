@@ -19,13 +19,20 @@ class Node;
 namespace mica
 {
 
+class Context;
+
+}
+
+namespace mica
+{
+
 /**
  * On-Screen joystick. The view is retained until replaced
  */
 class OnScreenJoystick : public Joystick
 {
 public:
-	OnScreenJoystick();
+	explicit OnScreenJoystick(const Context &context);
 	virtual ~OnScreenJoystick();
 
 	cocos2d::Node* getView() const
@@ -41,7 +48,13 @@ protected:
 	 */
 	void setView(cocos2d::Node *view);
 
+	const Context& getContext() const
+	{
+		return m_context;
+	}
+
 private:
+	const Context &m_context;
 	cocos2d::Node *m_view;
 };
 

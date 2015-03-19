@@ -15,8 +15,9 @@ using namespace cocos2d;
 namespace mica
 {
 
-OnScreenJoystick::OnScreenJoystick()
-		: m_view(nullptr)
+OnScreenJoystick::OnScreenJoystick(const Context &context)
+		: m_context(context),
+		  m_view(nullptr)
 {}
 
 OnScreenJoystick::~OnScreenJoystick()

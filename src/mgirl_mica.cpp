@@ -11,13 +11,13 @@
 #include "cocos2d_wrapper.h"
 
 #include "area_joystick.h"
+#include "context_impl.h"
 #include "keyboard_button.h"
 #include "keyboard_manager.h"
 #include "controller.h"
 #include "log.h"
 #include "mgirl_mica.h"
 #include "res.h"
-#include "res_manager.h"
 #include "test_stage.h"
 
 using namespace cocos2d;
@@ -30,6 +30,7 @@ namespace mica
 {
 
 MgirlMica::MgirlMica()
+		: m_context(make_unique<ContextImpl>())
 {}
 
 MgirlMica::~MgirlMica()
@@ -76,13 +77,13 @@ void MgirlMica::initView()
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 \
 		|| CC_TARGET_PLATFORM == CC_PLATFORM_LINUX \
 		|| CC_TARGET_PLATFORM == CC_PLATFORM_MAC
-		glview->setFrameSize(ResManager::getDesignW(), ResManager::getDesignH());
+		glview->setFrameSize(Res::kDesignW, Res::kDesignH);
 #endif
 		Director::getInstance()->setOpenGLView(glview);
 	}
 
-	glview->setDesignResolutionSize(ResManager::getDesignW(),
-			ResManager::getDesignH(), ResolutionPolicy::SHOW_ALL);
+	glview->setDesignResolutionSize(Res::kDesignW, Res::kDesignH,
+			ResolutionPolicy::SHOW_ALL);
 }
 
 void MgirlMica::initController()
@@ -90,25 +91,25 @@ void MgirlMica::initController()
 	Controller::Config controller_conf;
 
 	AreaJoystick::Config joystick_conf;
-	joystick_conf.rect.size.w = ResManager::getDesignW() / 2;
-	joystick_conf.rect.size.h = ResManager::getDesignH();
-	controller_conf.joystick = make_unique<AreaJoystick>(joystick_conf);
+	joystick_conf.rect.size.w = Res::kDesignW / 2;
+	joystick_conf.rect.size.h = Res::kDesignH;
+	controller_conf.joystick = make_unique<AreaJoystick>(getContext(),
+			joystick_conf);
 
-	ensureKeyboardManager();
 	KeyboardButton::Config button_conf[2];
-	button_conf[0].keyboard_manager = m_keyboard_manager.get();
 	button_conf[0].key = EventKeyboard::KeyCode::KEY_0;
-	controller_conf.buttons[0] = make_unique<KeyboardButton>(button_conf[0]);
-	button_conf[1].keyboard_manager = m_keyboard_manager.get();
+	controller_conf.buttons[0] = make_unique<KeyboardButton>(getContext(),
+			button_conf[0]);
 	button_conf[1].key = EventKeyboard::KeyCode::KEY_PERIOD;
-	controller_conf.buttons[1] = make_unique<KeyboardButton>(button_conf[1]);
+	controller_conf.buttons[1] = make_unique<KeyboardButton>(getContext(),
+			button_conf[1]);
 
 	m_controller = make_unique<Controller>(std::move(controller_conf));
 }
 
 bool MgirlMica::initStage()
 {
-	auto stage = make_unique<TestStage>();
+	auto stage = make_unique<TestStage>(getContext());
 	if (!*stage)
 	{
 		LOG_E(TAG "initStage", "Failed while creating TestStage");
@@ -135,14 +136,6 @@ void MgirlMica::applicationWillEnterForeground()
 
 	// if you use SimpleAudioEngine, it must resume here
 	// SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
-}
-
-void MgirlMica::ensureKeyboardManager()
-{
-	if (!m_keyboard_manager)
-	{
-		m_keyboard_manager = make_unique<KeyboardManager>();
-	}
 }
 
 }

@@ -39,17 +39,17 @@ string addImageExt(const string &base_path)
 
 }
 
-string ResManager::getBg(const string &bg_name)
+string ResManager::getBg(const string &bg_name) const
 {
 	return addImageExt("res/bg/" + bg_name);
 }
 
-string ResManager::getCharacterArmature(const string &char_name)
+string ResManager::getCharacterArmature(const string &char_name) const
 {
 	return "res/char/" + char_name + ".ExportJson";
 }
 
-string ResManager::getSystem(const std::string &system_name)
+string ResManager::getSystem(const std::string &system_name) const
 {
 	return addImageExt("res/sys/" + system_name);
 }
