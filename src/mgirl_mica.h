@@ -25,6 +25,7 @@ class Scene;
 namespace mica
 {
 
+class Context;
 class KeyboardManager;
 
 }
@@ -58,6 +59,7 @@ private:
 
 	void ensureKeyboardManager();
 
+	std::unique_ptr<Context> m_context;
 	std::unique_ptr<KeyboardManager> m_keyboard_manager;
 
 	std::stack<std::unique_ptr<Stage>> m_stages;

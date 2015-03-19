@@ -11,6 +11,7 @@
 #include "cocos2d_wrapper.h"
 
 #include "area_joystick.h"
+#include "context_impl.h"
 #include "keyboard_button.h"
 #include "keyboard_manager.h"
 #include "controller.h"
@@ -30,6 +31,7 @@ namespace mica
 {
 
 MgirlMica::MgirlMica()
+		: m_context(make_unique<ContextImpl>())
 {}
 
 MgirlMica::~MgirlMica()
@@ -108,7 +110,7 @@ void MgirlMica::initController()
 
 bool MgirlMica::initStage()
 {
-	auto stage = make_unique<TestStage>();
+	auto stage = make_unique<TestStage>(*m_context.get());
 	if (!*stage)
 	{
 		LOG_E(TAG "initStage", "Failed while creating TestStage");
