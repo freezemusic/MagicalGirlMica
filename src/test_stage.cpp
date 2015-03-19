@@ -10,9 +10,12 @@
 #include <2d/CCSprite.h>
 #include <base/CCScheduler.h>
 
+#include "character.h"
 #include "context.h"
 #include "log.h"
+#include "manual_character_control.h"
 #include "notification_manager.h"
+#include "null_character_control.h"
 #include "res_manager.h"
 #include "stage_scene.h"
 #include "test_stage.h"
@@ -27,10 +30,10 @@ using namespace std;
 namespace mica
 {
 
-TestStage::TestStage(const Context &context)
-		: Stage(context)
+TestStage::TestStage(const Context &context, const Config &config)
+		: Stage(context, config)
 {
-	setGood(initScene());
+	setGood(initScene() && initObjects());
 }
 
 bool TestStage::initScene()
@@ -55,18 +58,6 @@ bool TestStage::initScene()
 	bg->setAnchorPoint({0, 0});
 	scene->addChild(bg, 0);
 
-//	ArmatureDataManager::getInstance()->addArmatureFileInfo(
-//			ResManager::get().getCharacterArmature("Mica"));
-//	auto *player = Player::create("Mica");
-//	if (!player)
-//	{
-//		LOG_W(TAG "init", "Failed while creating player");
-//		return false;
-//	}
-//	player->setPosition(ResManager::getDesignW() / 2,
-//			ResManager::getDesignH() / 2);
-//	addChild(player, 1);
-
 	auto welcome = [this](float)
 			{
 				getContext().getNotificationManager()->addNotifiction(
@@ -76,6 +67,24 @@ bool TestStage::initScene()
 
 	setScene(scene);
 	return *this;
+}
+
+bool TestStage::initObjects()
+{
+	Character::Config char_conf;
+	char_conf.identifier = "Mica";
+	char_conf.pos = {100, 300};
+	ManualCharacterControl::Config char_control_conf;
+	char_control_conf.controller = getController();
+	char_conf.control = make_unique<ManualCharacterControl>(char_control_conf);
+	auto character = make_unique<Character>(getContext(), std::move(char_conf));
+	if (!character || !*character)
+	{
+		LOG_W(TAG "initObjects", "Failed while creating Character");
+		return false;
+	}
+	addStageObject(std::move(character));
+	return true;
 }
 
 }

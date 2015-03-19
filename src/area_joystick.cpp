@@ -35,7 +35,7 @@ using namespace utils::type;
 #define NS_TAG "mica::"
 #define TAG NS_TAG "AreaJoystick::"
 
-#define AMPLITUDE 128
+#define AMPLITUDE 200
 
 namespace mica
 {

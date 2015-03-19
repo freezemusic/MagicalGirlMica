@@ -22,10 +22,13 @@ namespace mica
 class TestStage : public Stage
 {
 public:
-	explicit TestStage(const Context &context);
+	typedef Stage::Config Config;
+
+	TestStage(const Context &context, const Config &config);
 
 private:
 	bool initScene();
+	bool initObjects();
 };
 
 }

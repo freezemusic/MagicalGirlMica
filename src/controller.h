@@ -15,6 +15,7 @@
 #include <libutils/type/coord.h>
 
 #include "button.h"
+#include "controller_utils.h"
 #include "joystick.h"
 #include "misc_type.h"
 
@@ -24,10 +25,16 @@ namespace mica
 class Controller
 {
 public:
+	enum struct Button
+	{
+		kA = 0,
+		kB,
+	};
+
 	struct Config
 	{
 		std::unique_ptr<Joystick> joystick;
-		std::unique_ptr<Button> buttons[2];
+		std::unique_ptr<mica::Button> buttons[2];
 	};
 
 	explicit Controller(Config &&config);
@@ -42,38 +49,48 @@ public:
 		m_joystick->removeListener(id);
 	}
 
-	Uint addButtonListener(const Uint which, const Button::Listener &listener)
+	Uint addButtonListener(const Button which,
+			const mica::Button::Listener &listener)
 	{
-		assert(which < m_buttons.size());
-		return m_buttons[which]->addListener(listener);
+		assert(static_cast<Uint>(which) < m_buttons.size());
+		return m_buttons[static_cast<Uint>(which)]->addListener(listener);
 	}
 
-	void removeButtonListener(const Uint which, const Uint id)
+	void removeButtonListener(const Button which, const Uint id)
 	{
-		assert(which < m_buttons.size());
-		m_buttons[which]->removeListener(id);
+		assert(static_cast<Uint>(which) < m_buttons.size());
+		m_buttons[static_cast<Uint>(which)]->removeListener(id);
 	}
 
 	/**
 	 * Return the position of the joystick
 	 *
+	 * @param is_filter Perform deadzone filtering or not, normally you would
+	 * like it to be true
 	 * @return
 	 * @see Joystick::getPosition()
 	 */
-	utils::type::Coord getJoystickPosition() const
+	utils::type::Coord getJoystickPosition(const bool is_filter) const
 	{
-		return m_joystick->getPosition();
+		if (is_filter)
+		{
+			return ControllerUtils::filterDeadzone(m_joystick->getPosition());
+		}
+		else
+		{
+			return m_joystick->getPosition();
+		}
 	}
 
-	bool isButtonDown(const Uint which) const
+	bool isButtonDown(const Button which) const
 	{
-		assert(which < m_buttons.size());
-		return m_buttons[which]->isDown();
+		assert(static_cast<Uint>(which) < m_buttons.size());
+		return m_buttons[static_cast<Uint>(which)]->isDown();
 	}
 
 private:
 	std::unique_ptr<Joystick> m_joystick;
-	std::array<std::unique_ptr<Button>, 2> m_buttons;
+	std::array<std::unique_ptr<mica::Button>, 2> m_buttons;
 };
 
 }

@@ -10,6 +10,8 @@
 #include <memory>
 #include <string>
 
+#include <libutils/type/coord.h>
+
 #include "dynamic_stage_object.h"
 #include "hittable.h"
 
@@ -41,6 +43,8 @@ public:
 	{
 		std::string identifier;
 		std::unique_ptr<CharacterControl> control;
+		/// The initial position
+		utils::type::Coord pos;
 	};
 
 	Character(const Context &context, Config &&config);
@@ -50,11 +54,16 @@ public:
 	{}
 
 	virtual void stand();
-	virtual void walk(float x, float y);
+	/**
+	 * Move with a specific speed factor alone each axis. A 0 in both axes would
+	 * result in a stop
+	 *
+	 * @param x Speed factor alone x-axis
+	 * @param y Speed factor alone y-axis
+	 */
+	virtual void move(const float x, const float y);
 	virtual void turn();
 	virtual void attack();
-
-	virtual void updateDirection();
 
 protected:
 	explicit Character(const Context &context);

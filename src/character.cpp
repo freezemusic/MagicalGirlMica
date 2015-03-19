@@ -53,6 +53,7 @@ bool Character::init(Config &&config)
 
 	m_control = std::move(config.control);
 	setGood(initView(config) && initControl());
+	getView()->setPosition(config.pos.x, config.pos.y);
 	return *this;
 }
 
@@ -98,13 +99,24 @@ void Character::stand()
 	}
 }
 
-void Character::walk(float x, float y)
+void Character::move(const float x, const float)
 {
-	if (m_stat == Status::kAttack){
+	if (m_stat == Status::kAttack || !getView())
+	{
 		return;
 	}
+
 	//physicsBody->SetLinearVelocity(b2Vec2(x*m_speed, physicsBody->GetLinearVelocity().y));
-	if (getView() && m_stat != Status::kWalk){
+	if (x == 0.0f)
+	{
+		stand();
+	}
+	else if ((x > 0) != directToR)
+	{
+		turn();
+	}
+	else if (m_stat != Status::kWalk)
+	{
 		m_stat = Status::kWalk;
 		getView()->getAnimation()->play("walk");
 	}
@@ -125,6 +137,7 @@ void Character::turn()
 			if (type == MovementEventType::COMPLETE)
 			{
 				directToR = !directToR;
+				getView()->setScaleX(-getView()->getScaleX());
 				m_stat = Status::kNull;
 				this->stand();
 			}
@@ -149,14 +162,6 @@ void Character::attack()
 		};
 		getView()->getAnimation()->setMovementEventCallFunc(armatureStand);
 	}
-}
-
-void Character::updateDirection()
-{
-	if (directToR)
-		getView()->setScaleX(-1.0f);
-	else
-		getView()->setScaleX(1.0f);
 }
 
 }
