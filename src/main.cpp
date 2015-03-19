@@ -16,8 +16,6 @@
 
 #endif
 
-#include <platform/CCApplication.h>
-
 #include <libutils/io/basic_log_strategy.h>
 #include <libutils/io/composite_log_strategy.h>
 #include <libutils/io/js_html_log_strategy.h>
@@ -52,17 +50,13 @@ void initLog()
 int main()
 {
 	initLog();
-    mica::MgirlMica app;
-    return cocos2d::Application::getInstance()->run();
+	return mica::MgirlMica::get().run();
 }
 
 #elif _WIN32
 int APIENTRY _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
-    // create the application instance
-    mica::MgirlMica app;
-    return cocos2d::Application::getInstance()->run();
+	return mica::MgirlMica::get().run();
 }
-
 
 #endif

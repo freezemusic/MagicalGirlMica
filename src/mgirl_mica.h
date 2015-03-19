@@ -28,6 +28,12 @@ namespace mica
 class MgirlMica final : public cocos2d::Application
 {
 public:
+	static MgirlMica& get()
+	{
+		static MgirlMica instance;
+		return instance;
+	}
+
 	~MgirlMica();
 
 	void initGLContextAttrs() override;
