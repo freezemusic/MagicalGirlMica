@@ -15,6 +15,7 @@
 namespace mica
 {
 
+class Context;
 class StageObject;
 
 }
@@ -28,7 +29,7 @@ namespace mica
 class Stage
 {
 public:
-	Stage();
+	explicit Stage(const Context &context);
 	virtual ~Stage();
 
 	operator bool() const
@@ -58,7 +59,13 @@ protected:
 		m_is_good = flag;
 	}
 
+	const Context& getContext() const
+	{
+		return m_context;
+	}
+
 private:
+	const Context &m_context;
 	std::list<std::unique_ptr<StageObject>> m_objs;
 	StageScene *m_scene;
 	bool m_is_good = false;

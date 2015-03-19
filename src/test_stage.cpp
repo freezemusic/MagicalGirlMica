@@ -10,8 +10,8 @@
 #include <2d/CCSprite.h>
 #include <base/CCScheduler.h>
 
+#include "context.h"
 #include "log.h"
-#include "mgirl_mica.h"
 #include "notification_manager.h"
 #include "res_manager.h"
 #include "stage_scene.h"
@@ -27,7 +27,8 @@ using namespace std;
 namespace mica
 {
 
-TestStage::TestStage()
+TestStage::TestStage(const Context &context)
+		: Stage(context)
 {
 	setGood(initScene());
 }
@@ -68,8 +69,8 @@ bool TestStage::initScene()
 
 	auto welcome = [this](float)
 			{
-				MgirlMica::get().getNotificationManager().addNotifiction(
-						make_unique<Toast>("Test Stage"));
+				getContext().getNotificationManager()->addNotifiction(
+						make_unique<Toast>(getContext(), "Test Stage"));
 			};
 	scene->getScheduler()->schedule(welcome, scene, 1.0f, 0, 0.0f, false, "toast");
 

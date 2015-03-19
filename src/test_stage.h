@@ -12,10 +12,17 @@
 namespace mica
 {
 
+class Context;
+
+}
+
+namespace mica
+{
+
 class TestStage : public Stage
 {
 public:
-	TestStage();
+	explicit TestStage(const Context &context);
 
 private:
 	bool initScene();
