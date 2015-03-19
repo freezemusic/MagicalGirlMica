@@ -10,6 +10,8 @@
 #include <memory>
 #include <string>
 
+#include <libutils/type/coord.h>
+
 #include "dynamic_stage_object.h"
 #include "hittable.h"
 
@@ -50,7 +52,7 @@ public:
 	{}
 
 	virtual void stand();
-	virtual void walk(float x, float y);
+	virtual void move(const utils::type::Coord &coord);
 	virtual void turn();
 	virtual void attack();
 
