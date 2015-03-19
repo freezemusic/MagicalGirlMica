@@ -99,7 +99,7 @@ void Character::stand()
 	}
 }
 
-void Character::move(const float x, const float y)
+void Character::move(const float x, const float)
 {
 	if (m_stat == Status::kAttack || !getView())
 	{
@@ -107,7 +107,7 @@ void Character::move(const float x, const float y)
 	}
 
 	//physicsBody->SetLinearVelocity(b2Vec2(x*m_speed, physicsBody->GetLinearVelocity().y));
-	if (x == 0.0f && y == 0.0f)
+	if (x == 0.0f)
 	{
 		stand();
 	}
