@@ -1,3 +1,4 @@
+INC_PATHS=src src/character
 SRC_PATH=src
 OUT_EXE=mgirl-mica
 OUT_EXE_SUFFIX=
@@ -55,7 +56,7 @@ LDLIBS=
 BIN_SUFFIX=
 
 # Warnings are all over cocos2d's headers, hide them
-CPPFLAGS+=$(addprefix -I,$(USER_INC_PATHS)) $(addprefix -I,$(EXT_INC_PATHS)) $(addprefix -isystem,$(COCOS_INC_PATHS))
+CPPFLAGS+=$(addprefix -I,$(INC_PATHS)) $(addprefix -I,$(USER_INC_PATHS)) $(addprefix -I,$(EXT_INC_PATHS)) $(addprefix -isystem,$(COCOS_INC_PATHS))
 CPPFLAGS+=$(addprefix -D,$(USER_SYMBOLS))
 GCH_CPPFLAGS:=$(CPPFLAGS)
 CPPFLAGS+=-MMD
