@@ -84,7 +84,7 @@ void Character::uninit()
 	setView(nullptr);
 }
 
-void Character::move(const float, const float)
+void Character::move(const int, const int)
 {}
 
 void Character::attack()

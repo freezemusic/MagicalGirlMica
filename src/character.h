@@ -47,10 +47,10 @@ public:
 	 * Move with a specific speed factor along each axis. A 0 in both axes would
 	 * result in a stop
 	 *
-	 * @param x Speed factor alone x-axis
-	 * @param y Speed factor alone y-axis
+	 * @param x Normalized speed factor alone x-axis, [0,1000]
+	 * @param y Normalized speed factor alone y-axis, [0,1000]
 	 */
-	void move(const float x, const float y);
+	void move(const int x, const int y);
 	void attack();
 
 	void interact(Interactable*) override;
