@@ -30,10 +30,7 @@ namespace mica
 {
 
 Character::Character(const Context &context)
-		: m_context(context),
-		  m_stat(Status::kNull),
-		  m_speed(0),
-		  directToR(false)
+		: m_context(context)
 {}
 
 Character::Character(const Context &context, Config &&config)
@@ -88,80 +85,18 @@ void Character::uninit()
 }
 
 void Character::stand()
-{
-	if (m_stat == Status::kAttack || m_stat == Status::kTurn){
-		return;
-	}
-	if (getView() && m_stat != Status::kStand){
-		m_stat = Status::kStand;
-		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
-		getView()->getAnimation()->play("stand");
-	}
-}
+{}
 
-void Character::move(const float x, const float)
-{
-	if (m_stat == Status::kAttack || !getView())
-	{
-		return;
-	}
-
-	//physicsBody->SetLinearVelocity(b2Vec2(x*m_speed, physicsBody->GetLinearVelocity().y));
-	if (x == 0.0f)
-	{
-		stand();
-	}
-	else if ((x > 0) != directToR)
-	{
-		turn();
-	}
-	else if (m_stat != Status::kWalk)
-	{
-		m_stat = Status::kWalk;
-		getView()->getAnimation()->play("walk");
-	}
-}
+void Character::move(const float, const float)
+{}
 
 void Character::turn()
-{
-	if (m_stat == Status::kAttack){
-		return;
-	}
-	if (getView() && m_stat != Status::kTurn){
-		m_stat = Status::kTurn;
-		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
-		getView()->getAnimation()->play("turn");
-
-		function<void(Armature*, MovementEventType, const string&)> armatureFun = [=](Armature* armature, MovementEventType type, const string& id)
-		{
-			if (type == MovementEventType::COMPLETE)
-			{
-				directToR = !directToR;
-				getView()->setScaleX(-getView()->getScaleX());
-				m_stat = Status::kNull;
-				this->stand();
-			}
-		};
-		getView()->getAnimation()->setMovementEventCallFunc(armatureFun);
-	}
-}
+{}
 
 void Character::attack()
-{
-	if (getView() && m_stat != Status::kAttack){
-		m_stat = Status::kAttack;
-		//physicsBody->SetLinearVelocity(b2Vec2(0, 0));
-		getView()->getAnimation()->play("attack");
-		function<void(Armature*, MovementEventType, const string&)> armatureStand = [=](Armature* armature, MovementEventType type, const string& id)
-		{
-			if (type == MovementEventType::COMPLETE)
-			{
-				m_stat = Status::kNull;
-				this->stand();
-			}
-		};
-		getView()->getAnimation()->setMovementEventCallFunc(armatureStand);
-	}
-}
+{}
+
+void Character::interact(Interactable*)
+{}
 
 }

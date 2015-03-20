@@ -15,13 +15,6 @@
 #include "dynamic_stage_object.h"
 #include "hittable.h"
 
-namespace cocostudio
-{
-
-class Armature;
-
-}
-
 namespace mica
 {
 
@@ -48,14 +41,11 @@ public:
 	};
 
 	Character(const Context &context, Config &&config);
-	~Character();
-
-	void interact(Interactable*) override
-	{}
+	virtual ~Character();
 
 	virtual void stand();
 	/**
-	 * Move with a specific speed factor alone each axis. A 0 in both axes would
+	 * Move with a specific speed factor along each axis. A 0 in both axes would
 	 * result in a stop
 	 *
 	 * @param x Speed factor alone x-axis
@@ -64,6 +54,8 @@ public:
 	virtual void move(const float x, const float y);
 	virtual void turn();
 	virtual void attack();
+
+	void interact(Interactable*) override;
 
 protected:
 	explicit Character(const Context &context);
@@ -77,22 +69,10 @@ protected:
 	}
 
 private:
-	enum struct Status
-	{
-		kNull = 0,
-		kStand,
-		kWalk,
-		kTurn,
-		kAttack,
-	};
-
 	bool initView(const Config &config);
 	bool initControl();
 
 	const Context &m_context;
-	Status m_stat;
-	int m_speed;
-	bool directToR;
 	std::unique_ptr<CharacterControl> m_control;
 };
 
