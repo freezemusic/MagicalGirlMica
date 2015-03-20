@@ -15,6 +15,8 @@ using namespace utils::type;
 
 namespace mica
 {
+namespace character
+{
 
 ManualCharacterControl::ManualCharacterControl(const Config &config)
 		: m_controller(config.controller)
@@ -26,4 +28,5 @@ void ManualCharacterControl::control(Character *character)
 	character->move(pos.x, pos.y);
 }
 
+}
 }

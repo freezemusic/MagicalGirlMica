@@ -23,10 +23,12 @@ using namespace cocos2d;
 using namespace cocostudio;
 using namespace std;
 
-#define NS_TAG "mica::"
+#define NS_TAG "mica::character::"
 #define TAG NS_TAG "Character::"
 
 namespace mica
+{
+namespace character
 {
 
 Character::Character(const Context &context)
@@ -93,4 +95,5 @@ void Character::attack()
 void Character::interact(Interactable*)
 {}
 
+}
 }

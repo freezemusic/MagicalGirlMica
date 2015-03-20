@@ -11,12 +11,17 @@
 
 namespace mica
 {
+namespace character
+{
 
 class Character;
 
 }
+}
 
 namespace mica
+{
+namespace character
 {
 
 /**
@@ -28,4 +33,5 @@ public:
 	void control(Character *character) override;
 };
 
+}
 }

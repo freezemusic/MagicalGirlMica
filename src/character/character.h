@@ -18,12 +18,19 @@
 namespace mica
 {
 
-class CharacterControl;
 class Context;
 
+namespace character
+{
+
+class CharacterControl;
+
+}
 }
 
 namespace mica
+{
+namespace character
 {
 
 /**
@@ -97,4 +104,5 @@ private:
 	utils::type::Coord m_position;
 };
 
+}
 }

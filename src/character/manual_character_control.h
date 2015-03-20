@@ -12,12 +12,19 @@
 namespace mica
 {
 
-class Character;
 class Controller;
 
+namespace character
+{
+
+class Character;
+
+}
 }
 
 namespace mica
+{
+namespace character
 {
 
 /**
@@ -39,4 +46,5 @@ private:
 	Controller *m_controller;
 };
 
+}
 }

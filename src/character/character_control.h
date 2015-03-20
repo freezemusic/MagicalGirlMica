@@ -9,12 +9,17 @@
 
 namespace mica
 {
+namespace character
+{
 
 class Character;
 
 }
+}
 
 namespace mica
+{
+namespace character
 {
 
 /**
@@ -29,4 +34,5 @@ public:
 	virtual void control(Character *character) = 0;
 };
 
+}
 }

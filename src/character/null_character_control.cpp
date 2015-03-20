@@ -11,10 +11,13 @@
 
 namespace mica
 {
+namespace character
+{
 
 void NullCharacterControl::control(Character *character)
 {
 	character->move(0, 0);
 }
 
+}
 }

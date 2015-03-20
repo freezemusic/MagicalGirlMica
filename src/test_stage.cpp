@@ -71,6 +71,8 @@ bool TestStage::initScene()
 
 bool TestStage::initObjects()
 {
+	using namespace character;
+
 	Character::Config char_conf;
 	char_conf.identifier = "Mica";
 	char_conf.pos = {100, 300};
