@@ -55,6 +55,26 @@ public:
 
 	void interact(Interactable*) override;
 
+	int getEp() const
+	{
+		return m_ep;
+	}
+
+	void setEp(const int val)
+	{
+		m_ep = val;
+	}
+
+	utils::type::Coord getPosition() const
+	{
+		return m_position;
+	}
+
+	void setPosition(const utils::type::Coord &val)
+	{
+		m_position = val;
+	}
+
 protected:
 	explicit Character(const Context &context);
 
@@ -72,6 +92,9 @@ private:
 
 	const Context &m_context;
 	std::unique_ptr<CharacterControl> m_control;
+
+	int m_ep;
+	utils::type::Coord m_position;
 };
 
 }
