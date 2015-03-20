@@ -43,7 +43,6 @@ public:
 	Character(const Context &context, Config &&config);
 	virtual ~Character();
 
-	void stand();
 	/**
 	 * Move with a specific speed factor along each axis. A 0 in both axes would
 	 * result in a stop
@@ -52,7 +51,6 @@ public:
 	 * @param y Speed factor alone y-axis
 	 */
 	void move(const float x, const float y);
-	void turn();
 	void attack();
 
 	void interact(Interactable*) override;

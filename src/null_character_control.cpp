@@ -14,7 +14,7 @@ namespace mica
 
 void NullCharacterControl::control(Character *character)
 {
-	character->stand();
+	character->move(0, 0);
 }
 
 }
