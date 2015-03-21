@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "character_control.h"
+#include "character/character_control.h"
 
 namespace mica
 {

@@ -7,9 +7,9 @@
 
 #include <libutils/type/coord.h>
 
-#include "character.h"
+#include "character/character.h"
+#include "character/manual_character_control.h"
 #include "controller.h"
-#include "manual_character_control.h"
 
 using namespace utils::type;
 

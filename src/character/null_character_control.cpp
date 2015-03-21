@@ -5,9 +5,9 @@
  * Refer to LICENSE for details
  */
 
-#include "character.h"
-#include "character_control.h"
-#include "null_character_control.h"
+#include "character/character.h"
+#include "character/character_control.h"
+#include "character/null_character_control.h"
 
 namespace mica
 {

@@ -12,8 +12,8 @@
 #include <cocostudio/CCArmature.h>
 #include <cocostudio/CCArmatureDataManager.h>
 
-#include "character.h"
-#include "character_control.h"
+#include "character/character.h"
+#include "character/character_control.h"
 #include "context.h"
 #include "hittable.h"
 #include "log.h"
