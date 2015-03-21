@@ -10,12 +10,12 @@
 #include <2d/CCSprite.h>
 #include <base/CCScheduler.h>
 
-#include "character.h"
+#include "character/character.h"
+#include "character/manual_character_control.h"
+#include "character/null_character_control.h"
 #include "context.h"
 #include "log.h"
-#include "manual_character_control.h"
 #include "notification_manager.h"
-#include "null_character_control.h"
 #include "res_manager.h"
 #include "stage_scene.h"
 #include "test_stage.h"

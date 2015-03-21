@@ -1,4 +1,4 @@
-INC_PATHS=src src/character
+INC_PATHS=src
 SRC_PATH=src
 OUT_EXE=mgirl-mica
 OUT_EXE_SUFFIX=
