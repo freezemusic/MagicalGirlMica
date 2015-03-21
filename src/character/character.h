@@ -23,7 +23,7 @@ class Context;
 namespace character
 {
 
-class CharacterControl;
+class Control;
 
 }
 }
@@ -42,7 +42,7 @@ public:
 	struct Config
 	{
 		std::string identifier;
-		std::unique_ptr<CharacterControl> control;
+		std::unique_ptr<Control> control;
 		/// The initial position
 		utils::type::Coord pos;
 	};
@@ -98,7 +98,7 @@ private:
 	bool initControl();
 
 	const Context &m_context;
-	std::unique_ptr<CharacterControl> m_control;
+	std::unique_ptr<Control> m_control;
 
 	int m_ep;
 	utils::type::Coord m_position;

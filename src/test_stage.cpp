@@ -11,8 +11,8 @@
 #include <base/CCScheduler.h>
 
 #include "character/character.h"
-#include "character/manual_character_control.h"
-#include "character/null_character_control.h"
+#include "character/manual_control.h"
+#include "character/null_control.h"
 #include "context.h"
 #include "log.h"
 #include "notification_manager.h"
@@ -76,9 +76,9 @@ bool TestStage::initObjects()
 	Character::Config char_conf;
 	char_conf.identifier = "Mica";
 	char_conf.pos = {100, 300};
-	ManualCharacterControl::Config char_control_conf;
+	ManualControl::Config char_control_conf;
 	char_control_conf.controller = getController();
-	char_conf.control = make_unique<ManualCharacterControl>(char_control_conf);
+	char_conf.control = make_unique<ManualControl>(char_control_conf);
 	auto character = make_unique<Character>(getContext(), std::move(char_conf));
 	if (!character || !*character)
 	{

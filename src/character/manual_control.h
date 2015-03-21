@@ -1,5 +1,5 @@
 /*
- * manual_character_control.h
+ * manual_control.h
  *
  * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
  * Refer to LICENSE for details
@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "character/character_control.h"
+#include "character/control.h"
 
 namespace mica
 {
@@ -28,9 +28,9 @@ namespace character
 {
 
 /**
- * A CharacterControl that connects with the Controller
+ * A Control that connects with the Controller
  */
-class ManualCharacterControl : public CharacterControl
+class ManualControl : public Control
 {
 public:
 	struct Config
@@ -38,7 +38,7 @@ public:
 		Controller *controller;
 	};
 
-	explicit ManualCharacterControl(const Config &config);
+	explicit ManualControl(const Config &config);
 
 	void control(Character *character) override;
 

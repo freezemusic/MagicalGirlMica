@@ -13,7 +13,7 @@
 #include <cocostudio/CCArmatureDataManager.h>
 
 #include "character/character.h"
-#include "character/character_control.h"
+#include "character/control.h"
 #include "context.h"
 #include "hittable.h"
 #include "log.h"
