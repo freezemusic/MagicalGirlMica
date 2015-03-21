@@ -14,6 +14,7 @@
 
 #include "character/character.h"
 #include "character/control.h"
+#include "character/property.h"
 #include "context.h"
 #include "hittable.h"
 #include "log.h"
@@ -51,6 +52,12 @@ bool Character::init(Config &&config)
 	uninit();
 
 	m_control = std::move(config.control);
+	for (unique_ptr<Property> &p : config.properties)
+	{
+		const Uint id = p->getPropertyId();
+		m_properties[id] = std::move(p);
+	}
+
 	setGood(initView(config) && initControl());
 	getView()->setPosition(config.pos.x, config.pos.y);
 	return *this;
@@ -94,6 +101,12 @@ void Character::attack()
 
 void Character::interact(Interactable*)
 {}
+
+const Property* Character::getProperty(const Uint id) const
+{
+	auto it = m_properties.find(id);
+	return ((it == m_properties.end()) ? nullptr : it->second.get());
+}
 
 }
 }

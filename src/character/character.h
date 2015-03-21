@@ -9,11 +9,15 @@
 
 #include <memory>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 #include <libutils/type/coord.h>
 
+#include "character/property.h"
 #include "dynamic_stage_object.h"
 #include "hittable.h"
+#include "misc_type.h"
 
 namespace mica
 {
@@ -45,6 +49,7 @@ public:
 		std::unique_ptr<Control> control;
 		/// The initial position
 		utils::type::Coord pos;
+		std::vector<std::unique_ptr<Property>> properties;
 	};
 
 	Character(const Context &context, Config &&config);
@@ -82,6 +87,8 @@ public:
 		m_position = val;
 	}
 
+	const Property* getProperty(const Uint id) const;
+
 protected:
 	explicit Character(const Context &context);
 
@@ -102,6 +109,7 @@ private:
 
 	int m_ep;
 	utils::type::Coord m_position;
+	std::unordered_map<Uint, std::unique_ptr<Property>> m_properties;
 };
 
 }
