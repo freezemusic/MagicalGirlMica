@@ -10,12 +10,12 @@
 #include <2d/CCSprite.h>
 #include <base/CCScheduler.h>
 
-#include "character.h"
+#include "character/character.h"
+#include "character/manual_control.h"
+#include "character/null_control.h"
 #include "context.h"
 #include "log.h"
-#include "manual_character_control.h"
 #include "notification_manager.h"
-#include "null_character_control.h"
 #include "res_manager.h"
 #include "stage_scene.h"
 #include "test_stage.h"
@@ -71,12 +71,14 @@ bool TestStage::initScene()
 
 bool TestStage::initObjects()
 {
+	using namespace character;
+
 	Character::Config char_conf;
 	char_conf.identifier = "Mica";
 	char_conf.pos = {100, 300};
-	ManualCharacterControl::Config char_control_conf;
+	ManualControl::Config char_control_conf;
 	char_control_conf.controller = getController();
-	char_conf.control = make_unique<ManualCharacterControl>(char_control_conf);
+	char_conf.control = make_unique<ManualControl>(char_control_conf);
 	auto character = make_unique<Character>(getContext(), std::move(char_conf));
 	if (!character || !*character)
 	{

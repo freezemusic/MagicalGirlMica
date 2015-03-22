@@ -1,5 +1,5 @@
 /*
- * character_control.h
+ * control.h
  *
  * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
  * Refer to LICENSE for details
@@ -9,24 +9,30 @@
 
 namespace mica
 {
+namespace character
+{
 
 class Character;
 
 }
+}
 
 namespace mica
+{
+namespace character
 {
 
 /**
  * The controller for each character
  */
-class CharacterControl
+class Control
 {
 public:
-	virtual ~CharacterControl()
+	virtual ~Control()
 	{}
 
 	virtual void control(Character *character) = 0;
 };
 
+}
 }

@@ -1,5 +1,5 @@
 /*
- * null_character_control.h
+ * null_control.h
  *
  * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
  * Refer to LICENSE for details
@@ -7,25 +7,31 @@
 
 #pragma once
 
-#include "character_control.h"
+#include "character/control.h"
 
 namespace mica
+{
+namespace character
 {
 
 class Character;
 
 }
+}
 
 namespace mica
+{
+namespace character
 {
 
 /**
  * A CharacterControl that could only tell the Character to stand
  */
-class NullCharacterControl : public CharacterControl
+class NullControl : public Control
 {
 public:
 	void control(Character *character) override;
 };
 
+}
 }

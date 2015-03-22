@@ -50,6 +50,11 @@ public:
 
 	void addStageObject(std::unique_ptr<StageObject> &&obj);
 
+	const std::list<std::unique_ptr<StageObject>>& getAllObjects()
+	{
+		return m_objs;
+	}
+
 protected:
 	/**
 	 * Invoked when the scene is being updated in a frame
