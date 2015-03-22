@@ -30,6 +30,8 @@ public:
 
 	virtual cocos2d::Node* getView() = 0;
 
+	virtual void interact(StageObject*) = 0;
+
 protected:
 	void setGood(const bool flag)
 	{
