@@ -102,7 +102,7 @@ void Character::attack()
 void Character::interact(Interactable*)
 {}
 
-const Property* Character::getProperty(const Uint id) const
+Property* Character::getProperty(const Uint id)
 {
 	auto it = m_properties.find(id);
 	return ((it == m_properties.end()) ? nullptr : it->second.get());

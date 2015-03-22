@@ -87,7 +87,7 @@ public:
 		m_position = val;
 	}
 
-	const Property* getProperty(const Uint id) const;
+	Property* getProperty(const Uint id);
 
 protected:
 	explicit Character(const Context &context);
