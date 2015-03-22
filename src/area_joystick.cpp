@@ -245,7 +245,8 @@ void AreaJoystick::moveIndicator(const Vec2 &origin, const Vec2 &pt)
 	m_indicator_line->setScaleY(MathUtils::Clamp<float>(0.0f, distance / 192.0f,
 			1.5f));
 	// gl uses right-hand rule
-	m_indicator_line->setRotation(-MathUtils::GetAngleFromX(origin, pt) + 90);
+	m_indicator_line->setRotation(-MathUtils::GetAngleFromX(origin.x, origin.y,
+			pt.x, pt.y) + 90);
 	m_indicator_line->setOpacity(MathUtils::Clamp<Uint>(0,
 			distance / 128.0f * 0x90, 0x90));
 }
