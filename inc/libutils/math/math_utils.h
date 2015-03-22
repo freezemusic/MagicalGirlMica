@@ -40,20 +40,40 @@ public:
 	/**
 	 * Return the angle between a vector @a vec and the x axis, [-180, 180]
 	 *
-	 * @note @a vec is required to provide access to x and y
+	 * @note @a vec is required to provide access to x and y through subscript
+	 * operator
 	 * @param pt
 	 * @return
 	 */
 	template<typename T>
 	static float GetAngleFromX(const T &vec)
 	{
-		return GetAngleFromX(vec.x, vec.y);
+		return GetAngleFromX(vec[0], vec[1]);
 	}
+	/**
+	 * Return the angle between a vector, defined by @a vec_x and @a vec_y, at
+	 * the point defined by @a origin_x and @a origin_y, [-180, 180]
+	 *
+	 * @param origin_x
+	 * @param origin_y
+	 * @param vec_x
+	 * @param vec_y
+	 * @return
+	 */
+	template<typename T>
+	static float GetAngleFromX(const T origin_x, const T origin_y, const T vec_x,
+			const T vec_y)
+	{
+		static_assert(std::is_arithmetic<T>::value, "T must be arithmetic");
+		return GetAngleFromX(vec_x - origin_x, vec_y - origin_y);
+	}
+
 	/**
 	 * Return the angle between a vector @a vec and the x axis, at the point
 	 * @a origin, [-180, 180]
 	 *
-	 * @note @a vec is required to provide access to x and y
+	 * @note @a vec is required to provide access to x and y through subscript
+	 * operator
 	 * @param origin
 	 * @param pt
 	 * @return
@@ -62,7 +82,7 @@ public:
 	static typename std::enable_if<!std::is_arithmetic<T>::value, float>::type
 	GetAngleFromX(const T &origin, const T &vec)
 	{
-		return GetAngleFromX(vec.x - origin.x, vec.y - origin.y);
+		return GetAngleFromX(origin[0], origin[1], vec[0], vec[1]);
 	}
 
 	/**
