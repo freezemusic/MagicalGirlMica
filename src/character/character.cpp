@@ -16,7 +16,6 @@
 #include "character/control.h"
 #include "character/property.h"
 #include "context.h"
-#include "hittable.h"
 #include "log.h"
 #include "res_manager.h"
 
@@ -99,7 +98,7 @@ void Character::move(const int, const int)
 void Character::attack()
 {}
 
-void Character::interact(Interactable*)
+void Character::interact(StageObject*)
 {}
 
 Property* Character::getProperty(const Uint id)
