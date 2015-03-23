@@ -14,7 +14,7 @@
 
 #include "character/character.h"
 #include "character/control.h"
-#include "character/property.h"
+#include "com/component.h"
 #include "context.h"
 #include "log.h"
 #include "res_manager.h"
@@ -51,10 +51,10 @@ bool Character::init(Config &&config)
 	uninit();
 
 	m_control = std::move(config.control);
-	for (unique_ptr<Property> &p : config.properties)
+	for (unique_ptr<com::Component> &p : config.components)
 	{
-		const Uint id = p->getPropertyId();
-		m_properties[id] = std::move(p);
+		const Uint id = com::Component::getComponentId(p.get());
+		m_components[id] = std::move(p);
 	}
 
 	setGood(initView(config) && initControl());
@@ -101,10 +101,10 @@ void Character::attack()
 void Character::interact(StageObject*)
 {}
 
-Property* Character::getProperty(const Uint id)
+com::Component* Character::getComponent(const Uint id)
 {
-	auto it = m_properties.find(id);
-	return ((it == m_properties.end()) ? nullptr : it->second.get());
+	auto it = m_components.find(id);
+	return ((it == m_components.end()) ? nullptr : it->second.get());
 }
 
 }

@@ -1,5 +1,5 @@
 /*
- * jump_property.h
+ * jump.h
  *
  * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
  * Refer to LICENSE for details
@@ -7,15 +7,15 @@
 
 #pragma once
 
-#include "character/property.h"
+#include "com/component.h"
 #include "misc_type.h"
 
 namespace mica
 {
-namespace character
+namespace com
 {
 
-class JumpProperty : public Property
+class Jump : public Component
 {
 public:
 	struct Config
@@ -23,13 +23,13 @@ public:
 		Uint count;
 	};
 
-	explicit JumpProperty(const Config &config)
+	explicit Jump(const Config &config)
 			: m_count(config.count)
 	{}
 
-	static Uint getPropertyId()
+	static Uint getComponentId()
 	{
-		static Uint id = registerProperty();
+		static Uint id = registerComponent();
 		return id;
 	}
 
@@ -39,9 +39,9 @@ public:
 	}
 
 private:
-	Uint getPropertyId_() const override
+	Uint getComponentId_() const override
 	{
-		return getPropertyId();
+		return getComponentId();
 	}
 
 	/// Double jumping kung-fu fighter :)?

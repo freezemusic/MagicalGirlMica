@@ -14,7 +14,7 @@
 
 #include <libutils/type/coord.h>
 
-#include "character/property.h"
+#include "com/component.h"
 #include "dynamic_stage_object.h"
 #include "misc_type.h"
 
@@ -48,7 +48,7 @@ public:
 		std::unique_ptr<Control> control;
 		/// The initial position
 		utils::type::Coord pos;
-		std::vector<std::unique_ptr<Property>> properties;
+		std::vector<std::unique_ptr<com::Component>> components;
 	};
 
 	Character(const Context &context, Config &&config);
@@ -86,7 +86,7 @@ public:
 		m_position = val;
 	}
 
-	Property* getProperty(const Uint id);
+	com::Component* getComponent(const Uint id);
 
 protected:
 	explicit Character(const Context &context);
@@ -108,7 +108,7 @@ private:
 
 	int m_ep;
 	utils::type::Coord m_position;
-	std::unordered_map<Uint, std::unique_ptr<Property>> m_properties;
+	std::unordered_map<Uint, std::unique_ptr<com::Component>> m_components;
 };
 
 }
