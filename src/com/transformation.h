@@ -27,7 +27,7 @@ public:
 		return id;
 	}
 
-	utils::type::Coord position;
+	utils::type::CoordF position;
 	std::array<float, 3> orientation;
 
 private:
