@@ -18,34 +18,20 @@ namespace com
 class Jump : public Component
 {
 public:
-	struct Config
-	{
-		Uint count;
-	};
-
-	explicit Jump(const Config &config)
-			: m_count(config.count)
-	{}
-
 	static Uint getComponentId()
 	{
 		static Uint id = registerComponent();
 		return id;
 	}
 
-	Uint getCount() const
-	{
-		return m_count;
-	}
+	/// Double jumping kung-fu fighter :)?
+	Uint count;
 
 private:
 	Uint getComponentId_() const override
 	{
 		return getComponentId();
 	}
-
-	/// Double jumping kung-fu fighter :)?
-	Uint m_count;
 };
 
 }

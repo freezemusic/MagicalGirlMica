@@ -18,37 +18,23 @@ namespace com
 class Glide : public Component
 {
 public:
-	struct Config
-	{
-		float gravity_ratio;
-	};
-
-	explicit Glide(const Config &config)
-			: m_gravity_ratio(config.gravity_ratio)
-	{}
-
 	static Uint getComponentId()
 	{
 		static Uint id = registerComponent();
 		return id;
 	}
 
-	float getGravityRatio() const
-	{
-		return m_gravity_ratio;
-	}
+	/**
+	 * A ratio to the downward acceleration in normal situation, basically you
+	 * want something <1
+	 */
+	float gravity_ratio;
 
 private:
 	Uint getComponentId_() const override
 	{
 		return getComponentId();
 	}
-
-	/**
-	 * A ratio to the downward acceleration in normal situation, basically you
-	 * want something <1
-	 */
-	float m_gravity_ratio;
 };
 
 }
