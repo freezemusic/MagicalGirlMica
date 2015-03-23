@@ -27,7 +27,7 @@ public:
 			: m_count(config.count)
 	{}
 
-	Uint getPropertyId() const override
+	static Uint getPropertyId()
 	{
 		static Uint id = registerProperty();
 		return id;
@@ -39,6 +39,11 @@ public:
 	}
 
 private:
+	Uint getPropertyId_() const override
+	{
+		return getPropertyId();
+	}
+
 	/// Double jumping kung-fu fighter :)?
 	Uint m_count;
 };

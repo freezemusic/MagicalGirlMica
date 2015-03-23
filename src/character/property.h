@@ -21,12 +21,16 @@ public:
 	{}
 
 	/**
-	 * Return the unique property id
+	 * Return the unique property id for @a that
 	 *
+	 * @param that
 	 * @return
 	 * @see registerProperty()
 	 */
-	virtual Uint getPropertyId() const = 0;
+	static Uint getPropertyId(const Property *that)
+	{
+		return that->getPropertyId_();
+	}
 
 protected:
 	/**
@@ -49,6 +53,9 @@ protected:
 		static Uint id = 0;
 		return id++;
 	}
+
+private:
+	virtual Uint getPropertyId_() const = 0;
 };
 
 }

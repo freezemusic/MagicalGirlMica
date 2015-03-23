@@ -27,7 +27,7 @@ public:
 			: m_gravity_ratio(config.gravity_ratio)
 	{}
 
-	Uint getPropertyId() const override
+	static Uint getPropertyId()
 	{
 		static Uint id = registerProperty();
 		return id;
@@ -39,6 +39,11 @@ public:
 	}
 
 private:
+	Uint getPropertyId_() const override
+	{
+		return getPropertyId();
+	}
+
 	/**
 	 * A ratio to the downward acceleration in normal situation, basically you
 	 * want something <1

@@ -18,10 +18,16 @@ namespace character
 class FlyProperty : public Property
 {
 public:
-	Uint getPropertyId() const override
+	static Uint getPropertyId()
 	{
 		static Uint id = registerProperty();
 		return id;
+	}
+
+private:
+	Uint getPropertyId_() const override
+	{
+		return getPropertyId();
 	}
 };
 
