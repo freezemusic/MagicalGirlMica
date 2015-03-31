@@ -19,18 +19,15 @@ namespace mica
 class Entity final
 {
 public:
+	static constexpr Uint kInvalidId = (Uint)-1;
+
 	explicit Entity(const Uint id)
 			: m_id(id)
 	{}
 
 	operator bool()
 	{
-		return m_is_good;
-	}
-
-	void setGood(const bool flag)
-	{
-		m_is_good = flag;
+		return (m_id != kInvalidId);
 	}
 
 	Uint getId() const
@@ -40,7 +37,6 @@ public:
 
 private:
 	Uint m_id;
-	bool m_is_good = true;
 };
 
 }
