@@ -21,6 +21,10 @@ class Entity final
 public:
 	static constexpr Uint kInvalidId = (Uint)-1;
 
+	Entity()
+			: m_id(kInvalidId)
+	{}
+
 	explicit Entity(const Uint id)
 			: m_id(id)
 	{}
