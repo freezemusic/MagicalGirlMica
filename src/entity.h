@@ -7,10 +7,6 @@
 
 #pragma once
 
-#include <memory>
-#include <unordered_map>
-
-#include "com/component.h"
 #include "misc_type.h"
 
 namespace mica
