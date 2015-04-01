@@ -24,7 +24,18 @@ public:
 
 	ListenerManager();
 
+	/**
+	 * Add a listener and return the unique id for this listener
+	 *
+	 * @param listener
+	 * @return
+	 */
 	Uint addListener(const Listener &listener);
+	/**
+	 * Remove a listener by its unique id
+	 *
+	 * @param id
+	 */
 	void removeListener(const Uint id);
 
 	template<typename... Param>
