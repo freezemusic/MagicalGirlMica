@@ -43,6 +43,13 @@ public:
 		return m_id;
 	}
 
+	/**
+	 * Return a specific component that is included in this entity, or nullptr
+	 * if such component does not exist
+	 *
+	 * @param com_id
+	 * @return
+	 */
 	com::Component* getComponent(const Uint com_id) const;
 	/**
 	 * Return if a specific component is included in this entity
