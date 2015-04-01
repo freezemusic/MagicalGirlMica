@@ -33,7 +33,7 @@ bool EntityDb::addEntity(Entity &&e)
 	if (!e)
 	{
 		LOG_I(TAG "addEntity", "Entity with invalid id, ignored");
-		return true;
+		return false;
 	}
 	else if (e.getId() >= m_entities.size())
 	{
