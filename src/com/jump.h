@@ -18,20 +18,19 @@ namespace com
 class Jump : public Component
 {
 public:
-	static Uint getComponentId()
+	static Uint componentId()
 	{
 		static Uint id = registerComponent();
 		return id;
 	}
 
+	Uint getComponentId() const override
+	{
+		return componentId();
+	}
+
 	/// Double jumping kung-fu fighter :)?
 	Uint count;
-
-private:
-	Uint getComponentId_() const override
-	{
-		return getComponentId();
-	}
 };
 
 }

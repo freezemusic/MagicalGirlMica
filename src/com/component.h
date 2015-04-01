@@ -19,26 +19,22 @@ class Component
 public:
 	virtual ~Component()
 	{}
-
+	
 	/**
-	 * Return the unique component id for @a that
+	 * Return the unique component id
 	 *
-	 * @param that
 	 * @return
 	 * @see registerComponent()
 	 */
-	static Uint getComponentId(const Component *that)
-	{
-		return that->getComponentId_();
-	}
+	virtual Uint getComponentId() const = 0;
 
 protected:
 	/**
 	 * Register a component. This method should be called once in every derived
 	 * class to pick up their unique component id. Generally this is to be done
-	 * in getComponentId():
+	 * in a static method to get its unique component id:
 	 * @code
-	 * static Uint getComponentId()
+	 * static Uint componentId()
 	 * {
 	 *     static Uint id = registerComponent();
 	 *     return id;
@@ -53,9 +49,6 @@ protected:
 		static Uint id = 0;
 		return id++;
 	}
-
-private:
-	virtual Uint getComponentId_() const = 0;
 };
 
 }

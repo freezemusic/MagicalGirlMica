@@ -53,7 +53,7 @@ bool Character::init(Config &&config)
 	m_control = std::move(config.control);
 	for (unique_ptr<com::Component> &p : config.components)
 	{
-		const Uint id = com::Component::getComponentId(p.get());
+		const Uint id = p->getComponentId();
 		m_components[id] = std::move(p);
 	}
 

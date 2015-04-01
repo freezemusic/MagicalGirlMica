@@ -21,19 +21,18 @@ namespace com
 class Velocity : public Component
 {
 public:
-	static Uint getComponentId()
+	static Uint componentId()
 	{
 		static Uint id = registerComponent();
 		return id;
 	}
 
-	utils::math::VecF2 velocity;
-
-private:
-	Uint getComponentId_() const override
+	Uint getComponentId() const override
 	{
-		return getComponentId();
+		return componentId();
 	}
+
+	utils::math::VecF2 velocity;
 };
 
 }

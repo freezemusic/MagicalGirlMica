@@ -21,20 +21,19 @@ namespace com
 class Transformation : public Component
 {
 public:
-	static Uint getComponentId()
+	static Uint componentId()
 	{
 		static Uint id = registerComponent();
 		return id;
 	}
 
+	Uint getComponentId() const override
+	{
+		return componentId();
+	}
+
 	utils::type::CoordF position;
 	std::array<float, 3> orientation;
-
-private:
-	Uint getComponentId_() const override
-	{
-		return getComponentId();
-	}
 };
 
 }
