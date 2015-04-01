@@ -16,6 +16,7 @@
 #include "entity_db.h"
 #include "log.h"
 
+using namespace std;
 using namespace utils::str;
 
 #define NS_TAG "mica::"
@@ -43,12 +44,14 @@ bool EntityDb::addEntity(Entity &&e)
 		}
 		m_entities.resize(e.getId() + 1);
 		m_entities.back() = std::move(e);
+		m_add_listeners.invokeListeners(&m_entities.back());
 		return true;
 	}
 	else if (m_unused_ids.find(e.getId()) != m_unused_ids.end())
 	{
 		m_unused_ids.erase(e.getId());
 		m_entities[e.getId()] = std::move(e);
+		m_add_listeners.invokeListeners(&m_entities[e.getId()]);
 		return true;
 	}
 	else
@@ -65,6 +68,7 @@ void EntityDb::removeEntity(const Uint entityId)
 		LOG_E(TAG "removeEntity", StrUtils::Concat("Invalid id: ", entityId));
 		return;
 	}
+	m_remove_listeners.invokeListeners(&m_entities[entityId]);
 	m_entities[entityId] = Entity();
 	m_unused_ids.insert(entityId);
 }

@@ -10,6 +10,7 @@
 #include <deque>
 #include <set>
 
+#include "listener_manager.h"
 #include "misc_type.h"
 
 namespace mica
@@ -25,6 +26,8 @@ namespace mica
 class EntityDb
 {
 public:
+	typedef std::function<void(const Entity*)> EntityListener;
+
 	virtual ~EntityDb();
 
 	/**
@@ -44,9 +47,43 @@ public:
 	 */
 	Uint newEntityId() const;
 
+	/**
+	 * Add a listener to be called after an entity is being added
+	 *
+	 * @param l
+	 * @return
+	 */
+	Uint addAddEntityListener(const EntityListener &l)
+	{
+		return m_add_listeners.addListener(l);
+	}
+
+	void removeAddEntityListener(const Uint id)
+	{
+		m_add_listeners.removeListener(id);
+	}
+
+	/**
+	 * Add a listener to be called before an entity is being removed
+	 *
+	 * @param l
+	 * @return
+	 */
+	Uint addRemoveEntityListener(const EntityListener &l)
+	{
+		return m_remove_listeners.addListener(l);
+	}
+
+	void removeRemoveEntityListener(const Uint id)
+	{
+		m_remove_listeners.removeListener(id);
+	}
+
 private:
 	std::deque<Entity> m_entities;
 	std::set<Uint> m_unused_ids;
+	ListenerManager<EntityListener> m_add_listeners;
+	ListenerManager<EntityListener> m_remove_listeners;
 };
 
 
