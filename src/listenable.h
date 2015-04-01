@@ -11,33 +11,42 @@
 #include <list>
 #include <utility>
 
+#include "listener_manager.h"
 #include "misc_type.h"
 
 namespace mica
 {
 
+/**
+ * Deprecated, use ListenerManager instead
+ */
 template<typename T>
 class Listenable
 {
 public:
 	typedef std::function<void(T*)> Listener;
 
-	Listenable();
+	Uint addListener(const Listener &listener)
+	{
+		return m_manager.addListener(listener);
+	}
 
-	Uint addListener(const Listener &listener);
-	void removeListener(const Uint id);
+	void removeListener(const Uint id)
+	{
+		m_manager.removeListener(id);
+	}
 
 protected:
 	~Listenable()
 	{}
 
-	void invokeListeners();
+	void invokeListeners()
+	{
+		m_manager.invokeListeners(static_cast<T*>(this));
+	}
 
 private:
-	std::list<std::pair<Uint, Listener>> m_listeners;
-	Uint m_id;
+	ListenerManager<Listener> m_manager;
 };
 
 }
-
-#include "listenable.tcc"
