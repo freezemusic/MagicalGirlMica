@@ -7,6 +7,10 @@
 
 #pragma once
 
+#include <deque>
+#include <memory>
+
+#include "com/component.h"
 #include "misc_type.h"
 
 namespace mica
@@ -20,15 +24,14 @@ public:
 	struct Config
 	{
 		Uint id = kInvalidId;
+		std::deque<std::unique_ptr<com::Component>> coms;
 	};
 
 	Entity()
 			: m_id(kInvalidId)
 	{}
 
-	explicit Entity(const Config &conf)
-			: m_id(conf.id)
-	{}
+	explicit Entity(Config &&conf);
 
 	operator bool()
 	{
@@ -40,8 +43,16 @@ public:
 		return m_id;
 	}
 
+	com::Component* getComponent(const Uint com_id);
+
 private:
+	/**
+	 * Sort the components in ascending order based on the component id
+	 */
+	void sortComponents();
+
 	Uint m_id;
+	std::deque<std::unique_ptr<com::Component>> m_coms;
 };
 
 }
