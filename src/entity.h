@@ -44,6 +44,13 @@ public:
 	}
 
 	com::Component* getComponent(const Uint com_id);
+	/**
+	 * Return if a specific component is included in this entity
+	 *
+	 * @param com_id
+	 * @return
+	 */
+	bool hasComponent(const Uint com_id) const;
 
 private:
 	/**

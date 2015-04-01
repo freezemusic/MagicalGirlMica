@@ -30,7 +30,7 @@ Entity::Entity(Config &&conf)
 
 Component* Entity::getComponent(const Uint com_id)
 {
-	if (com_id >= m_com_key.size() || !m_com_key[com_id])
+	if (!hasComponent(com_id))
 	{
 		return nullptr;
 	}
@@ -42,6 +42,11 @@ Component* Entity::getComponent(const Uint com_id)
 			});
 	assert(it != m_coms.end() && (*it)->getComponentId() == com_id);
 	return it->get();
+}
+
+bool Entity::hasComponent(const Uint com_id) const
+{
+	return (com_id < m_com_key.size() && m_com_key[com_id]);
 }
 
 void Entity::sortComponents()
