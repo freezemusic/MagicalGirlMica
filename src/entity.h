@@ -50,8 +50,15 @@ private:
 	 * Sort the components in ascending order based on the component id
 	 */
 	void sortComponents();
+	/**
+	 * Build a key that represents the components included in this entity
+	 *
+	 * @note This method expect the components to be sorted already
+	 */
+	void buildKey();
 
 	Uint m_id;
+	std::vector<bool> m_com_key;
 	std::vector<std::unique_ptr<com::Component>> m_coms;
 };
 

@@ -5,22 +5,17 @@
  * Refer to LICENSE for details
  */
 
+#include <cassert>
+
 #include <algorithm>
 #include <deque>
 #include <memory>
 
-#include <libutils/str/str_utils.h>
-
 #include "com/component.h"
 #include "entity.h"
-#include "log.h"
 
 using namespace mica::com;
 using namespace std;
-using namespace utils::str;
-
-#define NS_TAG "mica::"
-#define TAG NS_TAG "Entity::"
 
 namespace mica
 {
@@ -30,24 +25,23 @@ Entity::Entity(Config &&conf)
 		  m_coms(std::move(conf.coms))
 {
 	sortComponents();
+	buildKey();
 }
 
 Component* Entity::getComponent(const Uint com_id)
 {
+	if (com_id >= m_com_key.size() || !m_com_key[com_id])
+	{
+		return nullptr;
+	}
+
 	auto it = std::lower_bound(m_coms.begin(), m_coms.end(), com_id,
 			[](const unique_ptr<Component> &com, const Uint com_id)
 			{
 				return (com->getComponentId() < com_id);
 			});
-	if (it != m_coms.end() && (*it)->getComponentId() == com_id)
-	{
-		return it->get();
-	}
-	else
-	{
-		LOG_D(TAG "getComponent", StrUtils::Concat("Invalid id: ", com_id));
-		return nullptr;
-	}
+	assert(it != m_coms.end() && (*it)->getComponentId() == com_id);
+	return it->get();
 }
 
 void Entity::sortComponents()
@@ -58,6 +52,15 @@ void Entity::sortComponents()
 			{
 				return (a->getComponentId() < b->getComponentId());
 			});
+}
+
+void Entity::buildKey()
+{
+	m_com_key.resize(m_coms.back()->getComponentId());
+	for (const auto &c : m_coms)
+	{
+		m_com_key[c->getComponentId()] = true;
+	}
 }
 
 }
