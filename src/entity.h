@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <deque>
 #include <memory>
+#include <vector>
 
 #include "com/component.h"
 #include "misc_type.h"
@@ -24,7 +24,7 @@ public:
 	struct Config
 	{
 		Uint id = kInvalidId;
-		std::deque<std::unique_ptr<com::Component>> coms;
+		std::vector<std::unique_ptr<com::Component>> coms;
 	};
 
 	Entity()
@@ -52,7 +52,7 @@ private:
 	void sortComponents();
 
 	Uint m_id;
-	std::deque<std::unique_ptr<com::Component>> m_coms;
+	std::vector<std::unique_ptr<com::Component>> m_coms;
 };
 
 }
