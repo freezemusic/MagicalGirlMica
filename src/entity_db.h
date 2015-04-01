@@ -28,6 +28,7 @@ class EntityDb
 public:
 	typedef std::function<void(const Entity*)> EntityListener;
 
+	EntityDb();
 	virtual ~EntityDb();
 
 	/**

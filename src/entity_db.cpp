@@ -25,6 +25,9 @@ using namespace utils::str;
 namespace mica
 {
 
+EntityDb::EntityDb()
+{}
+
 EntityDb::~EntityDb()
 {}
 
