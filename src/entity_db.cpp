@@ -29,7 +29,12 @@ EntityDb::~EntityDb()
 
 bool EntityDb::addEntity(Entity &&e)
 {
-	if (e.getId() >= m_entities.size())
+	if (!e)
+	{
+		LOG_I(TAG "addEntity", "Entity with invalid id, ignored");
+		return true;
+	}
+	else if (e.getId() >= m_entities.size())
 	{
 		const size_t size_diff = e.getId() + 1 - m_entities.size();
 		for (size_t i = 0; i < size_diff - 1; ++i)
