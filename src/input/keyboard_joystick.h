@@ -14,17 +14,22 @@
 
 #include <libutils/type/coord.h>
 
-#include "joystick.h"
-#include "keyboard_button.h"
+#include "input/joystick.h"
+#include "input/keyboard_button.h"
 
 namespace mica
+{
+namespace input
 {
 
 class KeyboardManager;
 
 }
+}
 
 namespace mica
+{
+namespace input
 {
 
 /**
@@ -90,4 +95,5 @@ private:
 	float m_modifier;
 };
 
+}
 }

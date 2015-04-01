@@ -14,12 +14,14 @@
 #include <base/CCEventKeyboard.h>
 #include <base/CCEventListenerKeyboard.h>
 
-#include "keyboard_manager.h"
+#include "input/keyboard_manager.h"
 
 using namespace cocos2d;
 using namespace std;
 
 namespace mica
+{
+namespace input
 {
 
 KeyboardManager::KeyboardManager()
@@ -86,4 +88,5 @@ void KeyboardManager::removeListener(const EventKeyboard::KeyCode key)
 	}
 }
 
+}
 }

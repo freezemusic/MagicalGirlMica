@@ -9,10 +9,11 @@
 
 #include "context.h"
 #include "context_impl.h"
-#include "keyboard_manager.h"
+#include "input/keyboard_manager.h"
 #include "notification_manager.h"
 #include "res_manager.h"
 
+using namespace mica::input;
 using namespace std;
 
 namespace mica

@@ -10,12 +10,14 @@
 #include <base/CCEventKeyboard.h>
 
 #include "context.h"
-#include "keyboard_button.h"
-#include "keyboard_manager.h"
+#include "input/keyboard_button.h"
+#include "input/keyboard_manager.h"
 
 using namespace cocos2d;
 
 namespace mica
+{
+namespace input
 {
 
 KeyboardButton::KeyboardButton(const Context &context)
@@ -68,4 +70,5 @@ void KeyboardButton::uninit()
 	setGood(false);
 }
 
+}
 }

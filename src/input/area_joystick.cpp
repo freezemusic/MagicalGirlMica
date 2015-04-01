@@ -20,9 +20,9 @@
 #include <libutils/type/rect.h>
 #include <libutils/type/rect_utils.h>
 
-#include "area_joystick.h"
 #include "context.h"
 #include "event_stage_scene.h"
+#include "input/area_joystick.h"
 #include "log.h"
 #include "misc_utils.h"
 #include "res.h"
@@ -38,6 +38,8 @@ using namespace utils::type;
 #define AMPLITUDE 200
 
 namespace mica
+{
+namespace input
 {
 
 AreaJoystick::AreaJoystick(const Context &context)
@@ -259,4 +261,5 @@ void AreaJoystick::endIndicator()
 	m_indicator_line->runAction(FadeTo::create(0.1f, 0));
 }
 
+}
 }

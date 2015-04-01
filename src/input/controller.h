@@ -14,12 +14,14 @@
 
 #include <libutils/type/coord.h>
 
-#include "button.h"
-#include "controller_utils.h"
-#include "joystick.h"
+#include "input/button.h"
+#include "input/controller_utils.h"
+#include "input/joystick.h"
 #include "misc_type.h"
 
 namespace mica
+{
+namespace input
 {
 
 class Controller
@@ -34,7 +36,7 @@ public:
 	struct Config
 	{
 		std::unique_ptr<Joystick> joystick;
-		std::unique_ptr<mica::Button> buttons[2];
+		std::unique_ptr<mica::input::Button> buttons[2];
 	};
 
 	explicit Controller(Config &&config);
@@ -50,7 +52,7 @@ public:
 	}
 
 	Uint addButtonListener(const Button which,
-			const mica::Button::Listener &listener)
+			const mica::input::Button::Listener &listener)
 	{
 		assert(static_cast<Uint>(which) < m_buttons.size());
 		return m_buttons[static_cast<Uint>(which)]->addListener(listener);
@@ -90,7 +92,8 @@ public:
 
 private:
 	std::unique_ptr<Joystick> m_joystick;
-	std::array<std::unique_ptr<mica::Button>, 2> m_buttons;
+	std::array<std::unique_ptr<mica::input::Button>, 2> m_buttons;
 };
 
+}
 }

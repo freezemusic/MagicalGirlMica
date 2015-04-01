@@ -10,8 +10,9 @@
 #include "character/character.h"
 #include "character/control.h"
 #include "character/manual_control.h"
-#include "controller.h"
+#include "input/controller.h"
 
+using namespace mica::input;
 using namespace utils::type;
 
 namespace mica

@@ -11,13 +11,17 @@
 
 namespace mica
 {
-
-class Controller;
-
 namespace character
 {
 
 class Character;
+
+}
+
+namespace input
+{
+
+class Controller;
 
 }
 }
@@ -35,7 +39,7 @@ class ManualControl : public Control
 public:
 	struct Config
 	{
-		Controller *controller;
+		input::Controller *controller;
 	};
 
 	explicit ManualControl(const Config &config);
@@ -43,7 +47,7 @@ public:
 	void control(Character *character) override;
 
 private:
-	Controller *m_controller;
+	input::Controller *m_controller;
 };
 
 }

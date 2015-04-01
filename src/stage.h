@@ -16,9 +16,14 @@ namespace mica
 {
 
 class Context;
-class Controller;
 class StageObject;
 
+namespace input
+{
+
+class Controller;
+
+}
 }
 
 namespace mica
@@ -32,7 +37,7 @@ class Stage
 public:
 	struct Config
 	{
-		Controller *controller;
+		input::Controller *controller;
 	};
 
 	Stage(const Context &context, const Config &config);
@@ -75,14 +80,14 @@ protected:
 		return m_context;
 	}
 
-	Controller* getController() const
+	input::Controller* getController() const
 	{
 		return m_controller;
 	}
 
 private:
 	const Context &m_context;
-	Controller *m_controller;
+	input::Controller *m_controller;
 
 	std::list<std::unique_ptr<StageObject>> m_objs;
 	StageScene *m_scene;

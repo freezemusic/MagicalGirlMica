@@ -8,11 +8,13 @@
 #include <2d/CCNode.h>
 #include <base/CCEventDispatcher.h>
 
-#include "on_screen_joystick.h"
+#include "input/on_screen_joystick.h"
 
 using namespace cocos2d;
 
 namespace mica
+{
+namespace input
 {
 
 OnScreenJoystick::OnScreenJoystick(const Context &context)
@@ -45,4 +47,5 @@ void OnScreenJoystick::setView(Node *view)
 	}
 }
 
+}
 }

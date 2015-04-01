@@ -11,7 +11,7 @@
 
 #include <libutils/type/coord.h>
 
-#include "button.h"
+#include "input/button.h"
 
 namespace mica
 {
@@ -21,6 +21,8 @@ class Context;
 }
 
 namespace mica
+{
+namespace input
 {
 
 class KeyboardButton : public Button
@@ -58,4 +60,5 @@ private:
 	bool m_is_pressed;
 };
 
+}
 }
