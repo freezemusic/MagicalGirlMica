@@ -33,7 +33,7 @@ public:
 
 	explicit Entity(Config &&conf);
 
-	operator bool()
+	explicit operator bool() const
 	{
 		return (m_id != kInvalidId);
 	}
