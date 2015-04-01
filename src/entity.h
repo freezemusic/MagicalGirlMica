@@ -17,12 +17,17 @@ class Entity final
 public:
 	static constexpr Uint kInvalidId = (Uint)-1;
 
+	struct Config
+	{
+		Uint id = kInvalidId;
+	};
+
 	Entity()
 			: m_id(kInvalidId)
 	{}
 
-	explicit Entity(const Uint id)
-			: m_id(id)
+	explicit Entity(const Config &conf)
+			: m_id(conf.id)
 	{}
 
 	operator bool()
