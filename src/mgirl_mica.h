@@ -12,7 +12,7 @@
 
 #include <platform/CCApplication.h>
 
-#include "controller.h"
+#include "input/controller.h"
 #include "stage.h"
 
 namespace cocos2d
@@ -60,7 +60,7 @@ private:
 	std::unique_ptr<Context> m_context;
 
 	std::stack<std::unique_ptr<Stage>> m_stages;
-	std::unique_ptr<Controller> m_controller;
+	std::unique_ptr<input::Controller> m_controller;
 };
 
 }

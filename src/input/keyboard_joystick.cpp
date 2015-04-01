@@ -11,8 +11,8 @@
 #include <libutils/math/math_utils.h>
 #include <libutils/type/coord.h>
 
-#include "keyboard_button.h"
-#include "keyboard_joystick.h"
+#include "input/keyboard_button.h"
+#include "input/keyboard_joystick.h"
 #include "log.h"
 #include "misc_type.h"
 
@@ -22,6 +22,8 @@ using namespace std;
 #define TAG NS_TAG "KeyboardJoystick::"
 
 namespace mica
+{
+namespace input
 {
 
 KeyboardJoystick::KeyboardJoystick(const Context &context)
@@ -134,4 +136,5 @@ void KeyboardJoystick::updatePosition()
 	}
 }
 
+}
 }

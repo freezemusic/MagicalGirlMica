@@ -14,10 +14,15 @@
 namespace mica
 {
 
-class KeyboardManager;
 class NotificationManager;
 class ResManager;
 
+namespace input
+{
+
+class KeyboardManager;
+
+}
 }
 
 namespace mica
@@ -32,7 +37,7 @@ public:
 	ContextImpl();
 	virtual ~ContextImpl();
 
-	KeyboardManager* getKeyboardManager() const override
+	input::KeyboardManager* getKeyboardManager() const override
 	{
 		return getKeyboardManager_();
 	}
@@ -48,14 +53,14 @@ public:
 	}
 
 private:
-	KeyboardManager* getKeyboardManager_() const;
+	input::KeyboardManager* getKeyboardManager_() const;
 	NotificationManager* getNotificationManager_() const;
 
 	std::unique_ptr<ResManager> m_res_manager;
 	// For lazy init
 	mutable std::unique_ptr<NotificationManager> m_notification_manager;
 	// For lazy init
-	mutable std::unique_ptr<KeyboardManager> m_keyboard_manager;
+	mutable std::unique_ptr<input::KeyboardManager> m_keyboard_manager;
 };
 
 }

@@ -10,17 +10,18 @@
 // For GLViewImpl
 #include "cocos2d_wrapper.h"
 
-#include "area_joystick.h"
 #include "context_impl.h"
-#include "keyboard_button.h"
-#include "keyboard_manager.h"
-#include "controller.h"
+#include "input/area_joystick.h"
+#include "input/controller.h"
+#include "input/keyboard_button.h"
+#include "input/keyboard_manager.h"
 #include "log.h"
 #include "mgirl_mica.h"
 #include "res.h"
 #include "test_stage.h"
 
 using namespace cocos2d;
+using namespace mica::input;
 using namespace std;
 
 #define NS_TAG "mica::"

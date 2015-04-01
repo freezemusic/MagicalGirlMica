@@ -21,6 +21,8 @@ class EventListenerKeyboard;
 
 namespace mica
 {
+namespace input
+{
 
 /**
  * A proxy that manage all keyboard event listeners. This way, whenever user
@@ -51,4 +53,5 @@ private:
 	cocos2d::EventListenerKeyboard *m_listener;
 };
 
+}
 }

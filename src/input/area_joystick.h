@@ -33,6 +33,8 @@ class Context;
 
 namespace mica
 {
+namespace input
+{
 
 /**
  * A joystick that covers an invisible rectangular area. The center point would
@@ -87,4 +89,5 @@ private:
 	EventStageScene::Listener *m_scene_listener;
 };
 
+}
 }

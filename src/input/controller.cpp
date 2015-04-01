@@ -8,13 +8,15 @@
 #include <array>
 #include <memory>
 
-#include "button.h"
-#include "controller.h"
-#include "joystick.h"
+#include "input/button.h"
+#include "input/controller.h"
+#include "input/joystick.h"
 
 using namespace std;
 
 namespace mica
+{
+namespace input
 {
 
 Controller::Controller(Config &&config)
@@ -22,4 +24,5 @@ Controller::Controller(Config &&config)
 		  m_buttons({std::move(config.buttons[0]), std::move(config.buttons[1])})
 {}
 
+}
 }

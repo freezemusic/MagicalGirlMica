@@ -13,6 +13,8 @@
 
 namespace mica
 {
+namespace input
+{
 
 class Button : public Listenable<Button>
 {
@@ -37,4 +39,5 @@ private:
 	bool m_is_good = false;
 };
 
+}
 }

@@ -13,6 +13,8 @@
 
 namespace mica
 {
+namespace input
+{
 
 /**
  * A joystick interface. Add listeners to be notified when the joystick moves
@@ -45,4 +47,5 @@ private:
 	bool m_is_good = false;
 };
 
+}
 }

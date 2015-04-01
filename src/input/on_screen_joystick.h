@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "joystick.h"
+#include "input/joystick.h"
 
 namespace cocos2d
 {
@@ -24,6 +24,8 @@ class Context;
 }
 
 namespace mica
+{
+namespace input
 {
 
 /**
@@ -58,4 +60,5 @@ private:
 	cocos2d::Node *m_view;
 };
 
+}
 }
