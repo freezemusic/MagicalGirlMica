@@ -43,7 +43,7 @@ public:
 		return m_id;
 	}
 
-	com::Component* getComponent(const Uint com_id);
+	com::Component* getComponent(const Uint com_id) const;
 	/**
 	 * Return if a specific component is included in this entity
 	 *

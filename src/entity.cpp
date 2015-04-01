@@ -28,7 +28,7 @@ Entity::Entity(Config &&conf)
 	buildKey();
 }
 
-Component* Entity::getComponent(const Uint com_id)
+Component* Entity::getComponent(const Uint com_id) const
 {
 	if (!hasComponent(com_id))
 	{
