@@ -16,7 +16,6 @@
 
 #include "character/property.h"
 #include "dynamic_stage_object.h"
-#include "hittable.h"
 #include "misc_type.h"
 
 namespace mica
@@ -40,7 +39,7 @@ namespace character
 /**
  * Character is a controllable object moving around the scene
  */
-class Character : public Hittable, public DynamicStageObject
+class Character : public DynamicStageObject
 {
 public:
 	struct Config
@@ -65,7 +64,7 @@ public:
 	void move(const int x, const int y);
 	void attack();
 
-	void interact(Interactable*) override;
+	void interact(StageObject*) override;
 
 	int getEp() const
 	{

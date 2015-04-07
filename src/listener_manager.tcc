@@ -1,5 +1,5 @@
 /*
- * listenable.tcc
+ * listener_manager.tcc
  *
  * Copyright (C) 2014-2015  Ming Tsang, Nathan Ng
  * Refer to LICENSE for details
@@ -11,26 +11,26 @@
 #include <list>
 #include <utility>
 
-#include "listenable.h"
+#include "listener_manager.h"
 #include "misc_type.h"
 
 namespace mica
 {
 
 template<typename T>
-Listenable<T>::Listenable()
+ListenerManager<T>::ListenerManager()
 		: m_id(0)
 {}
 
 template<typename T>
-Uint Listenable<T>::addListener(const Listener &listener)
+Uint ListenerManager<T>::addListener(const Listener &listener)
 {
 	m_listeners.push_back(make_pair(m_id, listener));
 	return m_id++;
 }
 
 template<typename T>
-void Listenable<T>::removeListener(const Uint id)
+void ListenerManager<T>::removeListener(const Uint id)
 {
 	for (auto it = m_listeners.begin(); it != m_listeners.end(); ++it)
 	{
@@ -43,11 +43,12 @@ void Listenable<T>::removeListener(const Uint id)
 }
 
 template<typename T>
-void Listenable<T>::invokeListeners()
+template<typename... Param>
+void ListenerManager<T>::invokeListeners(Param... args)
 {
 	for (auto &l : m_listeners)
 	{
-		l.second(static_cast<T*>(this));
+		l.second(args...);
 	}
 }
 
