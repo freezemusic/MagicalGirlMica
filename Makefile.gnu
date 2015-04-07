@@ -7,7 +7,6 @@ OUT_OBJ_PATH=obj
 
 TOOLCHAIN_PREFIX=
 CXX=$(TOOLCHAIN_PREFIX)g++
-AR=$(TOOLCHAIN_PREFIX)gcc-ar
 
 # cocos2d
 COCOS_DIR?=cocos2d-x
@@ -50,7 +49,6 @@ $(info User symbols = $(USER_SYMBOLS))
 
 CPPFLAGS=
 CXXFLAGS=
-ARFLAGS=
 LDFLAGS=
 LDLIBS=
 BIN_SUFFIX=
@@ -65,8 +63,6 @@ CXXFLAGS+=-fmessage-length=0
 CXXFLAGS+=-fno-strict-aliasing -ffunction-sections -fdata-sections
 CXXFLAGS+=-std=gnu++1y
 CXXFLAGS+=-Wall -Wextra -pedantic
-
-ARFLAGS+=-r
 
 LDFLAGS+=-Wl,--gc-sections
 LDFLAGS+=$(addprefix -L,$(USER_LIB_PATHS)) $(addprefix -L,$(EXT_LIB_PATHS)) $(addprefix -L,$(COCOS_LIB_PATH))
