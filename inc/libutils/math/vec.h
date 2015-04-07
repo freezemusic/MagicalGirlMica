@@ -17,6 +17,8 @@
 #include <stdexcept>
 #include <type_traits>
 
+#include "libutils/type/floating_point.h"
+
 namespace utils
 {
 namespace math
@@ -90,9 +92,20 @@ public:
 		return temp *= scalar;
 	}
 
-	friend bool operator==(const Vec &lhs, const Vec &rhs)
+	template<typename U = T>
+	friend typename std::enable_if<!std::is_floating_point<U>::value, bool>::type
+	operator==(const Vec &lhs, const Vec &rhs)
 	{
 		return std::equal(lhs.val, lhs.val + size, rhs.val);
+	}
+
+	template<typename U = T>
+	friend typename std::enable_if<std::is_floating_point<U>::value, bool>::type
+	operator==(const Vec &lhs, const Vec &rhs)
+	{
+		return std::equal(lhs.val, lhs.val + size, rhs.val,
+				static_cast<bool (*)(const T&, const T&)>(
+						&type::FloatingPoint<T>::AlmostEquals));
 	}
 
 	friend bool operator!=(const Vec &lhs, const Vec &rhs)
@@ -126,6 +139,11 @@ public:
 		return sqrt(LengthSquare());
 	}
 
+	float LengthF() const
+	{
+		return sqrt(LengthSquare());
+	}
+
 	T Dot(const Vec &rhs) const
 	{
 		T result{};
@@ -154,6 +172,24 @@ public:
 	Cross(const Vec&) const
 	{
 		throw std::domain_error("Valid only with 3D vector");
+	}
+
+	/**
+	 * Return the unit vector. The result is likely to be wrong on integer
+	 * variation due to rounding errors
+	 *
+	 * @return
+	 */
+	Vec Unit() const
+	{
+		const float l = LengthF();
+		Vec temp(*this);
+		std::transform(temp.val, temp.val + size, temp.val,
+				[l](const T val) -> T
+				{
+					return val / l;
+				});
+		return temp;
 	}
 
 private:
